@@ -79,6 +79,117 @@
       "name": "Grok",
       "projects": [
         {
+          "name": "深海幽光",
+          "note": "三分钟，21:9。潜水员循幽蓝下潜，找到沉睡的古城。摘下头罩的时候，城醒了。无台词。背景声按每镜原样保留。",
+          "film": "projects/sunken/沉没之城.mp4",
+          "filename": "沉没之城.mp4",
+          "poster": "projects/sunken/stills/12.jpg",
+          "steps": [
+            {
+              "title": "1. 先锁三样东西",
+              "body": "潜水员一套：炭黑潜水服、圆头盔、一束冷白头灯。古城一套：剥蚀的石阶、月门、残檐、石里的青脉。水母一套：半透明的青色钟罩。后面每一镜都从这三张改，不重新画人。"
+            },
+            {
+              "title": "2. 十二镜，三幕",
+              "body": "下潜、发现、觉醒。每镜 15 秒，接成 3 分 00 秒。比例是 21:9。没有台词。按分镜表做，没有另加巨兽。"
+            },
+            {
+              "title": "3. 静帧定了再动",
+              "body": "先出 21:9 静帧，再让这一帧自己动 15 秒。"
+            },
+            {
+              "title": "4. 声音",
+              "body": "每镜自带的深海背景声都留着，只在接头处做很短的淡入淡出。没有另铺音乐。"
+            }
+          ],
+          "shots": [
+            {
+              "id": "01",
+              "title": "光柱",
+              "action": "全黑深海。只有一束头灯光柱下沉，气泡往上走。",
+              "image": "projects/sunken/stills/01.jpg",
+              "clip": "projects/sunken/clips/01.mp4"
+            },
+            {
+              "id": "02",
+              "title": "下潜",
+              "action": "同一个潜水员的背影，在自己的光柱里缓缓下沉。",
+              "image": "projects/sunken/stills/02.jpg",
+              "clip": "projects/sunken/clips/02.mp4"
+            },
+            {
+              "id": "03",
+              "title": "微光",
+              "action": "头灯转向远处的一点幽蓝，城还没出现。",
+              "image": "projects/sunken/stills/03.jpg",
+              "clip": "projects/sunken/clips/03.mp4"
+            },
+            {
+              "id": "04",
+              "title": "水母",
+              "action": "同一群水母穿过光柱，触手飘着，光线散开。",
+              "image": "projects/sunken/stills/04.jpg",
+              "clip": "projects/sunken/clips/04.mp4"
+            },
+            {
+              "id": "05",
+              "title": "轮廓",
+              "action": "同一座古城从幽蓝里浮出来：石阶、月门、残檐。",
+              "image": "projects/sunken/stills/05.jpg",
+              "clip": "projects/sunken/clips/05.mp4"
+            },
+            {
+              "id": "06",
+              "title": "拱门",
+              "action": "潜水员穿过同一道月门，游进空广场。",
+              "image": "projects/sunken/stills/06.jpg",
+              "clip": "projects/sunken/clips/06.mp4"
+            },
+            {
+              "id": "07",
+              "title": "残垣",
+              "action": "无面石像，海草像头发，小鱼穿过去。",
+              "image": "projects/sunken/stills/07.jpg",
+              "clip": "projects/sunken/clips/07.mp4"
+            },
+            {
+              "id": "08",
+              "title": "神殿",
+              "action": "大殿中央，一束幽蓝光柱在脉动。",
+              "image": "projects/sunken/stills/08.jpg",
+              "clip": "projects/sunken/clips/08.mp4"
+            },
+            {
+              "id": "09",
+              "title": "伸手",
+              "action": "潜水员靠近，一只手伸向那束光。",
+              "image": "projects/sunken/stills/09.jpg",
+              "clip": "projects/sunken/clips/09.mp4"
+            },
+            {
+              "id": "10",
+              "title": "摘罩",
+              "action": "他摘下头罩，闭着眼。鱼从肩侧绕过。",
+              "image": "projects/sunken/stills/10.jpg",
+              "clip": "projects/sunken/clips/10.mp4"
+            },
+            {
+              "id": "11",
+              "title": "点亮",
+              "action": "石头一盏盏亮起来，水母从城心升起。",
+              "image": "projects/sunken/stills/11.jpg",
+              "clip": "projects/sunken/clips/11.mp4"
+            },
+            {
+              "id": "12",
+              "title": "星座",
+              "action": "镜头拉远。古城像沉在海底的星座。",
+              "image": "projects/sunken/stills/12.jpg",
+              "clip": "projects/sunken/clips/12.mp4"
+            }
+          ]
+        },
+        {
           "name": "灯渡",
           "note": "三分钟。一盏纸灯从雨夜的窗台出发，穿过星海，落回清晨的早餐桌。",
           "film": "projects/lantern/灯渡.mp4",
