@@ -5,8 +5,8 @@
   "films": [
     {
       "title": "航行者",
-      "src": "exports/preview.mp4",
-      "download": "exports/preview.mp4",
+      "src": "exports/航行者.mp4",
+      "download": "exports/航行者.mp4",
       "filename": "航行者.mp4",
       "poster": "shots/006/v1.png",
       "duration": "2:50",

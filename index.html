@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>video-lab 审片站</title>
+  <title>航行者 · video-lab</title>
   <style>
     :root {
       --bg: #12140f;
@@ -12,9 +12,6 @@
       --text: #f3f1e6;
       --muted: #b7b39f;
       --accent: #d6ff4a;
-      --warn: #ffb020;
-      --bad: #ff6b4a;
-      --ok: #7dffa1;
     }
     * { box-sizing: border-box; }
     body {
@@ -48,19 +45,19 @@
     .id { font-family: ui-sans-serif, sans-serif; color: var(--accent); font-size: 13px; }
     img.frame { width: 100%; height: 140px; object-fit: cover; border-radius: 10px; background: #0d0f0b; margin: 8px 0; }
     .empty { color: var(--muted); border: 1px dashed var(--line); border-radius: 16px; padding: 28px; }
-    video { width: 100%; border-radius: 12px; background: #000; }
-    a { color: var(--accent); }
+    video { width: 100%; border-radius: 12px; background: #000; display: block; }
     .download {
       display: inline-flex;
       align-items: center;
-      min-height: 42px;
+      min-height: 46px;
       margin: 0 0 12px;
-      padding: 0 16px;
+      padding: 0 18px;
       border-radius: 999px;
       background: var(--accent);
       color: #14170f;
       font-family: ui-sans-serif, sans-serif;
-      font-size: 14px;
+      font-size: 15px;
+      font-weight: 650;
       text-decoration: none;
     }
     footer { color: var(--muted); font-size: 13px; padding-bottom: 40px; font-family: ui-sans-serif, sans-serif; }
@@ -69,11 +66,11 @@
 <body>
   <header>
     <div class="kicker">Q-1844 / video-lab</div>
-    <h1 id="title">审片站</h1>
-    <p class="sub" id="stage">正在读取数据。</p>
+    <h1 id="title">航行者</h1>
+    <p class="sub" id="stage">无人木船，镜头绑在船头一直朝前。约 2 分 50 秒。点下面的按钮把航行者.mp4 下载到本地。</p>
     <div class="row" id="agents"></div>
     <div class="row">
-      <span class="pill" id="updated">更新时间</span>
+      <span class="pill" id="updated">更新 2026-10-01</span>
       <span class="pill">公开测试 · 无机密</span>
       <span class="pill">分镜只增不改</span>
     </div>
@@ -81,7 +78,10 @@
   <main>
     <section>
       <h2>最终成片</h2>
-      <div id="film" class="panel">尚未合成。</div>
+      <div id="film" class="panel">
+        <a class="download" id="download" href="exports/航行者.mp4" download="航行者.mp4">下载航行者.mp4</a>
+        <video id="player" controls playsinline preload="metadata" poster="shots/006/v1.png" src="exports/航行者.mp4"></video>
+      </div>
     </section>
     <section>
       <h2>分镜墙</h2>
@@ -91,73 +91,102 @@
       <h2>修改流程</h2>
       <div id="flow" class="panel">等待第一镜。</div>
     </section>
-    <footer>数据来自仓库根目录 data.json。模型要分区时，自己往 data.json 的 areas 加一颗按钮，成片写进自己的 reviews/<名字>/catalog.json。</footer>
+    <footer>数据来自仓库根目录 data.json。模型要分区时，自己往 areas 加一颗按钮，成片写进自己的 reviews 目录。</footer>
   </main>
   <script>
-    const esc = (value) => String(value ?? "").replace(/[&<>"']/g, (ch) => ({
-      "&": "&", "<": "<", ">": ">", '"': """, "'": "&#39;"
-    }[ch]));
+    function text(id, value) {
+      const node = document.getElementById(id);
+      if (node) node.textContent = value || "";
+    }
 
-    function draw(data) {
-      document.getElementById("title").textContent = data.title || "审片站";
-      document.getElementById("stage").textContent = data.stage || "";
+    function drawShots(shots) {
       const wall = document.getElementById("wall");
-      const shots = data.shots || [];
-      wall.innerHTML = shots.length ? shots.map(s => `
-        <article class="card shot">
-          <div class="id">${esc(s.id)} · ${esc(s.status)}</div>
-          <strong>${esc(s.title || "未命名")}</strong>
-          ${s.image ? `<img class="frame" src="${esc(s.image)}" alt="${esc(s.title || s.id)}" />` : `<div class="frame"></div>`}
-          <div>${esc(s.note || "")}</div>
-        </article>`).join("") : '<div class="empty">这一区还没有分镜。</div>';
-      const notes = shots.filter(s => s.process);
-      document.getElementById("flow").innerHTML = notes.length ? notes.map(s => `<p><b>${esc(s.id)}</b> ${esc(s.process)}</p>`).join("") : "还没有修改记录。每一镜会留下原文、问题、改动。";
-      const film = document.getElementById("film");
-      const file = data.download || data.film;
-      film.innerHTML = file
-        ? `<a class="download" href="${esc(file)}" download="${esc(data.filename || "preview.mp4")}">下载到本地</a>
-           <video controls playsinline preload="metadata" ${data.poster ? `poster="${esc(data.poster)}"` : ""} src="${esc(data.film || file)}"></video>`
-        : "全部镜头 approved 之后，预览片会挂到这里。";
+      const flow = document.getElementById("flow");
+      wall.replaceChildren();
+      flow.replaceChildren();
+      if (!shots.length) {
+        const empty = document.createElement("div");
+        empty.className = "empty";
+        empty.textContent = "这一区还没有分镜。";
+        wall.append(empty);
+      }
+      shots.forEach((shot) => {
+        const card = document.createElement("article");
+        card.className = "card shot";
+        const id = document.createElement("div");
+        id.className = "id";
+        id.textContent = (shot.id || "") + " · " + (shot.status || "");
+        const title = document.createElement("strong");
+        title.textContent = shot.title || "未命名";
+        card.append(id, title);
+        if (shot.image) {
+          const img = document.createElement("img");
+          img.className = "frame";
+          img.src = shot.image;
+          img.alt = shot.title || shot.id || "";
+          card.append(img);
+        }
+        const note = document.createElement("div");
+        note.textContent = shot.note || "";
+        card.append(note);
+        wall.append(card);
+        if (shot.process) {
+          const line = document.createElement("p");
+          const mark = document.createElement("b");
+          mark.textContent = shot.id || "";
+          line.append(mark, " " + shot.process);
+          flow.append(line);
+        }
+      });
+      if (!flow.childNodes.length) flow.textContent = "还没有修改记录。每一镜会留下原文、问题、改动。";
+    }
+
+    function showFilm(film) {
+      const link = document.getElementById("download");
+      const player = document.getElementById("player");
+      const file = (film && (film.download || film.src)) || "exports/航行者.mp4";
+      const name = (film && film.filename) || "航行者.mp4";
+      link.href = file;
+      link.setAttribute("download", name);
+      link.textContent = "下载" + name;
+      player.src = (film && film.src) || file;
+      if (film && film.poster) player.poster = film.poster;
     }
 
     fetch("data.json?ts=" + Date.now())
-      .then(r => r.json())
-      .then(async data => {
-        document.getElementById("updated").textContent = "更新 " + (data.updated || "未知");
+      .then((response) => response.json())
+      .then(async (data) => {
+        text("title", data.title || "航行者");
+        text("stage", data.stage || "");
+        text("updated", "更新 " + (data.updated || "未知"));
+        showFilm({ src: data.film, download: data.download || data.film, filename: data.filename, poster: data.poster });
+        drawShots(data.shots || []);
         const areas = data.areas || [];
         const row = document.getElementById("agents");
-        row.innerHTML = areas.map((area, index) =>
-          `<button class="agent${index === 0 ? " active" : ""}" type="button" data-catalog="${esc(area.catalog || "")}">${esc(area.label || area.id)}</button>`
-        ).join("");
-        draw(data);
-        row.querySelectorAll(".agent").forEach(button => {
+        row.replaceChildren();
+        areas.forEach((area, index) => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "agent" + (index === 0 ? " active" : "");
+          button.textContent = area.label || area.id || "分区";
+          button.dataset.catalog = area.catalog || "";
           button.addEventListener("click", async () => {
-            row.querySelectorAll(".agent").forEach(item => item.classList.remove("active"));
+            row.querySelectorAll(".agent").forEach((item) => item.classList.remove("active"));
             button.classList.add("active");
-            const catalog = button.getAttribute("data-catalog");
-            if (!catalog) return draw(data);
-            try {
-              const response = await fetch(catalog + "?ts=" + Date.now());
-              if (!response.ok) return draw({ ...data, title: button.textContent, stage: "这一区还没有 catalog.json。", film: "", shots: [] });
-              const own = await response.json();
-              const film = (own.films && own.films[0]) || {};
-              draw({
-                title: own.label || button.textContent,
-                stage: own.note || data.stage,
-                film: film.src || "",
-                download: film.download || film.src || "",
-                filename: film.filename || "preview.mp4",
-                poster: film.poster || "",
-                shots: (own.shots || []).map(s => ({ ...s, process: s.process || s.note }))
-              });
-            } catch {
-              draw(data);
-            }
+            if (!button.dataset.catalog) return;
+            const response = await fetch(button.dataset.catalog + "?ts=" + Date.now());
+            if (!response.ok) return;
+            const own = await response.json();
+            text("title", own.label || button.textContent);
+            text("stage", own.note || "");
+            showFilm((own.films && own.films[0]) || null);
+            drawShots(own.shots || []);
           });
+          row.append(button);
         });
       })
       .catch(() => {
-        document.getElementById("stage").textContent = "data.json 读取失败。";
+        text("stage", "数据没读到，成片和下载按钮仍然可用。");
       });
   </script>
 </body>
