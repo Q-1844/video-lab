@@ -79,6 +79,117 @@
       "name": "Grok",
       "projects": [
         {
+          "name": "灯渡",
+          "note": "三分钟。一盏纸灯从雨夜的窗台出发，穿过星海，落回清晨的早餐桌。",
+          "film": "projects/lantern/灯渡.mp4",
+          "filename": "灯渡.mp4",
+          "poster": "projects/lantern/stills/12.jpg",
+          "steps": [
+            {
+              "title": "1. 判断能力",
+              "body": "一次只能稳定生成大约 15 秒。最稳的是同一件物体、一种光、一个镜头运动。人脸、对白和画面里的字容易散。所以不用说话，也不靠一张脸来认人，只跟住一盏灯。"
+            },
+            {
+              "title": "2. 选题",
+              "body": "温馨和科幻走同一条路：灯从家里出发，夜色慢慢变成星海，再落回早餐。"
+            },
+            {
+              "title": "3. 先锁静帧",
+              "body": "十二个镜头先画成静帧。静帧定下来之后才让它动，避免每一镜都重新发明一盏不一样的灯。"
+            },
+            {
+              "title": "4. 逐镜生成",
+              "body": "每一张静帧单独生成 15 秒。十二段接起来是 3 分 00 秒。镜头之间灯的形状仍会有一点变化，这是目前最明显的短处。"
+            }
+          ],
+          "shots": [
+            {
+              "id": "01",
+              "title": "窗台",
+              "action": "蓝调时分。灯还在窗台上，旁边的茶有热气，雨打在玻璃上。",
+              "image": "projects/lantern/stills/01.jpg",
+              "clip": "projects/lantern/clips/01.mp4"
+            },
+            {
+              "id": "02",
+              "title": "点灯",
+              "action": "只看见手。火柴把灯点着，不出现人脸。",
+              "image": "projects/lantern/stills/02.jpg",
+              "clip": "projects/lantern/clips/02.mp4"
+            },
+            {
+              "id": "03",
+              "title": "离窗",
+              "action": "灯离开窗台，朝打开的雨夜飘出去。",
+              "image": "projects/lantern/stills/03.jpg",
+              "clip": "projects/lantern/clips/03.mp4"
+            },
+            {
+              "id": "04",
+              "title": "巷子",
+              "action": "灯沿着湿巷往前，水洼里有它的反光。",
+              "image": "projects/lantern/stills/04.jpg",
+              "clip": "projects/lantern/clips/04.mp4"
+            },
+            {
+              "id": "05",
+              "title": "屋顶",
+              "action": "灯掠过一座睡着的小镇，下面只有几扇暖窗。",
+              "image": "projects/lantern/stills/05.jpg",
+              "clip": "projects/lantern/clips/05.mp4"
+            },
+            {
+              "id": "06",
+              "title": "河面",
+              "action": "灯贴着河面飞，影子在黑水上。",
+              "image": "projects/lantern/stills/06.jpg",
+              "clip": "projects/lantern/clips/06.mp4"
+            },
+            {
+              "id": "07",
+              "title": "入雾",
+              "action": "雾被灯点亮，星星从雾里露出来。",
+              "image": "projects/lantern/stills/07.jpg",
+              "clip": "projects/lantern/clips/07.mp4"
+            },
+            {
+              "id": "08",
+              "title": "星海",
+              "action": "灯变成一只小船，漂在安静的星里。",
+              "image": "projects/lantern/stills/08.jpg",
+              "clip": "projects/lantern/clips/08.mp4"
+            },
+            {
+              "id": "09",
+              "title": "星环",
+              "action": "远远经过一颗有环的行星，灯还是那盏纸灯。",
+              "image": "projects/lantern/stills/09.jpg",
+              "clip": "projects/lantern/clips/09.mp4"
+            },
+            {
+              "id": "10",
+              "title": "回望",
+              "action": "灯的身下是一颗安静的蓝色星球。",
+              "image": "projects/lantern/stills/10.jpg",
+              "clip": "projects/lantern/clips/10.mp4"
+            },
+            {
+              "id": "11",
+              "title": "降落",
+              "action": "灯穿过清晨的金雾，朝海面落下去。",
+              "image": "projects/lantern/stills/11.jpg",
+              "clip": "projects/lantern/clips/11.mp4"
+            },
+            {
+              "id": "12",
+              "title": "早餐",
+              "action": "灯停在日出的木桌上，饭和茶还是热的。",
+              "image": "projects/lantern/stills/12.jpg",
+              "clip": "projects/lantern/clips/12.mp4"
+            }
+          ]
+        },
+        {
           "name": "航行者",
           "film": "exports/航行者.mp4",
           "poster": "shots/006/v1.png",

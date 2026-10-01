@@ -21,13 +21,83 @@
     let board = [];
     let current = 0;
 
-    function projectCard(project) {
+    function downloadLink(href, name, label) {
+      const link = document.createElement("a");
+      link.className = "btn";
+      link.href = href;
+      link.download = name;
+      link.textContent = label;
+      return link;
+    }
+
+    function projectView(project) {
       const node = document.createElement("article");
+      node.style.marginBottom = "56px";
       const title = document.createElement("h2");
-      title.style.fontSize = "32px";
+      title.style.fontSize = "36px";
       title.textContent = project.name || "未命名";
-      node.append(title);
+      const note = document.createElement("p");
+      note.className = "sub";
+      note.textContent = project.note || "";
+      node.append(title, note);
+
+      (project.steps || []).forEach((step) => {
+        const block = document.createElement("div");
+        const heading = document.createElement("h3");
+        heading.textContent = step.title || "";
+        const body = document.createElement("p");
+        body.className = "sub";
+        body.textContent = step.body || "";
+        block.append(heading, body);
+        node.append(block);
+      });
+
+      (project.shots || []).forEach((shot) => {
+        const block = document.createElement("div");
+        block.style.margin = "28px 0";
+        const kicker = document.createElement("p");
+        kicker.className = "meta";
+        kicker.textContent = "分镜 " + (shot.id || "");
+        const heading = document.createElement("h3");
+        heading.textContent = shot.title || "";
+        block.append(kicker, heading);
+        if (shot.image) {
+          const img = document.createElement("img");
+          img.src = shot.image;
+          img.alt = shot.title || "";
+          img.style.maxWidth = "720px";
+          block.append(img);
+        }
+        if (shot.action) {
+          const action = document.createElement("p");
+          action.textContent = shot.action;
+          block.append(action);
+        }
+        if (shot.clip) {
+          const video = document.createElement("video");
+          video.controls = true;
+          video.playsInline = true;
+          video.preload = "none";
+          video.poster = shot.image || "";
+          video.src = shot.clip;
+          video.style.maxWidth = "720px";
+          block.append(video);
+        }
+        const row = document.createElement("div");
+        row.style.display = "flex";
+        row.style.gap = "8px";
+        row.style.flexWrap = "wrap";
+        row.style.marginTop = "8px";
+        if (shot.image) row.append(downloadLink(shot.image, (project.name || "shot") + "-" + shot.id + ".jpg", "下载静帧"));
+        if (shot.clip) row.append(downloadLink(shot.clip, (project.name || "shot") + "-" + shot.id + ".mp4", "下载这一镜"));
+        block.append(row);
+        node.append(block);
+      });
+
       if (project.film) {
+        const label = document.createElement("p");
+        label.className = "meta";
+        label.textContent = "成片";
         const video = document.createElement("video");
         video.controls = true;
         video.playsInline = true;
@@ -35,18 +105,7 @@
         video.src = project.film;
         if (project.poster) video.poster = project.poster;
         video.style.maxWidth = "720px";
-        node.append(video);
-      } else {
-        const empty = document.createElement("p");
-        empty.className = "sub";
-        empty.textContent = "还没有成片。";
-        node.append(empty);
-      }
-      if (project.note) {
-        const note = document.createElement("p");
-        note.className = "sub";
-        note.textContent = project.note;
-        node.append(note);
+        node.append(label, video, downloadLink(project.film, project.filename || "成片.mp4", "下载成片"));
       }
       return node;
     }
@@ -79,11 +138,10 @@
         draw();
       });
       names.append(plus);
-
       projects.replaceChildren();
       const agent = board[current];
       if (!agent) return;
-      (agent.projects || []).forEach((project) => projects.append(projectCard(project)));
+      (agent.projects || []).forEach((project) => projects.append(projectView(project)));
       const add = document.createElement("button");
       add.type = "button";
       add.className = "btn";
@@ -101,13 +159,7 @@
     fetch("/video-lab/data.json?ts=" + Date.now())
       .then((response) => response.json())
       .then((data) => {
-        board = (data.board && data.board.length)
-          ? data.board
-          : [{ name: "Grok", projects: [{ name: data.title || "航行者", film: data.film, poster: data.poster, note: data.stage || "" }] }];
-        draw();
-      })
-      .catch(() => {
-        board = [{ name: "Grok", projects: [{ name: "航行者", film: "exports/航行者.mp4", poster: "shots/006/v1.png", note: "无人木船，镜头绑在船头。约 2 分 50 秒。" }] }];
+        board = data.board && data.board.length ? data.board : [];
         draw();
       });
   </script>
