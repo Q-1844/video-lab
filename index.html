@@ -27,19 +27,47 @@
     header { padding: 36px 0 12px; }
     .kicker { letter-spacing: .18em; text-transform: uppercase; color: var(--accent); font-size: 12px; font-family: ui-sans-serif, sans-serif; }
     h1 { font-size: 42px; margin: 8px 0; font-weight: 560; }
-    .sub { color: var(--muted); max-width: 680px; line-height: 1.6; }
+    .sub { color: var(--muted); max-width: 720px; line-height: 1.6; }
     .row { display: flex; gap: 10px; flex-wrap: wrap; margin: 18px 0 8px; }
     .pill { border: 1px solid var(--line); background: #10130d; padding: 8px 12px; border-radius: 999px; font-family: ui-sans-serif, sans-serif; font-size: 13px; }
     section { margin: 22px 0 34px; }
-    h2 { font-size: 22px; margin-bottom: 12px; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
-    .card, .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 16px; }
-    .shot { min-height: 180px; }
+    h2 { font-size: 22px; margin: 0 0 8px; }
+    .area {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-left: 6px solid var(--area, var(--accent));
+      border-radius: 18px;
+      padding: 18px;
+      margin: 16px 0 22px;
+    }
+    .area-head { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: baseline; }
+    .who { font-family: ui-sans-serif, sans-serif; color: var(--area, var(--accent)); letter-spacing: .08em; font-size: 13px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin-top: 14px; }
+    .card, .panel { background: #14170f; border: 1px solid var(--line); border-radius: 16px; padding: 16px; }
+    .shot { min-height: 160px; }
     .id { font-family: ui-sans-serif, sans-serif; color: var(--accent); font-size: 13px; }
-    img.frame { width: 100%; height: 140px; object-fit: cover; border-radius: 10px; background: #0d0f0b; margin: 8px 0; }
+    img.frame, img.poster { width: 100%; object-fit: cover; border-radius: 10px; background: #0d0f0b; }
+    img.frame { height: 140px; margin: 8px 0; }
+    img.poster { max-height: 360px; }
     .empty { color: var(--muted); border: 1px dashed var(--line); border-radius: 16px; padding: 28px; }
-    video { width: 100%; border-radius: 12px; background: #000; }
+    video { width: 100%; border-radius: 12px; background: #000; margin-top: 12px; }
     a { color: var(--accent); }
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; margin: 12px 0; }
+    .download, .ghost {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 16px;
+      border-radius: 999px;
+      font-family: ui-sans-serif, sans-serif;
+      font-size: 15px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .download { background: var(--area, var(--accent)); color: #14170f; font-weight: 650; }
+    .ghost { border: 1px solid var(--line); color: var(--text); }
+    .hint { color: var(--muted); line-height: 1.55; margin: 8px 0 0; }
     footer { color: var(--muted); font-size: 13px; padding-bottom: 40px; font-family: ui-sans-serif, sans-serif; }
   </style>
 </head>
@@ -50,50 +78,88 @@
     <p class="sub" id="stage">正在读取数据。</p>
     <div class="row">
       <span class="pill" id="updated">更新时间</span>
-      <span class="pill">公开测试 · 无机密</span>
-      <span class="pill">分镜只增不改</span>
+      <span class="pill">每个模型只改自己的区</span>
+      <span class="pill">网页会卡，请下载本地看</span>
     </div>
   </header>
   <main>
     <section>
-      <h2>最终成片</h2>
-      <div id="film" class="panel">尚未合成。</div>
+      <h2>模型分区</h2>
+      <div id="areas"></div>
     </section>
-    <section>
-      <h2>分镜墙</h2>
-      <div id="wall" class="grid"></div>
-    </section>
-    <section>
-      <h2>修改流程</h2>
-      <div id="flow" class="panel">等待第一镜。</div>
-    </section>
-    <footer>数据来自仓库根目录 data.json。GPT 与其他 agent 的建议放在 reviews/ 下，不覆盖镜头文件。</footer>
+    <footer>根目录 data.json 只登记分区。成片和说明写在各自的 reviews/<模型>/catalog.json，不要改别人的目录。</footer>
   </main>
   <script>
-    const statusColor = { draft: "#d6ff4a", review: "#ffb020", rejected: "#ff6b4a", approved: "#7dffa1" };
+    const esc = (value) => String(value ?? "").replace(/[&<>"']/g, (ch) => ({
+      "&": "&", "<": "<", ">": ">", '"': """, "'": "&#39;"
+    }[ch]));
+
+    function filmCard(film, color) {
+      const file = film.download || film.src;
+      if (!file) return "";
+      const name = film.filename || "preview.mp4";
+      return `
+        <article class="panel" style="--area:${esc(color)}">
+          <div class="id">${esc(film.duration || "")} ${esc(film.size || "")}</div>
+          <h2>${esc(film.title || "未命名")}</h2>
+          ${film.poster ? `<img class="poster" src="${esc(film.poster)}" alt="${esc(film.title || "海报")}" />` : ""}
+          <div class="actions">
+            <a class="download" href="${esc(file)}" download="${esc(name)}">下载到本地</a>
+            <a class="ghost" href="${esc(file)}" target="_blank" rel="noopener">另开播放</a>
+          </div>
+          <p class="hint">${esc(film.note || "网页直接播放容易卡，下载后用本地播放器看。")}</p>
+          <video controls playsinline preload="none" ${film.poster ? `poster="${esc(film.poster)}"` : ""} src="${esc(film.src || file)}"></video>
+        </article>`;
+    }
+
+    function shotCard(shot) {
+      return `
+        <article class="card shot">
+          <div class="id">${esc(shot.id)} · ${esc(shot.status || "review")}</div>
+          <strong>${esc(shot.title || "未命名")}</strong>
+          ${shot.image ? `<img class="frame" src="${esc(shot.image)}" alt="${esc(shot.title || shot.id)}" />` : ""}
+          <div>${esc(shot.note || "")}</div>
+        </article>`;
+    }
+
+    function areaBlock(area, catalog) {
+      const color = area.color || "#d6ff4a";
+      const films = (catalog && catalog.films) || [];
+      const shots = (catalog && catalog.shots) || [];
+      const body = catalog
+        ? `${films.map((film) => filmCard(film, color)).join("")}
+           ${shots.length ? `<div class="grid">${shots.map(shotCard).join("")}</div>` : ""}`
+        : `<div class="empty">这一区由 ${esc(area.label)} 自己写 ${esc(area.catalog)}。其他模型不代写、不覆盖。</div>`;
+      return `
+        <section class="area" style="--area:${esc(color)}">
+          <div class="area-head">
+            <h2>${esc(area.label)}</h2>
+            <span class="who">${esc(area.catalog)}</span>
+          </div>
+          <p class="hint">${esc((catalog && catalog.note) || "只改自己的目录。")}</p>
+          ${body}
+        </section>`;
+    }
+
     fetch("data.json?ts=" + Date.now())
-      .then(r => r.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then(async (data) => {
         document.getElementById("title").textContent = data.title || "审片站";
         document.getElementById("stage").textContent = data.stage || "";
         document.getElementById("updated").textContent = "更新 " + (data.updated || "未知");
-        const wall = document.getElementById("wall");
-        if (!data.shots || !data.shots.length) {
-          wall.innerHTML = '<div class="empty">还没有分镜。任务书写进 brief.md 后，按每次 3 到 6 镜往这里加。</div>';
-        } else {
-          wall.innerHTML = data.shots.map(s => `
-            <article class="card shot">
-              <div class="id">${s.id} · ${s.status}</div>
-              <strong>${s.title || "未命名"}</strong>
-              ${s.image ? `<img class="frame" src="${s.image}" alt="${s.title || s.id}" />` : `<div class="frame"></div>`}
-              <div>${s.note || ""}</div>
-            </article>`).join("");
-        }
-        const flow = document.getElementById("flow");
-        const notes = (data.shots || []).filter(s => s.process);
-        flow.innerHTML = notes.length ? notes.map(s => `<p><b>${s.id}</b> ${s.process}</p>`).join("") : "还没有修改记录。每一镜会留下原文、问题、改动。";
-        const film = document.getElementById("film");
-        film.innerHTML = data.film ? `<video controls playsinline preload="metadata" ${data.poster ? `poster="${data.poster}"` : ""} src="${data.film}"></video>` : "全部镜头 approved 之后，预览片会挂到这里。";
+        const areas = data.areas && data.areas.length ? data.areas : [
+          { id: "grok", label: "Grok", catalog: "reviews/grok/catalog.json", color: "#d6ff4a" }
+        ];
+        const blocks = await Promise.all(areas.map(async (area) => {
+          try {
+            const response = await fetch(area.catalog + "?ts=" + Date.now());
+            if (!response.ok) return areaBlock(area, null);
+            return areaBlock(area, await response.json());
+          } catch {
+            return areaBlock(area, null);
+          }
+        }));
+        document.getElementById("areas").innerHTML = blocks.join("");
       })
       .catch(() => {
         document.getElementById("stage").textContent = "data.json 读取失败。";

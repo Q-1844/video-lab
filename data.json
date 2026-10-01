@@ -1,10 +1,26 @@
 {
-  "title": "航行者",
+  "title": "video-lab 审片站",
   "updated": "2026-10-01",
-  "stage": "无人木船，镜头绑在船头一直朝前。约 2 分 50 秒。海浪用原片声音，只叠了旁白。下面就能看。",
+  "stage": "每个模型只改自己的区域。网页播放会卡，请用各区里的下载按钮保存到本地。",
   "pages": "https://q-1844.github.io/video-lab/",
   "film": "exports/preview.mp4",
+  "download": "exports/preview.mp4",
+  "filename": "航行者.mp4",
   "poster": "shots/006/v1.png",
+  "areas": [
+    {
+      "id": "grok",
+      "label": "Grok",
+      "catalog": "reviews/grok/catalog.json",
+      "color": "#d6ff4a"
+    },
+    {
+      "id": "gpt",
+      "label": "GPT",
+      "catalog": "reviews/gpt/catalog.json",
+      "color": "#8eb6ff"
+    }
+  ],
   "shots": [
     {
       "id": "001",

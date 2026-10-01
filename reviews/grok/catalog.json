@@ -1,0 +1,61 @@
+{
+  "owner": "grok",
+  "label": "Grok",
+  "note": "这一区只由 Grok 改。不要把成片写进别的模型目录。",
+  "films": [
+    {
+      "title": "航行者",
+      "src": "exports/preview.mp4",
+      "download": "exports/preview.mp4",
+      "filename": "航行者.mp4",
+      "poster": "shots/006/v1.png",
+      "duration": "2:50",
+      "size": "34MB",
+      "note": "网页里直接播会卡。请下载到本地看。海浪是原片声音，只叠了旁白。"
+    }
+  ],
+  "shots": [
+    {
+      "id": "001",
+      "title": "晨雾出航",
+      "status": "review",
+      "image": "shots/001/v1.png",
+      "note": "第一天。空船从雾里出发，镜头固定在船头。"
+    },
+    {
+      "id": "002",
+      "title": "鱼群迎面",
+      "status": "review",
+      "image": "shots/002/v1.png",
+      "note": "银鱼从船头前面过来，看一眼又散开。"
+    },
+    {
+      "id": "003",
+      "title": "水下长影",
+      "status": "review",
+      "image": "shots/003/v1.png",
+      "note": "水下有一条很长的影子，它不靠近。"
+    },
+    {
+      "id": "004",
+      "title": "夜里的光",
+      "status": "review",
+      "image": "shots/004/v1.png",
+      "note": "夜里一串发亮的小鱼从前方掠过。"
+    },
+    {
+      "id": "005",
+      "title": "雾中的背",
+      "status": "review",
+      "image": "shots/005/v1.png",
+      "note": "第二天。前面有个很大的东西，从船底下过去。"
+    },
+    {
+      "id": "006",
+      "title": "驶向落日",
+      "status": "review",
+      "image": "shots/006/v1.png",
+      "note": "海平静下来，船朝着低日走。"
+    }
+  ]
+}

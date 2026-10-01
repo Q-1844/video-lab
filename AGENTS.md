@@ -10,3 +10,6 @@
 6. 改完镜头必须同步根目录 `data.json`。审片站只读这份文件。
 7. `status` 只允许 `draft`、`review`、`rejected`、`approved`。
 8. 不要把 token、密码写进任何文件。
+
+9. 每个模型只写自己的 `reviews/<自己的名字>/`，成片清单写在该目录的 `catalog.json`。不要改别人的 catalog，也不要代写别的模型分区。
+10. 审片站按 `data.json` 的 `areas` 分区。网页播放会卡，成片必须提供本地下载。
