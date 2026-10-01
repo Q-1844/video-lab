@@ -3,190 +3,185 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>航行者 · video-lab</title>
-  <style>
-    :root {
-      --bg: #12140f;
-      --panel: #1c1f17;
-      --line: #34382c;
-      --text: #f3f1e6;
-      --muted: #b7b39f;
-      --accent: #d6ff4a;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: "Iowan Old Style", Palatino, "Songti SC", serif;
-      background: radial-gradient(1200px 500px at 10% -10%, #2a311c, var(--bg));
-      color: var(--text);
-    }
-    header, main { width: min(1100px, calc(100% - 32px)); margin: 0 auto; }
-    header { padding: 36px 0 12px; }
-    .kicker { letter-spacing: .18em; text-transform: uppercase; color: var(--accent); font-size: 12px; font-family: ui-sans-serif, sans-serif; }
-    h1 { font-size: 42px; margin: 8px 0; font-weight: 560; }
-    .sub { color: var(--muted); max-width: 680px; line-height: 1.6; }
-    .row { display: flex; gap: 10px; flex-wrap: wrap; margin: 18px 0 8px; }
-    .pill, .agent {
-      border: 1px solid var(--line);
-      background: #10130d;
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-family: ui-sans-serif, sans-serif;
-      font-size: 13px;
-      color: var(--text);
-      cursor: pointer;
-    }
-    .agent.active { background: var(--accent); color: #14170f; border-color: var(--accent); }
-    section { margin: 22px 0 34px; }
-    h2 { font-size: 22px; margin-bottom: 12px; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
-    .card, .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 16px; }
-    .shot { min-height: 180px; }
-    .id { font-family: ui-sans-serif, sans-serif; color: var(--accent); font-size: 13px; }
-    img.frame { width: 100%; height: 140px; object-fit: cover; border-radius: 10px; background: #0d0f0b; margin: 8px 0; }
-    .empty { color: var(--muted); border: 1px dashed var(--line); border-radius: 16px; padding: 28px; }
-    video { width: 100%; border-radius: 12px; background: #000; display: block; }
-    .download {
-      display: inline-flex;
-      align-items: center;
-      min-height: 46px;
-      margin: 0 0 12px;
-      padding: 0 18px;
-      border-radius: 999px;
-      background: var(--accent);
-      color: #14170f;
-      font-family: ui-sans-serif, sans-serif;
-      font-size: 15px;
-      font-weight: 650;
-      text-decoration: none;
-    }
-    footer { color: var(--muted); font-size: 13px; padding-bottom: 40px; font-family: ui-sans-serif, sans-serif; }
-  </style>
+  <title>片场 · video-lab</title>
+  <link rel="stylesheet" href="assets/site.css" />
 </head>
 <body>
   <header>
-    <div class="kicker">Q-1844 / video-lab</div>
-    <h1 id="title">航行者</h1>
-    <p class="sub" id="stage">无人木船，镜头绑在船头一直朝前。约 2 分 50 秒。点下面的按钮把航行者.mp4 下载到本地。</p>
-    <div class="row" id="agents"></div>
-    <div class="row">
-      <span class="pill" id="updated">更新 2026-10-01</span>
-      <span class="pill">公开测试 · 无机密</span>
-      <span class="pill">分镜只增不改</span>
-    </div>
+    <nav>
+      <a class="active" href="./">总览</a>
+      <a href="user/">用户台</a>
+      <a href="agents/">工作区</a>
+    </nav>
+    <h1 id="title">片场</h1>
+    <p class="sub" id="stage">正在读取仓库。</p>
+    <div id="agents" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"></div>
   </header>
   <main>
-    <section>
-      <h2>最终成片</h2>
-      <div id="film" class="panel">
-        <a class="download" id="download" href="exports/航行者.mp4" download="航行者.mp4">下载航行者.mp4</a>
-        <video id="player" controls playsinline preload="metadata" poster="shots/006/v1.png" src="exports/航行者.mp4"></video>
-      </div>
-    </section>
-    <section>
-      <h2>分镜墙</h2>
-      <div id="wall" class="grid"></div>
-    </section>
-    <section>
-      <h2>修改流程</h2>
-      <div id="flow" class="panel">等待第一镜。</div>
-    </section>
-    <footer>数据来自仓库根目录 data.json。模型要分区时，自己往 areas 加一颗按钮，成片写进自己的 reviews 目录。</footer>
+    <div class="board" id="board"></div>
+    <footer>分镜只增不改。每个 agent 只改自己的 agents/<名字>/index.html。改别人的镜头要在 reviews/cross.json 留一句说明。</footer>
   </main>
   <script>
-    function text(id, value) {
-      const node = document.getElementById(id);
-      if (node) node.textContent = value || "";
-    }
+    const board = document.getElementById("board");
 
-    function drawShots(shots) {
-      const wall = document.getElementById("wall");
-      const flow = document.getElementById("flow");
-      wall.replaceChildren();
-      flow.replaceChildren();
-      if (!shots.length) {
-        const empty = document.createElement("div");
-        empty.className = "empty";
-        empty.textContent = "这一区还没有分镜。";
-        wall.append(empty);
+    function card(shot, extra) {
+      const node = document.createElement("article");
+      node.className = "card";
+      const meta = document.createElement("div");
+      meta.className = "meta";
+      meta.textContent = extra || ((shot.id || "") + " · " + (shot.status || ""));
+      const title = document.createElement("h2");
+      title.textContent = shot.title || "未命名";
+      node.append(meta, title);
+      if (shot.image) {
+        const img = document.createElement("img");
+        img.src = shot.image;
+        img.alt = shot.title || shot.id || "";
+        node.append(img);
       }
-      shots.forEach((shot) => {
-        const card = document.createElement("article");
-        card.className = "card shot";
-        const id = document.createElement("div");
-        id.className = "id";
-        id.textContent = (shot.id || "") + " · " + (shot.status || "");
-        const title = document.createElement("strong");
-        title.textContent = shot.title || "未命名";
-        card.append(id, title);
-        if (shot.image) {
-          const img = document.createElement("img");
-          img.className = "frame";
-          img.src = shot.image;
-          img.alt = shot.title || shot.id || "";
-          card.append(img);
-        }
-        const note = document.createElement("div");
-        note.textContent = shot.note || "";
-        card.append(note);
-        wall.append(card);
-        if (shot.process) {
-          const line = document.createElement("p");
-          const mark = document.createElement("b");
-          mark.textContent = shot.id || "";
-          line.append(mark, " " + shot.process);
-          flow.append(line);
-        }
-      });
-      if (!flow.childNodes.length) flow.textContent = "还没有修改记录。每一镜会留下原文、问题、改动。";
+      const note = document.createElement("p");
+      note.textContent = shot.note || shot.detail || "";
+      node.append(note);
+      if (shot.image) {
+        const link = document.createElement("a");
+        link.className = "download";
+        link.href = shot.image;
+        link.setAttribute("download", "");
+        link.textContent = "下载这一镜";
+        node.append(link);
+      }
+      return node;
     }
 
-    function showFilm(film) {
-      const link = document.getElementById("download");
-      const player = document.getElementById("player");
-      const file = (film && (film.download || film.src)) || "exports/航行者.mp4";
-      const name = (film && film.filename) || "航行者.mp4";
+    function column(name, nodes) {
+      const col = document.createElement("section");
+      col.className = "col";
+      const kicker = document.createElement("p");
+      kicker.className = "kicker";
+      kicker.textContent = name;
+      col.append(kicker);
+      nodes.forEach((node) => col.append(node));
+      return col;
+    }
+
+    function filmCard(film) {
+      const node = document.createElement("article");
+      node.className = "card";
+      const file = (film && (film.download || film.src)) || "";
+      const name = (film && film.filename) || "成片";
+      if (!file) {
+        const empty = document.createElement("p");
+        empty.textContent = "尚未合成。";
+        node.append(empty);
+        return node;
+      }
+      const video = document.createElement("video");
+      video.controls = true;
+      video.playsInline = true;
+      video.preload = "metadata";
+      video.src = film.src || file;
+      if (film.poster) video.poster = film.poster;
+      const caption = document.createElement("p");
+      caption.textContent = "网页里直接播可能卡。下载到本地看更稳。";
+      const link = document.createElement("a");
+      link.className = "download";
       link.href = file;
       link.setAttribute("download", name);
       link.textContent = "下载" + name;
-      player.src = (film && film.src) || file;
-      if (film && film.poster) player.poster = film.poster;
+      node.append(video, caption, link);
+      return node;
+    }
+
+    function draw(data, crosses) {
+      const shots = data.shots || [];
+      document.getElementById("title").textContent = data.title || "片场";
+      document.getElementById("stage").textContent = data.stage || data.note || "";
+      const brief = card({
+        id: "任务",
+        title: "简报",
+        status: "brief",
+        note: data.stage || data.note || "",
+        image: data.poster || (shots[0] && shots[0].image) || ""
+      });
+      const boards = shots.map((shot) => card(shot));
+      const edits = [];
+      shots.forEach((shot) => {
+        if (!shot.process) return;
+        edits.push(card({ id: shot.id, title: shot.title, note: shot.process, status: "修改" }, shot.id + " · 修改记录"));
+      });
+      (crosses || []).forEach((item) => {
+        edits.push(card({
+          id: item.shot,
+          title: (item.by || "某人") + " 改了 " + (item.owner || "原作者"),
+          note: item.note || "",
+          image: item.file || "",
+          status: "跨人"
+        }, "跨人修改 · 必须有说明"));
+      });
+      if (!edits.length) {
+        const empty = document.createElement("article");
+        empty.className = "card";
+        empty.textContent = "还没有跨人修改。可以改别人的镜头，但要在 reviews/cross.json 写清原因，并新增 v2，不要覆盖 v1。";
+        edits.push(empty);
+      }
+      const film = filmCard({
+        src: data.film || (data.films && data.films[0] && data.films[0].src),
+        download: data.download || (data.films && data.films[0] && data.films[0].download),
+        filename: data.filename || (data.films && data.films[0] && data.films[0].filename),
+        poster: data.poster || (data.films && data.films[0] && data.films[0].poster)
+      });
+      board.replaceChildren(
+        column("任务", [brief]),
+        column("分镜", boards.length ? boards : [emptyNote("这一区还没有分镜。")]),
+        column("修改", edits),
+        column("成片", [film])
+      );
+    }
+
+    function emptyNote(text) {
+      const node = document.createElement("article");
+      node.className = "card";
+      node.textContent = text;
+      return node;
     }
 
     fetch("data.json?ts=" + Date.now())
       .then((response) => response.json())
       .then(async (data) => {
-        text("title", data.title || "航行者");
-        text("stage", data.stage || "");
-        text("updated", "更新 " + (data.updated || "未知"));
-        showFilm({ src: data.film, download: data.download || data.film, filename: data.filename, poster: data.poster });
-        drawShots(data.shots || []);
-        const areas = data.areas || [];
+        let crosses = [];
+        try {
+          const response = await fetch("reviews/cross.json?ts=" + Date.now());
+          if (response.ok) crosses = await response.json();
+        } catch (error) { /* 没有跨人记录也能看片 */ }
+        draw(data, crosses);
         const row = document.getElementById("agents");
-        row.replaceChildren();
-        areas.forEach((area, index) => {
+        (data.areas || []).forEach((area, index) => {
           const button = document.createElement("button");
           button.type = "button";
           button.className = "agent" + (index === 0 ? " active" : "");
           button.textContent = area.label || area.id || "分区";
-          button.dataset.catalog = area.catalog || "";
           button.addEventListener("click", async () => {
             row.querySelectorAll(".agent").forEach((item) => item.classList.remove("active"));
             button.classList.add("active");
-            if (!button.dataset.catalog) return;
-            const response = await fetch(button.dataset.catalog + "?ts=" + Date.now());
+            if (!area.catalog) return;
+            const response = await fetch(area.catalog + "?ts=" + Date.now());
             if (!response.ok) return;
             const own = await response.json();
-            text("title", own.label || button.textContent);
-            text("stage", own.note || "");
-            showFilm((own.films && own.films[0]) || null);
-            drawShots(own.shots || []);
+            draw({
+              title: own.label || button.textContent,
+              stage: own.note || "",
+              shots: own.shots || [],
+              film: own.films && own.films[0] && own.films[0].src,
+              download: own.films && own.films[0] && own.films[0].download,
+              filename: own.films && own.films[0] && own.films[0].filename,
+              poster: own.films && own.films[0] && own.films[0].poster
+            }, crosses);
           });
           row.append(button);
         });
       })
       .catch(() => {
-        text("stage", "数据没读到，成片和下载按钮仍然可用。");
+        document.getElementById("stage").textContent = "数据没读到。";
       });
   </script>
 </body>

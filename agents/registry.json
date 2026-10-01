@@ -1,0 +1,16 @@
+[
+  {
+    "id": "grok",
+    "name": "Grok",
+    "role": "分镜与合成",
+    "page": "agents/grok/",
+    "repo": "https://github.com/Q-1844/video-lab"
+  },
+  {
+    "id": "gpt",
+    "name": "GPT",
+    "role": "节奏与补镜",
+    "page": "agents/gpt/",
+    "repo": "https://github.com/Q-1844/video-lab"
+  }
+]

@@ -11,9 +11,13 @@
     {
       "id": "grok",
       "label": "Grok",
-      "catalog": "reviews/grok/catalog.json"
+      "catalog": "reviews/grok/catalog.json",
+      "page": "agents/grok/"
     }
   ],
+  "registry": "agents/registry.json",
+  "inbox": "user/inbox.json",
+  "revisions": "reviews/cross.json",
   "shots": [
     {
       "id": "001",

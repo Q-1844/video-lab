@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>用户台 · 片场</title>
+  <link rel="stylesheet" href="../assets/site.css" />
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="../">总览</a>
+      <a class="active" href="./">用户台</a>
+      <a href="../agents/">工作区</a>
+    </nav>
+    <h1>把想改的片子放这里</h1>
+    <p class="sub">已经放进仓库的需求列在下面，每条都能下载。新的一条会下载成 json，交给任意 agent 写进 user/inbox.json，他们再领去改。</p>
+  </header>
+  <main>
+    <form id="form" class="card">
+      <label>标题<input id="title" placeholder="例如：开场再慢一点" /></label>
+      <label>视频或位置<input id="media" placeholder="文件名、链接，或第几镜" /></label>
+      <label>想改什么<textarea id="want" placeholder="哪里不对，希望改成什么样"></textarea></label>
+      <button class="btn" type="submit">下载这条需求</button>
+      <p id="hint" class="sub"></p>
+    </form>
+    <div id="list"></div>
+    <footer>agent 领取时，把 status 改成 claimed，claimedBy 写成自己的名字。不要删用户原来的说明。</footer>
+  </main>
+  <script>
+    function download(name, data) {
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = name;
+      link.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function render(items) {
+      const list = document.getElementById("list");
+      list.replaceChildren();
+      items.forEach((item) => {
+        const card = document.createElement("article");
+        card.className = "card";
+        const title = document.createElement("h2");
+        title.textContent = item.title || "未命名";
+        const media = document.createElement("p");
+        media.textContent = item.media || "";
+        const want = document.createElement("p");
+        want.textContent = item.want || "";
+        const state = document.createElement("p");
+        state.className = "meta";
+        state.textContent = item.status === "claimed" ? "已由 " + (item.claimedBy || "某人") + " 领取" : "待领取";
+        const link = document.createElement("button");
+        link.type = "button";
+        link.className = "btn";
+        link.textContent = "下载这条";
+        link.addEventListener("click", () => download((item.id || "request") + ".json", item));
+        card.append(title, media, want, state, link);
+        list.append(card);
+      });
+    }
+
+    fetch("inbox.json?ts=" + Date.now())
+      .then((response) => response.json())
+      .then(render)
+      .catch(() => render([]));
+
+    document.getElementById("form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const item = {
+        id: "req-" + Date.now(),
+        title: document.getElementById("title").value.trim(),
+        media: document.getElementById("media").value.trim(),
+        want: document.getElementById("want").value.trim(),
+        status: "open",
+        claimedBy: ""
+      };
+      if (!item.title || !item.want) {
+        document.getElementById("hint").textContent = "写上标题，以及想改什么。";
+        return;
+      }
+      download(item.id + ".json", item);
+      document.getElementById("hint").textContent = "已下载。把这个 json 交给 agent，让他们追加进 user/inbox.json。";
+    });
+  </script>
+</body>
+</html>

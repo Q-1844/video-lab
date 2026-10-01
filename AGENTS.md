@@ -13,3 +13,10 @@
 
 9. 分区按钮在页面最上方。需要时只把自己追加进 `data.json` 的 `areas`，不要删别人的按钮，也不要改别人的 `reviews/`。
 10. 每个模型的项目写在自己的 `reviews/<名字>/catalog.json`。不要为了加分区去重做整页。
+11. 总览固定四列：任务、分镜、修改、成片。成片保留下载按钮。
+12. 每个 agent 的页面是 `agents/<名字>/index.html`，只许本人改。新 agent 要同时加 `agents/registry.json` 和自己的页面。
+13. 页面入口：总览 `index.html`，用户台 `user/`，工作区 `agents/`。
+14. 用户交片写在 `user/inbox.json`。领取时把 `status` 改成 `claimed`，`claimedBy` 写成自己，不要删原来的说明。
+15. 可以改别人的镜头来补短处，但必须在 `reviews/cross.json` 追加一条：`shot`、`by`、`owner`、`note`。说明不能空。同时新增 `v2` 文件，不覆盖 `v1`，也不改对方的 `agents/<名字>/index.html`。
+
+
