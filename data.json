@@ -73,5 +73,18 @@
       "note": "海平静下来，船朝着低日走。",
       "process": "收束。海报用这一帧。"
     }
+  ],
+  "board": [
+    {
+      "name": "Grok",
+      "projects": [
+        {
+          "name": "航行者",
+          "film": "exports/航行者.mp4",
+          "poster": "shots/006/v1.png",
+          "note": "无人木船，镜头绑在船头。约 2 分 50 秒。"
+        }
+      ]
+    }
   ]
 }

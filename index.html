@@ -3,122 +3,112 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>片场 · video-lab</title>
+  <title>片场</title>
   <link rel="stylesheet" href="/video-lab/assets/site.css" />
 </head>
 <body>
   <header>
-    <nav>
-      <a class="active" href="/video-lab/">总览</a>
-      <a href="/video-lab/user/">用户台</a>
-      <a href="/video-lab/agents/">工作区</a>
-    </nav>
-    <h1 id="title">片场</h1>
-    <p class="sub" id="stage">正在读取仓库。</p>
-    <div id="agents" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+      <h1 style="margin:0">片场</h1>
+      <a href="/video-lab/user/">我的</a>
+    </div>
+    <div id="names" class="reel" style="margin-top:22px;align-items:center"></div>
   </header>
   <main>
-    <div id="board"></div>
-    <footer>从左到右是分镜，最后一格是成片。用户把要改的视频传到用户台。</footer>
+    <div id="projects"></div>
   </main>
   <script>
-    const board = document.getElementById("board");
+    let board = [];
+    let current = 0;
 
-    function shotCard(shot) {
+    function projectCard(project) {
       const node = document.createElement("article");
-      node.className = "card";
-      const meta = document.createElement("div");
-      meta.className = "meta";
-      meta.textContent = (shot.id || "") + (shot.status ? " · " + shot.status : "");
       const title = document.createElement("h2");
-      title.textContent = shot.title || "未命名";
-      node.append(meta, title);
-      if (shot.image) {
-        const img = document.createElement("img");
-        img.src = shot.image;
-        img.alt = shot.title || "";
-        node.append(img);
-      }
-      const note = document.createElement("p");
-      note.textContent = shot.note || "";
-      node.append(note);
-      return node;
-    }
-
-    function filmCard(film) {
-      const node = document.createElement("article");
-      node.className = "card film";
-      const meta = document.createElement("div");
-      meta.className = "meta";
-      meta.textContent = "成片";
-      node.append(meta);
-      const file = (film && (film.src || film.download)) || "";
-      if (!file) {
+      title.style.fontSize = "32px";
+      title.textContent = project.name || "未命名";
+      node.append(title);
+      if (project.film) {
+        const video = document.createElement("video");
+        video.controls = true;
+        video.playsInline = true;
+        video.preload = "none";
+        video.src = project.film;
+        if (project.poster) video.poster = project.poster;
+        video.style.maxWidth = "720px";
+        node.append(video);
+      } else {
         const empty = document.createElement("p");
-        empty.textContent = "尚未合成。";
+        empty.className = "sub";
+        empty.textContent = "还没有成片。";
         node.append(empty);
-        return node;
       }
-      const video = document.createElement("video");
-      video.controls = true;
-      video.playsInline = true;
-      video.preload = "none";
-      video.src = film.src || file;
-      if (film.poster) video.poster = film.poster;
-      const name = document.createElement("h2");
-      name.textContent = film.filename || "成片";
-      node.append(video, name);
+      if (project.note) {
+        const note = document.createElement("p");
+        note.className = "sub";
+        note.textContent = project.note;
+        node.append(note);
+      }
       return node;
     }
 
-    function draw(data) {
-      const shots = data.shots || [];
-      document.getElementById("title").textContent = data.title || "片场";
-      document.getElementById("stage").textContent = data.stage || data.note || "";
-      const reel = document.createElement("div");
-      reel.className = "reel";
-      reel.append(shotCard({
-        id: "任务",
-        title: "简报",
-        status: "",
-        note: data.stage || data.note || "",
-        image: data.poster || (shots[0] && shots[0].image) || ""
-      }));
-      shots.forEach((shot) => reel.append(shotCard(shot)));
-      reel.append(filmCard({
-        src: data.film || (data.films && data.films[0] && data.films[0].src),
-        filename: data.filename || (data.films && data.films[0] && data.films[0].filename),
-        poster: data.poster || (data.films && data.films[0] && data.films[0].poster)
-      }));
-      const notes = document.createElement("div");
-      shots.forEach((shot) => {
-        if (!shot.process) return;
-        const line = document.createElement("p");
-        line.textContent = shot.id + "  " + shot.process;
-        notes.append(line);
+    function draw() {
+      const names = document.getElementById("names");
+      const projects = document.getElementById("projects");
+      names.replaceChildren();
+      board.forEach((agent, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "agent" + (index === current ? " active" : "");
+        button.textContent = agent.name;
+        button.addEventListener("click", () => {
+          current = index;
+          draw();
+        });
+        names.append(button);
       });
-      board.replaceChildren(reel, notes);
+      const plus = document.createElement("button");
+      plus.type = "button";
+      plus.className = "agent";
+      plus.textContent = "+";
+      plus.setAttribute("aria-label", "新建");
+      plus.addEventListener("click", () => {
+        const name = window.prompt("自己的名称");
+        if (!name || !name.trim()) return;
+        board.push({ name: name.trim(), projects: [] });
+        current = board.length - 1;
+        draw();
+      });
+      names.append(plus);
+
+      projects.replaceChildren();
+      const agent = board[current];
+      if (!agent) return;
+      (agent.projects || []).forEach((project) => projects.append(projectCard(project)));
+      const add = document.createElement("button");
+      add.type = "button";
+      add.className = "btn";
+      add.textContent = "+ 项目";
+      add.addEventListener("click", () => {
+        const name = window.prompt("项目名称");
+        if (!name || !name.trim()) return;
+        agent.projects = agent.projects || [];
+        agent.projects.push({ name: name.trim(), note: "还没有成片。" });
+        draw();
+      });
+      projects.append(add);
     }
 
     fetch("/video-lab/data.json?ts=" + Date.now())
       .then((response) => response.json())
       .then((data) => {
-        draw(data);
-        const row = document.getElementById("agents");
-        (data.areas || []).forEach((area, index) => {
-          const link = document.createElement("a");
-          link.className = "agent" + (index === 0 ? " active" : "");
-          link.href = area.page ? ("/video-lab/" + area.page.replace(/^\//, "")) : "/video-lab/agents/";
-          link.textContent = (area.label || area.id || "分区") + " 的页面";
-          row.append(link);
-        });
-        const user = document.createElement("a");
-        user.href = "/video-lab/user/";
-        user.textContent = "上传要改的片子";
-        row.append(user);
+        board = (data.board && data.board.length)
+          ? data.board
+          : [{ name: "Grok", projects: [{ name: data.title || "航行者", film: data.film, poster: data.poster, note: data.stage || "" }] }];
+        draw();
       })
       .catch(() => {
-        document.getElementById("stage").textContent = "数据没读到。";
+        board = [{ name: "Grok", projects: [{ name: "航行者", film: "exports/航行者.mp4", poster: "shots/006/v1.png", note: "无人木船，镜头绑在船头。约 2 分 50 秒。" }] }];
+        draw();
       });
   </script>
 </body>
