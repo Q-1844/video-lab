@@ -1,8 +1,64 @@
 {
-  "title": "video-lab 审片站",
+  "title": "航行者",
   "updated": "2026-10-01",
-  "stage": "空站已接通，等待任务书",
+  "stage": "无人木船，镜头绑在船头一直朝前。约 2 分 50 秒。海浪用原片声音，只叠了旁白。下面就能看。",
   "pages": "https://q-1844.github.io/video-lab/",
-  "film": "",
-  "shots": []
+  "film": "exports/preview.mp4",
+  "poster": "shots/006/v1.png",
+  "shots": [
+    {
+      "id": "001",
+      "title": "晨雾出航",
+      "status": "review",
+      "owner": "grok",
+      "image": "shots/001/v1.png",
+      "note": "第一天。空船从雾里出发，镜头固定在船头。",
+      "process": "船用上一支尾帧的木船，右舷有灯。没有人。"
+    },
+    {
+      "id": "002",
+      "title": "鱼群迎面",
+      "status": "review",
+      "owner": "grok",
+      "image": "shots/002/v1.png",
+      "note": "银鱼从船头前面过来，看一眼又散开。",
+      "process": "小偏离：鱼略贴近镜头，船和朝向还在，保留。"
+    },
+    {
+      "id": "003",
+      "title": "水下长影",
+      "status": "review",
+      "owner": "grok",
+      "image": "shots/003/v1.png",
+      "note": "水下有一条很长的影子，它不靠近。",
+      "process": "只给影子，不给脸。"
+    },
+    {
+      "id": "004",
+      "title": "夜里的光",
+      "status": "review",
+      "owner": "grok",
+      "image": "shots/004/v1.png",
+      "note": "夜里一串发亮的小鱼从前方掠过。",
+      "process": "船和灯还在，镜头仍朝前。"
+    },
+    {
+      "id": "005",
+      "title": "雾中的背",
+      "status": "review",
+      "owner": "grok",
+      "image": "shots/005/v1.png",
+      "note": "第二天。前面有个很大的东西，从船底下过去。",
+      "process": "大偏离：露牙鲨鱼头已剪掉，只留背和一道鳍。"
+    },
+    {
+      "id": "006",
+      "title": "驶向落日",
+      "status": "review",
+      "owner": "grok",
+      "image": "shots/006/v1.png",
+      "note": "海平静下来，船朝着低日走。",
+      "process": "收束。海报用这一帧。"
+    }
+  ]
 }

@@ -56,16 +56,16 @@
   </header>
   <main>
     <section>
+      <h2>最终成片</h2>
+      <div id="film" class="panel">尚未合成。</div>
+    </section>
+    <section>
       <h2>分镜墙</h2>
       <div id="wall" class="grid"></div>
     </section>
     <section>
       <h2>修改流程</h2>
       <div id="flow" class="panel">等待第一镜。</div>
-    </section>
-    <section>
-      <h2>最终成片</h2>
-      <div id="film" class="panel">尚未合成。</div>
     </section>
     <footer>数据来自仓库根目录 data.json。GPT 与其他 agent 的建议放在 reviews/ 下，不覆盖镜头文件。</footer>
   </main>
@@ -93,7 +93,7 @@
         const notes = (data.shots || []).filter(s => s.process);
         flow.innerHTML = notes.length ? notes.map(s => `<p><b>${s.id}</b> ${s.process}</p>`).join("") : "还没有修改记录。每一镜会留下原文、问题、改动。";
         const film = document.getElementById("film");
-        film.innerHTML = data.film ? `<video controls src="${data.film}"></video>` : "全部镜头 approved 之后，预览片会挂到这里。";
+        film.innerHTML = data.film ? `<video controls playsinline preload="metadata" ${data.poster ? `poster="${data.poster}"` : ""} src="${data.film}"></video>` : "全部镜头 approved 之后，预览片会挂到这里。";
       })
       .catch(() => {
         document.getElementById("stage").textContent = "data.json 读取失败。";
