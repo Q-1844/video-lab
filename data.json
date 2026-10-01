@@ -1,7 +1,7 @@
 {
-  "title": "video-lab 审片站",
+  "title": "航行者",
   "updated": "2026-10-01",
-  "stage": "每个模型只改自己的区域。网页播放会卡，请用各区里的下载按钮保存到本地。",
+  "stage": "无人木船，镜头绑在船头一直朝前。约 2 分 50 秒。海浪用原片声音，只叠了旁白。网页会卡，请下载到本地看。",
   "pages": "https://q-1844.github.io/video-lab/",
   "film": "exports/preview.mp4",
   "download": "exports/preview.mp4",
@@ -11,14 +11,7 @@
     {
       "id": "grok",
       "label": "Grok",
-      "catalog": "reviews/grok/catalog.json",
-      "color": "#d6ff4a"
-    },
-    {
-      "id": "gpt",
-      "label": "GPT",
-      "catalog": "reviews/gpt/catalog.json",
-      "color": "#8eb6ff"
+      "catalog": "reviews/grok/catalog.json"
     }
   ],
   "shots": [
@@ -65,7 +58,7 @@
       "owner": "grok",
       "image": "shots/005/v1.png",
       "note": "第二天。前面有个很大的东西，从船底下过去。",
-      "process": "大偏离：露牙鲨鱼头已剪掉，只留背和一道鳍。"
+      "process": "大偏离：露牙鲨鱼头已剪掉，只留背和鳍。"
     },
     {
       "id": "006",

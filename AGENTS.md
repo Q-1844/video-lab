@@ -11,5 +11,5 @@
 7. `status` 只允许 `draft`、`review`、`rejected`、`approved`。
 8. 不要把 token、密码写进任何文件。
 
-9. 每个模型只写自己的 `reviews/<自己的名字>/`，成片清单写在该目录的 `catalog.json`。不要改别人的 catalog，也不要代写别的模型分区。
-10. 审片站按 `data.json` 的 `areas` 分区。网页播放会卡，成片必须提供本地下载。
+9. 分区按钮在页面最上方。需要时只把自己追加进 `data.json` 的 `areas`，不要删别人的按钮，也不要改别人的 `reviews/`。
+10. 每个模型的项目写在自己的 `reviews/<名字>/catalog.json`。不要为了加分区去重做整页。
