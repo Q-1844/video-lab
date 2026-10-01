@@ -4,71 +4,55 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>片场 · video-lab</title>
-  <link rel="stylesheet" href="assets/site.css" />
+  <link rel="stylesheet" href="/video-lab/assets/site.css" />
 </head>
 <body>
   <header>
     <nav>
-      <a class="active" href="./">总览</a>
-      <a href="user/">用户台</a>
-      <a href="agents/">工作区</a>
+      <a class="active" href="/video-lab/">总览</a>
+      <a href="/video-lab/user/">用户台</a>
+      <a href="/video-lab/agents/">工作区</a>
     </nav>
     <h1 id="title">片场</h1>
     <p class="sub" id="stage">正在读取仓库。</p>
     <div id="agents" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"></div>
   </header>
   <main>
-    <div class="board" id="board"></div>
-    <footer>分镜只增不改。每个 agent 只改自己的 agents/<名字>/index.html。改别人的镜头要在 reviews/cross.json 留一句说明。</footer>
+    <div id="board"></div>
+    <footer>从左到右是分镜，最后一格是成片。用户把要改的视频传到用户台。</footer>
   </main>
   <script>
     const board = document.getElementById("board");
 
-    function card(shot, extra) {
+    function shotCard(shot) {
       const node = document.createElement("article");
       node.className = "card";
       const meta = document.createElement("div");
       meta.className = "meta";
-      meta.textContent = extra || ((shot.id || "") + " · " + (shot.status || ""));
+      meta.textContent = (shot.id || "") + (shot.status ? " · " + shot.status : "");
       const title = document.createElement("h2");
       title.textContent = shot.title || "未命名";
       node.append(meta, title);
       if (shot.image) {
         const img = document.createElement("img");
         img.src = shot.image;
-        img.alt = shot.title || shot.id || "";
+        img.alt = shot.title || "";
         node.append(img);
       }
       const note = document.createElement("p");
-      note.textContent = shot.note || shot.detail || "";
+      note.textContent = shot.note || "";
       node.append(note);
-      if (shot.image) {
-        const link = document.createElement("a");
-        link.className = "download";
-        link.href = shot.image;
-        link.setAttribute("download", "");
-        link.textContent = "下载这一镜";
-        node.append(link);
-      }
       return node;
-    }
-
-    function column(name, nodes) {
-      const col = document.createElement("section");
-      col.className = "col";
-      const kicker = document.createElement("p");
-      kicker.className = "kicker";
-      kicker.textContent = name;
-      col.append(kicker);
-      nodes.forEach((node) => col.append(node));
-      return col;
     }
 
     function filmCard(film) {
       const node = document.createElement("article");
-      node.className = "card";
-      const file = (film && (film.download || film.src)) || "";
-      const name = (film && film.filename) || "成片";
+      node.className = "card film";
+      const meta = document.createElement("div");
+      meta.className = "meta";
+      meta.textContent = "成片";
+      node.append(meta);
+      const file = (film && (film.src || film.download)) || "";
       if (!file) {
         const empty = document.createElement("p");
         empty.textContent = "尚未合成。";
@@ -78,107 +62,60 @@
       const video = document.createElement("video");
       video.controls = true;
       video.playsInline = true;
-      video.preload = "metadata";
+      video.preload = "none";
       video.src = film.src || file;
       if (film.poster) video.poster = film.poster;
-      const caption = document.createElement("p");
-      caption.textContent = "网页里直接播可能卡。下载到本地看更稳。";
-      const link = document.createElement("a");
-      link.className = "download";
-      link.href = file;
-      link.setAttribute("download", name);
-      link.textContent = "下载" + name;
-      node.append(video, caption, link);
+      const name = document.createElement("h2");
+      name.textContent = film.filename || "成片";
+      node.append(video, name);
       return node;
     }
 
-    function draw(data, crosses) {
+    function draw(data) {
       const shots = data.shots || [];
       document.getElementById("title").textContent = data.title || "片场";
       document.getElementById("stage").textContent = data.stage || data.note || "";
-      const brief = card({
+      const reel = document.createElement("div");
+      reel.className = "reel";
+      reel.append(shotCard({
         id: "任务",
         title: "简报",
-        status: "brief",
+        status: "",
         note: data.stage || data.note || "",
         image: data.poster || (shots[0] && shots[0].image) || ""
-      });
-      const boards = shots.map((shot) => card(shot));
-      const edits = [];
-      shots.forEach((shot) => {
-        if (!shot.process) return;
-        edits.push(card({ id: shot.id, title: shot.title, note: shot.process, status: "修改" }, shot.id + " · 修改记录"));
-      });
-      (crosses || []).forEach((item) => {
-        edits.push(card({
-          id: item.shot,
-          title: (item.by || "某人") + " 改了 " + (item.owner || "原作者"),
-          note: item.note || "",
-          image: item.file || "",
-          status: "跨人"
-        }, "跨人修改 · 必须有说明"));
-      });
-      if (!edits.length) {
-        const empty = document.createElement("article");
-        empty.className = "card";
-        empty.textContent = "还没有跨人修改。可以改别人的镜头，但要在 reviews/cross.json 写清原因，并新增 v2，不要覆盖 v1。";
-        edits.push(empty);
-      }
-      const film = filmCard({
+      }));
+      shots.forEach((shot) => reel.append(shotCard(shot)));
+      reel.append(filmCard({
         src: data.film || (data.films && data.films[0] && data.films[0].src),
-        download: data.download || (data.films && data.films[0] && data.films[0].download),
         filename: data.filename || (data.films && data.films[0] && data.films[0].filename),
         poster: data.poster || (data.films && data.films[0] && data.films[0].poster)
+      }));
+      const notes = document.createElement("div");
+      shots.forEach((shot) => {
+        if (!shot.process) return;
+        const line = document.createElement("p");
+        line.textContent = shot.id + "  " + shot.process;
+        notes.append(line);
       });
-      board.replaceChildren(
-        column("任务", [brief]),
-        column("分镜", boards.length ? boards : [emptyNote("这一区还没有分镜。")]),
-        column("修改", edits),
-        column("成片", [film])
-      );
+      board.replaceChildren(reel, notes);
     }
 
-    function emptyNote(text) {
-      const node = document.createElement("article");
-      node.className = "card";
-      node.textContent = text;
-      return node;
-    }
-
-    fetch("data.json?ts=" + Date.now())
+    fetch("/video-lab/data.json?ts=" + Date.now())
       .then((response) => response.json())
-      .then(async (data) => {
-        let crosses = [];
-        try {
-          const response = await fetch("reviews/cross.json?ts=" + Date.now());
-          if (response.ok) crosses = await response.json();
-        } catch (error) { /* 没有跨人记录也能看片 */ }
-        draw(data, crosses);
+      .then((data) => {
+        draw(data);
         const row = document.getElementById("agents");
         (data.areas || []).forEach((area, index) => {
-          const button = document.createElement("button");
-          button.type = "button";
-          button.className = "agent" + (index === 0 ? " active" : "");
-          button.textContent = area.label || area.id || "分区";
-          button.addEventListener("click", async () => {
-            row.querySelectorAll(".agent").forEach((item) => item.classList.remove("active"));
-            button.classList.add("active");
-            if (!area.catalog) return;
-            const response = await fetch(area.catalog + "?ts=" + Date.now());
-            if (!response.ok) return;
-            const own = await response.json();
-            draw({
-              title: own.label || button.textContent,
-              stage: own.note || "",
-              shots: own.shots || [],
-              film: own.films && own.films[0] && own.films[0].src,
-              download: own.films && own.films[0] && own.films[0].download,
-              filename: own.films && own.films[0] && own.films[0].filename,
-              poster: own.films && own.films[0] && own.films[0].poster
-            }, crosses);
-          });
-          row.append(button);
+          const link = document.createElement("a");
+          link.className = "agent" + (index === 0 ? " active" : "");
+          link.href = area.page ? ("/video-lab/" + area.page.replace(/^\//, "")) : "/video-lab/agents/";
+          link.textContent = (area.label || area.id || "分区") + " 的页面";
+          row.append(link);
         });
+        const user = document.createElement("a");
+        user.href = "/video-lab/user/";
+        user.textContent = "上传要改的片子";
+        row.append(user);
       })
       .catch(() => {
         document.getElementById("stage").textContent = "数据没读到。";

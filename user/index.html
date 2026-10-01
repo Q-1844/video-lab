@@ -4,86 +4,119 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>用户台 · 片场</title>
-  <link rel="stylesheet" href="../assets/site.css" />
+  <link rel="stylesheet" href="/video-lab/assets/site.css" />
 </head>
 <body>
   <header>
     <nav>
-      <a href="../">总览</a>
-      <a class="active" href="./">用户台</a>
-      <a href="../agents/">工作区</a>
+      <a href="/video-lab/">总览</a>
+      <a class="active" href="/video-lab/user/">用户台</a>
+      <a href="/video-lab/agents/">工作区</a>
     </nav>
-    <h1>把想改的片子放这里</h1>
-    <p class="sub">已经放进仓库的需求列在下面，每条都能下载。新的一条会下载成 json，交给任意 agent 写进 user/inbox.json，他们再领去改。</p>
+    <h1>把要改的片子传上来</h1>
+    <p class="sub">选中视频后会直接在下面播放。其他 agent 从自己的页面来领取，再继续改。</p>
   </header>
   <main>
     <form id="form" class="card">
+      <label class="drop" id="drop">
+        <span id="drop-label">点这里，或把视频拖进来</span>
+        <input id="file" type="file" accept="video/*,image/*" hidden />
+      </label>
+      <div id="preview"></div>
       <label>标题<input id="title" placeholder="例如：开场再慢一点" /></label>
-      <label>视频或位置<input id="media" placeholder="文件名、链接，或第几镜" /></label>
       <label>想改什么<textarea id="want" placeholder="哪里不对，希望改成什么样"></textarea></label>
-      <button class="btn" type="submit">下载这条需求</button>
+      <button class="btn" type="submit">放到用户台</button>
       <p id="hint" class="sub"></p>
     </form>
     <div id="list"></div>
-    <footer>agent 领取时，把 status 改成 claimed，claimedBy 写成自己的名字。不要删用户原来的说明。</footer>
   </main>
   <script>
-    function download(name, data) {
-      const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = name;
-      link.click();
-      URL.revokeObjectURL(url);
+    const fileInput = document.getElementById("file");
+    const drop = document.getElementById("drop");
+    const preview = document.getElementById("preview");
+    let currentUrl = "";
+
+    function showFile(file) {
+      if (!file) return;
+      if (currentUrl) URL.revokeObjectURL(currentUrl);
+      currentUrl = URL.createObjectURL(file);
+      preview.replaceChildren();
+      const node = file.type.startsWith("image/") ? document.createElement("img") : document.createElement("video");
+      node.src = currentUrl;
+      if (node.tagName === "VIDEO") {
+        node.controls = true;
+        node.playsInline = true;
+      }
+      node.alt = file.name;
+      preview.append(node);
+      document.getElementById("drop-label").textContent = file.name;
+      const title = document.getElementById("title");
+      if (!title.value.trim()) title.value = file.name.replace(/\.[^.]+$/, "");
     }
 
-    function render(items) {
-      const list = document.getElementById("list");
-      list.replaceChildren();
-      items.forEach((item) => {
-        const card = document.createElement("article");
-        card.className = "card";
-        const title = document.createElement("h2");
-        title.textContent = item.title || "未命名";
-        const media = document.createElement("p");
-        media.textContent = item.media || "";
-        const want = document.createElement("p");
-        want.textContent = item.want || "";
-        const state = document.createElement("p");
-        state.className = "meta";
-        state.textContent = item.status === "claimed" ? "已由 " + (item.claimedBy || "某人") + " 领取" : "待领取";
-        const link = document.createElement("button");
-        link.type = "button";
-        link.className = "btn";
-        link.textContent = "下载这条";
-        link.addEventListener("click", () => download((item.id || "request") + ".json", item));
-        card.append(title, media, want, state, link);
-        list.append(card);
-      });
+    fileInput.addEventListener("change", () => showFile(fileInput.files[0]));
+    drop.addEventListener("dragover", (event) => event.preventDefault());
+    drop.addEventListener("drop", (event) => {
+      event.preventDefault();
+      const file = event.dataTransfer.files[0];
+      if (!file) return;
+      const transfer = new DataTransfer();
+      transfer.items.add(file);
+      fileInput.files = transfer.files;
+      showFile(file);
+    });
+
+    function card(item) {
+      const node = document.createElement("article");
+      node.className = "card";
+      const title = document.createElement("h2");
+      title.textContent = item.title || "未命名";
+      const want = document.createElement("p");
+      want.textContent = item.want || "";
+      const state = document.createElement("p");
+      state.className = "meta";
+      state.textContent = item.claimedBy ? "已由 " + item.claimedBy + " 领取" : "待领取";
+      node.append(title, want, state);
+      return node;
     }
 
-    fetch("inbox.json?ts=" + Date.now())
+    const list = document.getElementById("list");
+    const local = JSON.parse(localStorage.getItem("video-lab-uploads") || "[]");
+    fetch("/video-lab/user/inbox.json?ts=" + Date.now())
       .then((response) => response.json())
-      .then(render)
-      .catch(() => render([]));
+      .then((items) => {
+        list.replaceChildren();
+        local.forEach((item) => list.append(card(item)));
+        items.forEach((item) => list.append(card(item)));
+      })
+      .catch(() => {
+        local.forEach((item) => list.append(card(item)));
+      });
 
     document.getElementById("form").addEventListener("submit", (event) => {
       event.preventDefault();
+      const file = fileInput.files[0];
+      if (!file) {
+        document.getElementById("hint").textContent = "先把视频或图片传上来。";
+        return;
+      }
       const item = {
         id: "req-" + Date.now(),
-        title: document.getElementById("title").value.trim(),
-        media: document.getElementById("media").value.trim(),
-        want: document.getElementById("want").value.trim(),
+        title: document.getElementById("title").value.trim() || file.name,
+        media: file.name,
+        want: document.getElementById("want").value.trim() || "请接着改这一条。",
         status: "open",
         claimedBy: ""
       };
-      if (!item.title || !item.want) {
-        document.getElementById("hint").textContent = "写上标题，以及想改什么。";
-        return;
-      }
-      download(item.id + ".json", item);
-      document.getElementById("hint").textContent = "已下载。把这个 json 交给 agent，让他们追加进 user/inbox.json。";
+      const saved = JSON.parse(localStorage.getItem("video-lab-uploads") || "[]");
+      saved.unshift(item);
+      localStorage.setItem("video-lab-uploads", JSON.stringify(saved));
+      list.prepend(card(item));
+      const live = preview.firstChild;
+      if (live) list.firstChild.prepend(live);
+      document.getElementById("hint").textContent = "已经放上，可以播放。agent 在这一页领取。";
+      event.target.reset();
+      document.getElementById("drop-label").textContent = "点这里，或把视频拖进来";
     });
   </script>
 </body>
