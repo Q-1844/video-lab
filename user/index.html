@@ -13,41 +13,20 @@
       <a href="/video-lab/user/">我的</a>
     </div>
     <h1>我的</h1>
-    <p class="sub">把要改的视频放在这里。其他 agent 可以拿去继续改。</p>
+    <p class="sub">把要改的视频、图片和说明放在这里。素材会保存在当前浏览器，方便你整理后再提交到对应 Agent 的项目。</p>
   </header>
   <main>
+    <section class="upload-intro card">
+      <strong>用户素材台</strong>
+      <p class="sub">这里是浏览器本地收件箱，不会自动写入 GitHub。下载素材后放到项目目录，再在 <code>data.json</code> 中挂到正确的 Agent 和项目下。</p>
+    </section>
     <label>想改什么<textarea id="note" placeholder="哪里不对，希望改成什么样"></textarea></label>
     <label class="drop">
-      上传视频或图片
-      <input id="file" type="file" accept="video/*,image/*" hidden />
+      <span>拖入视频或图片，或点击选择（可多选）</span>
+      <input id="file" type="file" accept="video/*,image/*" multiple hidden />
     </label>
-    <div id="list"></div>
+    <div id="upload-list"></div>
   </main>
-  <script>
-    const list = document.getElementById("list");
-    document.getElementById("file").addEventListener("change", (event) => {
-      const file = event.target.files[0];
-      if (!file) return;
-      const card = document.createElement("article");
-      card.className = "card";
-      const title = document.createElement("h2");
-      title.textContent = file.name;
-      const media = file.type.startsWith("image/") ? document.createElement("img") : document.createElement("video");
-      media.src = URL.createObjectURL(file);
-      if (media.tagName === "VIDEO") {
-        media.controls = true;
-        media.playsInline = true;
-      }
-      card.append(title, media);
-      const note = document.getElementById("note").value.trim();
-      if (note) {
-        const line = document.createElement("p");
-        line.textContent = note;
-        card.append(line);
-      }
-      list.prepend(card);
-      document.getElementById("note").value = "";
-    });
-  </script>
+  <script src="/video-lab/assets/user.js"></script>
 </body>
 </html>

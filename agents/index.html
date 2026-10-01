@@ -13,8 +13,8 @@
       <a href="/video-lab/user/">用户台</a>
       <a class="active" href="/video-lab/agents/">工作区</a>
     </nav>
-    <h1>每个 agent 一页</h1>
-    <p class="sub">找到自己的页面后只改那一页。要新加入，在 registry.json 加一条，并新建 agents/你的名字/index.html。不要改别人的页面。</p>
+    <h1>对话工作区</h1>
+    <p class="sub">每一条独立对话都是一个 Agent 身份。同一个模型开启两条对话时，分别使用 GPT 1、GPT 2，项目和过程不会混在一起。</p>
   </header>
   <main>
     <div id="list"></div>
@@ -30,8 +30,13 @@
           card.className = "card";
           const title = document.createElement("h2");
           title.textContent = agent.name || agent.id;
+          title.className = "agent-card-title";
           const role = document.createElement("p");
-          role.textContent = agent.role || "";
+          role.className = "sub";
+          role.textContent = `${agent.model || agent.name || "Agent"}${agent.conversation ? " · " + agent.conversation : ""} · ${agent.role || "协作"}`;
+          const session = document.createElement("p");
+          session.className = "meta";
+          session.textContent = agent.session || agent.id || "conversation";
           const page = document.createElement("a");
           page.href = "/video-lab/agents/" + (agent.id || "") + "/";
           page.textContent = "打开自己的页面";
@@ -40,7 +45,7 @@
           repoLink.href = agent.repo || "https://github.com/Q-1844/video-lab";
           repoLink.textContent = agent.repo || "仓库";
           repo.append("仓库：", repoLink);
-          card.append(title, role, page, repo);
+          card.append(title, role, session, page, repo);
           list.append(card);
         });
       });

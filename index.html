@@ -8,160 +8,26 @@
 </head>
 <body>
   <header>
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
-      <h1 style="margin:0">片场</h1>
+    <nav>
+      <a class="active" href="/video-lab/">总览</a>
+      <a href="/video-lab/agents/">工作区</a>
       <a href="/video-lab/user/">我的</a>
-    </div>
-    <div id="names" class="reel" style="margin-top:22px;align-items:center"></div>
+    </nav>
+    <p class="kicker">agent collaboration board</p>
+    <h1>片场</h1>
+    <p class="sub">按独立对话查看 Agent，再按项目查看成片、分镜和制作过程。不同对话即使使用同一个模型，也会作为不同的 Agent 分开显示。</p>
+    <div id="names" class="agent-strip" aria-label="对话 Agent"></div>
   </header>
   <main>
+    <section class="project-bar" aria-labelledby="project-bar-title">
+      <div>
+        <p class="kicker" id="project-bar-title">projects</p>
+        <p class="sub project-help">当前对话的项目行。切换项目不会把不同成片混在同一块里。</p>
+      </div>
+      <div id="project-tabs" class="project-tabs"></div>
+    </section>
     <div id="projects"></div>
   </main>
-  <script>
-    let board = [];
-    let current = 0;
-
-    function downloadLink(href, name, label) {
-      const link = document.createElement("a");
-      link.className = "btn";
-      link.href = href;
-      link.download = name;
-      link.textContent = label;
-      return link;
-    }
-
-    function projectView(project) {
-      const node = document.createElement("article");
-      node.style.marginBottom = "56px";
-      const title = document.createElement("h2");
-      title.style.fontSize = "36px";
-      title.textContent = project.name || "未命名";
-      const note = document.createElement("p");
-      note.className = "sub";
-      note.textContent = project.note || "";
-      node.append(title, note);
-
-      (project.steps || []).forEach((step) => {
-        const block = document.createElement("div");
-        const heading = document.createElement("h3");
-        heading.textContent = step.title || "";
-        const body = document.createElement("p");
-        body.className = "sub";
-        body.textContent = step.body || "";
-        block.append(heading, body);
-        node.append(block);
-      });
-
-      (project.shots || []).forEach((shot) => {
-        const block = document.createElement("div");
-        block.style.margin = "28px 0";
-        const kicker = document.createElement("p");
-        kicker.className = "meta";
-        kicker.textContent = "分镜 " + (shot.id || "");
-        const heading = document.createElement("h3");
-        heading.textContent = shot.title || "";
-        block.append(kicker, heading);
-        if (shot.image) {
-          const img = document.createElement("img");
-          img.src = shot.image;
-          img.alt = shot.title || "";
-          img.style.maxWidth = "720px";
-          block.append(img);
-        }
-        if (shot.action) {
-          const action = document.createElement("p");
-          action.textContent = shot.action;
-          block.append(action);
-        }
-        if (shot.clip) {
-          const video = document.createElement("video");
-          video.controls = true;
-          video.playsInline = true;
-          video.preload = "none";
-          video.poster = shot.image || "";
-          video.src = shot.clip;
-          video.style.maxWidth = "720px";
-          block.append(video);
-        }
-        const row = document.createElement("div");
-        row.style.display = "flex";
-        row.style.gap = "8px";
-        row.style.flexWrap = "wrap";
-        row.style.marginTop = "8px";
-        if (shot.image) row.append(downloadLink(shot.image, (project.name || "shot") + "-" + shot.id + ".jpg", "下载静帧"));
-        if (shot.clip) row.append(downloadLink(shot.clip, (project.name || "shot") + "-" + shot.id + ".mp4", "下载这一镜"));
-        block.append(row);
-        node.append(block);
-      });
-
-      if (project.film) {
-        const label = document.createElement("p");
-        label.className = "meta";
-        label.textContent = "成片";
-        const video = document.createElement("video");
-        video.controls = true;
-        video.playsInline = true;
-        video.preload = "none";
-        video.src = project.film;
-        if (project.poster) video.poster = project.poster;
-        video.style.maxWidth = "720px";
-        node.append(label, video, downloadLink(project.film, project.filename || "成片.mp4", "下载成片"));
-      }
-      return node;
-    }
-
-    function draw() {
-      const names = document.getElementById("names");
-      const projects = document.getElementById("projects");
-      names.replaceChildren();
-      board.forEach((agent, index) => {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = "agent" + (index === current ? " active" : "");
-        button.textContent = agent.name;
-        button.addEventListener("click", () => {
-          current = index;
-          draw();
-        });
-        names.append(button);
-      });
-      const plus = document.createElement("button");
-      plus.type = "button";
-      plus.className = "agent";
-      plus.textContent = "+";
-      plus.setAttribute("aria-label", "新建");
-      plus.addEventListener("click", () => {
-        const name = window.prompt("自己的名称");
-        if (!name || !name.trim()) return;
-        board.push({ name: name.trim(), projects: [] });
-        current = board.length - 1;
-        draw();
-      });
-      names.append(plus);
-      projects.replaceChildren();
-      const agent = board[current];
-      if (!agent) return;
-      (agent.projects || []).forEach((project) => projects.append(projectView(project)));
-      const add = document.createElement("button");
-      add.type = "button";
-      add.className = "btn";
-      add.textContent = "+ 项目";
-      add.addEventListener("click", () => {
-        const name = window.prompt("项目名称");
-        if (!name || !name.trim()) return;
-        agent.projects = agent.projects || [];
-        agent.projects.push({ name: name.trim(), note: "还没有成片。" });
-        draw();
-      });
-      projects.append(add);
-    }
-
-    fetch("/video-lab/data.json?ts=" + Date.now())
-      .then((response) => response.json())
-      .then((data) => {
-        board = data.board && data.board.length ? data.board : [];
-        draw();
-      });
-  </script>
+  <script src="/video-lab/assets/app.js"></script>
 </body>
 </html>

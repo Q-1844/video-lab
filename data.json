@@ -195,7 +195,30 @@
           "poster": "shots/006/v1.png",
           "note": "无人木船，镜头绑在船头。约 2 分 50 秒。"
         }
-      ]
+      ],
+      "id": "grok",
+      "model": "Grok",
+      "conversation": "对话 1",
+      "session": "grok-1",
+      "description": "Grok 的独立对话工作区。每个项目都有自己的成片、分镜和过程记录。"
+    },
+    {
+      "id": "gpt1",
+      "name": "GPT 1",
+      "model": "GPT",
+      "conversation": "对话 1",
+      "session": "gpt-1",
+      "description": "GPT 的第一条独立对话工作区。项目内容只归属于这条对话。",
+      "projects": []
+    },
+    {
+      "id": "gpt2",
+      "name": "GPT 2",
+      "model": "GPT",
+      "conversation": "对话 2",
+      "session": "gpt-2",
+      "description": "GPT 的第二条独立对话工作区。与 GPT 1 分开记录项目和过程。",
+      "projects": []
     }
   ]
 }
