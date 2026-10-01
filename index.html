@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>video-lab 审片站</title>
+  <style>
+    :root {
+      --bg: #12140f;
+      --panel: #1c1f17;
+      --line: #34382c;
+      --text: #f3f1e6;
+      --muted: #b7b39f;
+      --accent: #d6ff4a;
+      --warn: #ffb020;
+      --bad: #ff6b4a;
+      --ok: #7dffa1;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Iowan Old Style", Palatino, "Songti SC", serif;
+      background: radial-gradient(1200px 500px at 10% -10%, #2a311c, var(--bg));
+      color: var(--text);
+    }
+    header, main { width: min(1100px, calc(100% - 32px)); margin: 0 auto; }
+    header { padding: 36px 0 12px; }
+    .kicker { letter-spacing: .18em; text-transform: uppercase; color: var(--accent); font-size: 12px; font-family: ui-sans-serif, sans-serif; }
+    h1 { font-size: 42px; margin: 8px 0; font-weight: 560; }
+    .sub { color: var(--muted); max-width: 680px; line-height: 1.6; }
+    .row { display: flex; gap: 10px; flex-wrap: wrap; margin: 18px 0 8px; }
+    .pill { border: 1px solid var(--line); background: #10130d; padding: 8px 12px; border-radius: 999px; font-family: ui-sans-serif, sans-serif; font-size: 13px; }
+    section { margin: 22px 0 34px; }
+    h2 { font-size: 22px; margin-bottom: 12px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+    .card, .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 16px; }
+    .shot { min-height: 180px; }
+    .id { font-family: ui-sans-serif, sans-serif; color: var(--accent); font-size: 13px; }
+    img.frame { width: 100%; height: 140px; object-fit: cover; border-radius: 10px; background: #0d0f0b; margin: 8px 0; }
+    .empty { color: var(--muted); border: 1px dashed var(--line); border-radius: 16px; padding: 28px; }
+    video { width: 100%; border-radius: 12px; background: #000; }
+    a { color: var(--accent); }
+    footer { color: var(--muted); font-size: 13px; padding-bottom: 40px; font-family: ui-sans-serif, sans-serif; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="kicker">Q-1844 / video-lab</div>
+    <h1 id="title">审片站</h1>
+    <p class="sub" id="stage">正在读取数据。</p>
+    <div class="row">
+      <span class="pill" id="updated">更新时间</span>
+      <span class="pill">公开测试 · 无机密</span>
+      <span class="pill">分镜只增不改</span>
+    </div>
+  </header>
+  <main>
+    <section>
+      <h2>分镜墙</h2>
+      <div id="wall" class="grid"></div>
+    </section>
+    <section>
+      <h2>修改流程</h2>
+      <div id="flow" class="panel">等待第一镜。</div>
+    </section>
+    <section>
+      <h2>最终成片</h2>
+      <div id="film" class="panel">尚未合成。</div>
+    </section>
+    <footer>数据来自仓库根目录 data.json。GPT 与其他 agent 的建议放在 reviews/ 下，不覆盖镜头文件。</footer>
+  </main>
+  <script>
+    const statusColor = { draft: "#d6ff4a", review: "#ffb020", rejected: "#ff6b4a", approved: "#7dffa1" };
+    fetch("data.json?ts=" + Date.now())
+      .then(r => r.json())
+      .then(data => {
+        document.getElementById("title").textContent = data.title || "审片站";
+        document.getElementById("stage").textContent = data.stage || "";
+        document.getElementById("updated").textContent = "更新 " + (data.updated || "未知");
+        const wall = document.getElementById("wall");
+        if (!data.shots || !data.shots.length) {
+          wall.innerHTML = '<div class="empty">还没有分镜。任务书写进 brief.md 后，按每次 3 到 6 镜往这里加。</div>';
+        } else {
+          wall.innerHTML = data.shots.map(s => `
+            <article class="card shot">
+              <div class="id">${s.id} · ${s.status}</div>
+              <strong>${s.title || "未命名"}</strong>
+              ${s.image ? `<img class="frame" src="${s.image}" alt="${s.title || s.id}" />` : `<div class="frame"></div>`}
+              <div>${s.note || ""}</div>
+            </article>`).join("");
+        }
+        const flow = document.getElementById("flow");
+        const notes = (data.shots || []).filter(s => s.process);
+        flow.innerHTML = notes.length ? notes.map(s => `<p><b>${s.id}</b> ${s.process}</p>`).join("") : "还没有修改记录。每一镜会留下原文、问题、改动。";
+        const film = document.getElementById("film");
+        film.innerHTML = data.film ? `<video controls src="${data.film}"></video>` : "全部镜头 approved 之后，预览片会挂到这里。";
+      })
+      .catch(() => {
+        document.getElementById("stage").textContent = "data.json 读取失败。";
+      });
+  </script>
+</body>
+</html>
