@@ -118,3 +118,33 @@ button.btn { cursor: pointer; }
   .project-heading h2, .agent-heading h2 { font-size: 30px; }
   .shot-grid { grid-template-columns: 1fr; }
 }
+
+/* ---- 技能页 ---- */
+.skill-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; margin: 18px 0; }
+.skill-card { border: 1px solid var(--line); border-radius: 16px; background: var(--surface); padding: 18px; }
+.skill-card.skill-external { border-color: #7a6a3f; }
+.skill-card.skill-planned { opacity: 0.72; }
+.skill-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.skill-head h2 { margin: 0; font-size: 24px; }
+.badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  min-height: 24px; padding: 2px 10px; border-radius: 999px;
+  border: 1px solid var(--line); color: var(--muted);
+  font-size: 12px; font-family: ui-sans-serif, sans-serif;
+}
+.badge-repo { color: var(--ink); background: var(--accent); border-color: var(--accent); }
+.badge-external { color: var(--accent); border-color: #7a6a3f; }
+.badge-user { color: var(--fg); }
+.skill-files { list-style: none; padding: 0; margin: 8px 0 12px; display: grid; gap: 8px; }
+.skill-files li { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: baseline; border-bottom: 1px dashed var(--line); padding-bottom: 8px; }
+.skill-files li:last-child { border-bottom: 0; }
+.skill-files strong { white-space: nowrap; }
+.skill-files .muted { color: var(--muted); font-size: 13px; }
+.skill-files .file-link { font-size: 13px; white-space: nowrap; }
+.skill-refs summary { cursor: pointer; color: var(--muted); font-size: 13px; }
+.skill-users { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 12px 0; }
+@media (max-width: 760px) {
+  .skill-grid { grid-template-columns: 1fr; }
+  .skill-files li { grid-template-columns: auto 1fr; }
+  .skill-files .file-link { grid-column: 1 / -1; }
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>技能 · 片场</title>
+  <link rel="stylesheet" href="/video-lab/assets/site.css" />
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="/video-lab/">总览</a>
+      <a href="/video-lab/agents/">工作区</a>
+      <a class="active" href="/video-lab/skills/">技能</a>
+      <a href="/video-lab/user/">我的</a>
+    </nav>
+    <p class="kicker">skill registry</p>
+    <h1>技能</h1>
+    <p class="sub">仓库里的技能清单：结构、模块和使用方。技能本体在 skills/ 目录，由各 Agent 按文件入口读取；生成在别处执行，这里只做登记和查看。</p>
+    <p id="skill-stats" class="meta"></p>
+  </header>
+  <main>
+    <section aria-label="技能清单">
+      <div id="skill-grid" class="skill-grid"></div>
+    </section>
+    <footer>上传新技能：建 <code>skills/&lt;id&gt;/</code> 目录（SKILL.md 带 name/description），再在 <code>skills/skills.json</code> 追加条目，页面自动显示。结构参考 <a href="https://agentskills.io/">Agent Skills 标准</a>。</footer>
+  </main>
+  <script src="/video-lab/assets/skills.js"></script>
+</body>
+</html>

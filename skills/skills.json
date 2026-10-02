@@ -1,0 +1,90 @@
+{
+  "updated": "2026-10-03",
+  "note": "技能注册表，是展示页 /video-lab/skills/ 的唯一数据源。新增技能的流程：建 skills/<id>/ 目录（SKILL.md 必须带 name/description frontmatter）→ 在本文件追加条目 → 在 skills/00-index.md 的表格加一行。",
+  "types": {
+    "repo": "仓库内完整技能",
+    "external": "外部来源标记（技能本体不在本仓库）",
+    "planned": "计划中的技能占位"
+  },
+  "skills": [
+    {
+      "id": "grok-long-video",
+      "name": "Grok 长视频",
+      "version": "v0.1",
+      "status": "实验版",
+      "type": "repo",
+      "summary": "仓库级共享技能：Grok 长视频的规划、生成、修复、编排与测试。所有 Agent 共用同一 GLV/1.0 协议、版本和证据分级。",
+      "entry": "skills/grok-long-video/SKILL.md",
+      "guide": "skills/grok-long-video/GUIDE.md",
+      "dir": "skills/grok-long-video/",
+      "modules": [
+        {
+          "id": "create",
+          "label": "首次生成",
+          "desc": "全片规划、锚点、分镜、生成候选、根帧重建。",
+          "path": "skills/grok-long-video/create/SKILL.md"
+        },
+        {
+          "id": "repair",
+          "label": "诊断修复",
+          "desc": "找最早偏离；小偏离保片修补，大偏离重建必要范围并回归下游。",
+          "path": "skills/grok-long-video/repair/SKILL.md"
+        },
+        {
+          "id": "orchestrate",
+          "label": "闭环编排",
+          "desc": "把规划、生成、审片、修复、正式选片、声音和成片接成闭环。",
+          "path": "skills/grok-long-video/orchestrate/SKILL.md"
+        }
+      ],
+      "references": [
+        { "label": "共享协议", "path": "skills/grok-long-video/references/shared-protocol.md" },
+        { "label": "能力档", "path": "skills/grok-long-video/references/grok-capabilities.md" },
+        { "label": "生成配方", "path": "skills/grok-long-video/references/generation-recipes.md" },
+        { "label": "修复手册", "path": "skills/grok-long-video/references/repair-playbook.md" },
+        { "label": "评测方法", "path": "skills/grok-long-video/references/evaluation.md" },
+        { "label": "完整归档", "path": "skills/grok-long-video/complete/" }
+      ]
+    },
+    {
+      "id": "seedance-2.5",
+      "name": "Seedance 2.5",
+      "version": "外部",
+      "status": "来源标记",
+      "type": "external",
+      "summary": "《回响》的分镜与台词规划来源。技能本体不在本仓库；Grok 的图生视频按它的生产规划执行，产出归档在 projects/echo/。"
+    },
+    {
+      "id": "brief",
+      "name": "任务书拆解",
+      "version": "未开始",
+      "status": "计划中",
+      "type": "planned",
+      "summary": "读任务书，拆成分镜表。"
+    },
+    {
+      "id": "shot",
+      "name": "逐镜出图",
+      "version": "未开始",
+      "status": "计划中",
+      "type": "planned",
+      "summary": "逐镜出图，保留版本。"
+    },
+    {
+      "id": "review",
+      "name": "审片记录",
+      "version": "未开始",
+      "status": "计划中",
+      "type": "planned",
+      "summary": "把修改过程写进 notes。"
+    },
+    {
+      "id": "export",
+      "name": "成片导出",
+      "version": "未开始",
+      "status": "计划中",
+      "type": "planned",
+      "summary": "全部通过后合成预览片。"
+    }
+  ]
+}

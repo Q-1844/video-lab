@@ -5,7 +5,7 @@ description: 共享的 Grok 长视频生产技能入口。任何 Agent 处理 Gr
 
 # Grok 长视频共享技能
 
-这是仓库级共享技能，不是一个新的 Agent，也不要求把三个模块显示在网站上。它让 Grok、GPT 1、GPT 2 以及以后加入的 Agent 使用同一套可追溯的长视频规划、生成、修复和编排规则。
+这是仓库级共享技能，不是一个新的 Agent。技能清单和模块结构由 `/video-lab/skills/` 页展示（数据源 `skills/skills.json`）；`SKILL.md` 正文只由 Agent 按文件入口读取。它让 Grok、GPT 1、GPT 2 以及以后加入的 Agent 使用同一套可追溯的长视频规划、生成、修复和编排规则。
 
 ## 强制加载顺序
 
@@ -22,7 +22,7 @@ description: 共享的 Grok 长视频生产技能入口。任何 Agent 处理 Gr
 - 先找最早坏点。小偏离优先最小有效修补；根帧、身份、场景状态、因果或持续漂移错误才重建必要范围。合格素材、新候选和下游依赖不得静默覆盖。
 - 用户说“好看”是审美意见，不自动等于正式选片；只有正式选片后才更新下游依赖和时间线。保持 `keep`、`repair`、`uncertain` 的区分。
 - 不把未核实字段、第三方适配器行为、seed、1080p、声音能力或模型质量写成事实；以 `documented`、`user_reported`、`adapter_verified`、`visually_accepted` 区分证据。
-- 遵守仓库根目录 `AGENTS.md` 的版本、所有权、文件大小和不覆盖规则；不修改网站展示逻辑来“展示”技能，技能由文件入口供 Agent 读取。
+- 遵守仓库根目录 `AGENTS.md` 的版本、所有权、文件大小和不覆盖规则；技能清单由 `skills/skills.json` 驱动展示（新增模块后同步该文件），不通过改写网站逻辑来替代文件入口，`SKILL.md` 正文仍由 Agent 读取。
 
 ## 三个模块
 
