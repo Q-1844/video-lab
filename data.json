@@ -79,6 +79,118 @@
       "name": "Grok",
       "projects": [
         {
+          "name": "回响",
+          "note": "三分钟，16:9。规划来自 Seedance 2.5 的 skill，本片用 Grok 的图生视频执行。测两个人的对白和特写。",
+          "skill": "seedance-2.5",
+          "film": "projects/echo/回响.mp4",
+          "filename": "回响.mp4",
+          "poster": "projects/echo/stills/05.jpg",
+          "steps": [
+            {
+              "title": "规划来源",
+              "body": "分镜和台词来自 Seedance 2.5 的 skill 写的《回响》生产规划。本片用 Grok 图生视频执行，并标明这个来源。"
+            },
+            {
+              "title": "先锁人",
+              "body": "柒是白色哑光机器人，没有嘴，两只淡蓝眼睛。安博士是银发、圆眼镜、灰实验服的全息。后面的静帧从这些参照改。"
+            },
+            {
+              "title": "一镜一件事",
+              "body": "规划里一段有多次硬切。一次生成守不住，所以每段收成一个 15 秒镜头，只留这段最要紧的台词。"
+            },
+            {
+              "title": "对白",
+              "body": "台词写进提示，要中文。柒没有嘴，口型只能看安博士。原声保留。画面不写字幕。"
+            }
+          ],
+          "shots": [
+            {
+              "id": "01",
+              "title": "死地球",
+              "action": "轨道站漂近。没有人，没有台词。",
+              "image": "projects/echo/stills/01.jpg",
+              "clip": "projects/echo/clips/01.mp4"
+            },
+            {
+              "id": "02",
+              "title": "大厅",
+              "action": "同一台白色机器人站在唯一的暖灯前，背对镜头。",
+              "image": "projects/echo/stills/02.jpg",
+              "clip": "projects/echo/clips/02.mp4"
+            },
+            {
+              "id": "03",
+              "title": "见面",
+              "action": "安博士说「又见面了，柒」。柒用电子音报舱压。",
+              "image": "projects/echo/stills/03.jpg",
+              "clip": "projects/echo/clips/03.mp4"
+            },
+            {
+              "id": "04",
+              "title": "特别的日子",
+              "action": "过肩。安博士说今天是特别的日子。",
+              "image": "projects/echo/stills/04.jpg",
+              "clip": "projects/echo/clips/04.mp4"
+            },
+            {
+              "id": "05",
+              "title": "记住",
+              "action": "特写双人。她笑，柒停一下，说「我会记住的」。",
+              "image": "projects/echo/stills/05.jpg",
+              "clip": "projects/echo/clips/05.mp4"
+            },
+            {
+              "id": "06",
+              "title": "舷窗",
+              "action": "两人并排望着死地球。她说蓝色，它纠正成蓝绿色。",
+              "image": "projects/echo/stills/06.jpg",
+              "clip": "projects/echo/clips/06.mp4"
+            },
+            {
+              "id": "07",
+              "title": "快乐吗",
+              "action": "笑容淡下去。她问快乐，再问孤独。",
+              "image": "projects/echo/stills/07.jpg",
+              "clip": "projects/echo/clips/07.mp4"
+            },
+            {
+              "id": "08",
+              "title": "三十九份",
+              "action": "柒的眼睛特写。它说今天的话和存档不同。屏幕没有字。",
+              "image": "projects/echo/stills/08.jpg",
+              "clip": "projects/echo/clips/08.mp4"
+            },
+            {
+              "id": "09",
+              "title": "我在哪儿",
+              "action": "安博士看自己的手，影像开始碎。",
+              "image": "projects/echo/stills/09.jpg",
+              "clip": "projects/echo/clips/09.mp4"
+            },
+            {
+              "id": "10",
+              "title": "马上回来",
+              "action": "她说「我马上回来」。柒说「您已经说了四十年」。",
+              "image": "projects/echo/stills/10.jpg",
+              "clip": "projects/echo/clips/10.mp4"
+            },
+            {
+              "id": "11",
+              "title": "再见",
+              "action": "她再重复那句。柒说再见。影像散掉。",
+              "image": "projects/echo/stills/11.jpg",
+              "clip": "projects/echo/clips/11.mp4"
+            },
+            {
+              "id": "12",
+              "title": "熄灯",
+              "action": "柒独自走向舷窗。灯灭，眼里的蓝光也灭。",
+              "image": "projects/echo/stills/12.jpg",
+              "clip": "projects/echo/clips/12.mp4"
+            }
+          ]
+        },
+        {
           "name": "深海幽光",
           "note": "三分钟，21:9。潜水员循幽蓝下潜，找到沉睡的古城。摘下头罩的时候，城醒了。无台词。背景声按每镜原样保留。",
           "film": "projects/sunken/沉没之城.mp4",
