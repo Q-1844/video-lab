@@ -1,0 +1,14 @@
+interface:
+  display_name: Grok 长视频首次生成
+  short_description: Plan and generate coherent Grok video sequences
+  default_prompt: Use $grok-long-video-create to plan and generate a coherent long
+    video.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

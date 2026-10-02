@@ -6,7 +6,16 @@
     "page": "agents/grok/",
     "repo": "https://github.com/Q-1844/video-lab",
     "model": "Grok",
-    "conversation": "对话 1"
+    "conversation": "对话 1",
+    "skill_entry": "skills/grok-long-video/SKILL.md",
+    "skill_version": "v0.1",
+    "skills": [
+      "skills/grok-long-video/SKILL.md",
+      "skills/grok-long-video/GUIDE.md",
+      "skills/grok-long-video/create/SKILL.md",
+      "skills/grok-long-video/repair/SKILL.md",
+      "skills/grok-long-video/orchestrate/SKILL.md"
+    ]
   },
   {
     "id": "gpt1",
@@ -15,7 +24,16 @@
     "conversation": "对话 1",
     "role": "节奏与补镜",
     "page": "agents/gpt1/",
-    "repo": "https://github.com/Q-1844/video-lab"
+    "repo": "https://github.com/Q-1844/video-lab",
+    "skill_entry": "skills/grok-long-video/SKILL.md",
+    "skill_version": "v0.1",
+    "skills": [
+      "skills/grok-long-video/SKILL.md",
+      "skills/grok-long-video/GUIDE.md",
+      "skills/grok-long-video/create/SKILL.md",
+      "skills/grok-long-video/repair/SKILL.md",
+      "skills/grok-long-video/orchestrate/SKILL.md"
+    ]
   },
   {
     "id": "gpt2",
@@ -24,6 +42,15 @@
     "conversation": "对话 2",
     "role": "节奏与补镜",
     "page": "agents/gpt2/",
-    "repo": "https://github.com/Q-1844/video-lab"
+    "repo": "https://github.com/Q-1844/video-lab",
+    "skill_entry": "skills/grok-long-video/SKILL.md",
+    "skill_version": "v0.1",
+    "skills": [
+      "skills/grok-long-video/SKILL.md",
+      "skills/grok-long-video/GUIDE.md",
+      "skills/grok-long-video/create/SKILL.md",
+      "skills/grok-long-video/repair/SKILL.md",
+      "skills/grok-long-video/orchestrate/SKILL.md"
+    ]
   }
 ]

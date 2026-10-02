@@ -1,0 +1,14 @@
+interface:
+  display_name: Grok 视频诊断与修复
+  short_description: Diagnose video drift and repair the smallest valid scope
+  default_prompt: Use $grok-video-repair to diagnose drift and repair the affected
+    video segments.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

@@ -1,0 +1,14 @@
+interface:
+  display_name: Grok 长视频闭环编排
+  short_description: Coordinate creation, repair, reviews and assembly
+  default_prompt: Use $grok-video-orchestrate to coordinate a complete Grok long-video
+    project.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

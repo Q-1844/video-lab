@@ -1,0 +1,33 @@
+{
+  "id": "grok-long-video",
+  "version": "v0.1",
+  "entry": "skills/grok-long-video/SKILL.md",
+  "guide": "skills/grok-long-video/GUIDE.md",
+  "read_order": [
+    "skills/grok-long-video/SKILL.md",
+    "skills/grok-long-video/GUIDE.md",
+    "skills/grok-long-video/references/shared-protocol.md",
+    "skills/grok-long-video/references/grok-capabilities.md"
+  ],
+  "modules": {
+    "create": "skills/grok-long-video/create/SKILL.md",
+    "repair": "skills/grok-long-video/repair/SKILL.md",
+    "orchestrate": "skills/grok-long-video/orchestrate/SKILL.md"
+  },
+  "references": [
+    "skills/grok-long-video/references/generation-recipes.md",
+    "skills/grok-long-video/references/repair-playbook.md",
+    "skills/grok-long-video/references/evaluation.md"
+  ],
+  "complete_archives": [
+    "skills/grok-long-video/complete/GROK_01_CREATE.md",
+    "skills/grok-long-video/complete/GROK_02_REPAIR.md",
+    "skills/grok-long-video/complete/GROK_03_ORCHESTRATE.md"
+  ],
+  "source_files": {
+    "guide": "01-GROK_00_GUIDE.md",
+    "create": "03-GROK_01_CREATE.html",
+    "repair": "02-GROK_02_REPAIR.html",
+    "orchestrate": "04-GROK_03_ORCHESTRATE.html"
+  }
+}

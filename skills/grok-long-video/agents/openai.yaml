@@ -1,0 +1,13 @@
+interface:
+  display_name: Grok 长视频共享技能
+  short_description: Shared planning, generation, repair and orchestration rules for Grok long video
+  default_prompt: Use $grok-long-video to plan, generate, diagnose, repair and assemble a Grok long-video project.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true
