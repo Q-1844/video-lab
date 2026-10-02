@@ -91,7 +91,7 @@
       card.className = "shot-card";
       const kicker = document.createElement("p");
       kicker.className = "meta";
-      kicker.textContent = `分镜 ${shot.id || ""}`;
+      kicker.textContent = `分镜 ${shot.id || ""}${shot.status ? ` · ${shot.status}` : ""}${shot.owner ? ` · ${shot.owner}` : ""}`;
       const title = document.createElement("h4");
       title.textContent = shot.title || "未命名镜头";
       card.append(kicker, title);
@@ -130,6 +130,15 @@
     note.className = "sub";
     note.textContent = project.note || "还没有项目说明。";
     copy.append(kicker, title, note);
+    if (project.skill) {
+      const skillMeta = document.createElement("p");
+      skillMeta.className = "meta";
+      const skillLink = document.createElement("a");
+      skillLink.href = `${BASE}skills/`;
+      skillLink.textContent = `规划 skill：${project.skill}`;
+      skillMeta.append(skillLink);
+      copy.append(skillMeta);
+    }
     header.append(copy);
     if (project.film) {
       const filmBox = document.createElement("div");
@@ -174,6 +183,15 @@
     description.className = "sub";
     description.textContent = agent.description || `${agent.model || agent.name || "Agent"} 的独立对话工作区。每个项目都有自己的成片、分镜和过程记录。`;
     heading.append(kicker, title, description);
+    if (agent.skill_entry) {
+      const skillMeta = document.createElement("p");
+      skillMeta.className = "meta";
+      const skillLink = document.createElement("a");
+      skillLink.href = `${BASE}skills/`;
+      skillLink.textContent = `已挂技能 ${agent.skill_version || ""}`.trim() + " → 技能页";
+      skillMeta.append(skillLink);
+      heading.append(skillMeta);
+    }
     projects.append(heading);
 
     const items = agent.projects || [];

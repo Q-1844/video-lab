@@ -60,7 +60,16 @@
     return b;
   }
 
+  // 释放列表里所有已挂起的 objectURL，避免重复渲染累积内存
+  function revokeUrls() {
+    list.querySelectorAll("[data-url]").forEach((el) => {
+      try { URL.revokeObjectURL(el.dataset.url); } catch (e) { /* 忽略已失效的 URL */ }
+      delete el.dataset.url;
+    });
+  }
+
   function render(items) {
+    revokeUrls();
     list.replaceChildren();
     if (!items.length) {
       list.innerHTML = '<p class="empty-state">还没有上传内容。上传后会保存在当前浏览器中。</p>';
@@ -79,6 +88,7 @@
       const media = item.type.startsWith("image/") ? document.createElement("img") : document.createElement("video");
       media.src = url;
       media.alt = item.name;
+      media.dataset.url = url;
       if (media.tagName === "VIDEO") {
         media.controls = true;
         media.playsInline = true;
@@ -125,6 +135,7 @@
       title.textContent = file.name;
       const media = file.type.startsWith("image/") ? document.createElement("img") : document.createElement("video");
       media.src = URL.createObjectURL(file);
+      media.dataset.url = media.src; // 供下一次 render/ingest 时 revoke
       if (media.tagName === "VIDEO") { media.controls = true; media.playsInline = true; }
       card.append(title, media);
       list.prepend(card);

@@ -1,82 +1,26 @@
 {
-  "title": "航行者",
-  "updated": "2026-10-01",
-  "stage": "无人木船，镜头绑在船头一直朝前。约 2 分 50 秒。海浪用原片声音，只叠了旁白。点「下载航行者.mp4」保存到本地。",
+  "updated": "2026-10-03",
   "pages": "https://q-1844.github.io/video-lab/",
-  "film": "exports/航行者.mp4",
-  "download": "exports/航行者.mp4",
-  "filename": "航行者.mp4",
-  "poster": "shots/006/v1.png",
-  "areas": [
-    {
-      "id": "grok",
-      "label": "Grok",
-      "catalog": "reviews/grok/catalog.json",
-      "page": "agents/grok/"
-    }
-  ],
-  "registry": "agents/registry.json",
-  "inbox": "user/inbox.json",
-  "revisions": "reviews/cross.json",
-  "shots": [
-    {
-      "id": "001",
-      "title": "晨雾出航",
-      "status": "review",
-      "owner": "grok",
-      "image": "shots/001/v1.png",
-      "note": "第一天。空船从雾里出发，镜头固定在船头。",
-      "process": "船用上一支尾帧的木船，右舷有灯。没有人。"
-    },
-    {
-      "id": "002",
-      "title": "鱼群迎面",
-      "status": "review",
-      "owner": "grok",
-      "image": "shots/002/v1.png",
-      "note": "银鱼从船头前面过来，看一眼又散开。",
-      "process": "小偏离：鱼略贴近镜头，船和朝向还在，保留。"
-    },
-    {
-      "id": "003",
-      "title": "水下长影",
-      "status": "review",
-      "owner": "grok",
-      "image": "shots/003/v1.png",
-      "note": "水下有一条很长的影子，它不靠近。",
-      "process": "只给影子，不给脸。"
-    },
-    {
-      "id": "004",
-      "title": "夜里的光",
-      "status": "review",
-      "owner": "grok",
-      "image": "shots/004/v1.png",
-      "note": "夜里一串发亮的小鱼从前方掠过。",
-      "process": "船和灯还在，镜头仍朝前。"
-    },
-    {
-      "id": "005",
-      "title": "雾中的背",
-      "status": "review",
-      "owner": "grok",
-      "image": "shots/005/v1.png",
-      "note": "第二天。前面有个很大的东西，从船底下过去。",
-      "process": "大偏离：露牙鲨鱼头已剪掉，只留背和鳍。"
-    },
-    {
-      "id": "006",
-      "title": "驶向落日",
-      "status": "review",
-      "owner": "grok",
-      "image": "shots/006/v1.png",
-      "note": "海平静下来，船朝着低日走。",
-      "process": "收束。海报用这一帧。"
-    }
-  ],
+  "repo": "https://github.com/Q-1844/video-lab",
+  "skill_registry": "skills/skills.json",
   "board": [
     {
+      "id": "grok",
       "name": "Grok",
+      "model": "Grok",
+      "conversation": "对话 1",
+      "session": "grok-1",
+      "role": "分镜与合成",
+      "description": "Grok 的独立对话工作区。每个项目都有自己的成片、分镜和过程记录。",
+      "skill_entry": "skills/grok-long-video/SKILL.md",
+      "skill_version": "v0.1",
+      "skills": [
+        "skills/grok-long-video/SKILL.md",
+        "skills/grok-long-video/GUIDE.md",
+        "skills/grok-long-video/create/SKILL.md",
+        "skills/grok-long-video/repair/SKILL.md",
+        "skills/grok-long-video/orchestrate/SKILL.md"
+      ],
       "projects": [
         {
           "name": "回响",
@@ -416,22 +360,75 @@
           "name": "航行者",
           "film": "exports/航行者.mp4",
           "poster": "shots/006/v1.png",
-          "note": "无人木船，镜头绑在船头。约 2 分 50 秒。"
+          "note": "无人木船，镜头绑在船头一直朝前。约 2 分 50 秒。海浪用原片声音，只叠了旁白。点「下载航行者.mp4」保存到本地。",
+          "shots": [
+            {
+              "id": "001",
+              "title": "晨雾出航",
+              "status": "review",
+              "owner": "grok",
+              "image": "shots/001/v1.png",
+              "action": "第一天。空船从雾里出发，镜头固定在船头。",
+              "process_note": "船用上一支尾帧的木船，右舷有灯。没有人。"
+            },
+            {
+              "id": "002",
+              "title": "鱼群迎面",
+              "status": "review",
+              "owner": "grok",
+              "image": "shots/002/v1.png",
+              "action": "银鱼从船头前面过来，看一眼又散开。",
+              "process_note": "小偏离：鱼略贴近镜头，船和朝向还在，保留。"
+            },
+            {
+              "id": "003",
+              "title": "水下长影",
+              "status": "review",
+              "owner": "grok",
+              "image": "shots/003/v1.png",
+              "action": "水下有一条很长的影子，它不靠近。",
+              "process_note": "只给影子，不给脸。"
+            },
+            {
+              "id": "004",
+              "title": "夜里的光",
+              "status": "review",
+              "owner": "grok",
+              "image": "shots/004/v1.png",
+              "action": "夜里一串发亮的小鱼从前方掠过。",
+              "process_note": "船和灯还在，镜头仍朝前。"
+            },
+            {
+              "id": "005",
+              "title": "雾中的背",
+              "status": "review",
+              "owner": "grok",
+              "image": "shots/005/v1.png",
+              "action": "第二天。前面有个很大的东西，从船底下过去。",
+              "process_note": "大偏离：露牙鲨鱼头已剪掉，只留背和鳍。"
+            },
+            {
+              "id": "006",
+              "title": "驶向落日",
+              "status": "review",
+              "owner": "grok",
+              "image": "shots/006/v1.png",
+              "action": "海平静下来，船朝着低日走。",
+              "process_note": "收束。海报用这一帧。"
+            }
+          ],
+          "filename": "航行者.mp4",
+          "steps": [
+            {
+              "title": "6 镜分镜",
+              "body": "001 晨雾出航、002 鱼群迎面、003 水下长影、004 夜里的光、005 雾中的背、006 驶向落日。全部 status=review，owner=grok。"
+            },
+            {
+              "title": "修复记录",
+              "body": "002 鱼群小偏离保留；005 露牙鲨鱼头已剪掉，只留背和鳍。逐镜过程写在 shots/<镜号>/notes.md。"
+            }
+          ]
         }
-      ],
-      "id": "grok",
-      "model": "Grok",
-      "conversation": "对话 1",
-      "session": "grok-1",
-      "description": "Grok 的独立对话工作区。每个项目都有自己的成片、分镜和过程记录。",
-      "skill_entry": "skills/grok-long-video/SKILL.md",
-      "skill_version": "v0.1",
-      "skills": [
-        "skills/grok-long-video/SKILL.md",
-        "skills/grok-long-video/GUIDE.md",
-        "skills/grok-long-video/create/SKILL.md",
-        "skills/grok-long-video/repair/SKILL.md",
-        "skills/grok-long-video/orchestrate/SKILL.md"
       ]
     },
     {
@@ -440,8 +437,8 @@
       "model": "GPT",
       "conversation": "对话 1",
       "session": "gpt-1",
+      "role": "节奏与补镜",
       "description": "GPT 的第一条独立对话工作区。项目内容只归属于这条对话。",
-      "projects": [],
       "skill_entry": "skills/grok-long-video/SKILL.md",
       "skill_version": "v0.1",
       "skills": [
@@ -450,7 +447,8 @@
         "skills/grok-long-video/create/SKILL.md",
         "skills/grok-long-video/repair/SKILL.md",
         "skills/grok-long-video/orchestrate/SKILL.md"
-      ]
+      ],
+      "projects": []
     },
     {
       "id": "gpt2",
@@ -458,8 +456,8 @@
       "model": "GPT",
       "conversation": "对话 2",
       "session": "gpt-2",
+      "role": "节奏与补镜",
       "description": "GPT 的第二条独立对话工作区。与 GPT 1 分开记录项目和过程。",
-      "projects": [],
       "skill_entry": "skills/grok-long-video/SKILL.md",
       "skill_version": "v0.1",
       "skills": [
@@ -468,7 +466,8 @@
         "skills/grok-long-video/create/SKILL.md",
         "skills/grok-long-video/repair/SKILL.md",
         "skills/grok-long-video/orchestrate/SKILL.md"
-      ]
+      ],
+      "projects": []
     }
   ]
 }
