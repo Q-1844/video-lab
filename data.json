@@ -476,7 +476,7 @@
       "conversation": "对话 2",
       "session": "grok-2",
       "role": "分镜与合成",
-      "description": "这一条对话做《盐与星》。叙事版、影像版和技能版前几稿都留着。最新一部是按审核改过的巨兽稿。",
+      "description": "这一条对话做《盐与星》。叙事版、影像版和技能版前几稿都留着。最新一部是衔接更密的巨兽长镜。",
       "skill_entry": "skills/grok-long-video/SKILL.md",
       "skill_version": "v0.1",
       "skills": [
@@ -918,6 +918,97 @@
               "action": "黎明，两个人的剪影对着远处的船挥手。",
               "image": "projects/salt-glv/stills/v4-11.jpg",
               "clip": "projects/salt-glv/clips/v4/11.mp4"
+            }
+          ]
+        },
+        {
+          "name": "盐与星 · 巨兽长镜",
+          "note": "按审核再做的一稿，约 1 分 03 秒。同一条绿船和小艇从看见巨兽一直接到弃船、漂走、黎明来船。激烈段用上一镜还清楚的画面往下接，跑偏的尾巴剪掉。没有字幕，没有另配的中文。上一稿巨兽短片还在。",
+          "skill": "grok-long-video",
+          "film": "projects/salt-glv/盐与星-技能版-v5.mp4",
+          "filename": "盐与星-技能版-v5.mp4",
+          "poster": "projects/salt-glv/stills/v5-04.jpg",
+          "steps": [
+            {
+              "title": "这一轮改什么",
+              "body": "上一稿巨兽只有一分多钟，撞击常常两三秒就断。这一轮把看见、抬头、撞击、断桅、再压、下艇、离开分成能接上的短镜，能留的都留足。"
+            },
+            {
+              "title": "技能里实际用的",
+              "body": "沿 grok-long-video 的配方：同一动作用上一镜清楚的画面做下一镜开头（真实尾帧再图生视频）。要换状态时，先改那一帧再生成，改完的图先看过。换时间，比如离开残骸再到黎明来船，才正常切镜。坏掉的后段剪掉，不用叠化。"
+            },
+            {
+              "title": "为什么还是短镜",
+              "body": "一次生成太长，巨兽会消失，船会换成别的船，人也会多出一只手或换脸。所以每镜大约六秒，只留下船、小艇、巨兽和两个人都还对的部分。"
+            },
+            {
+              "title": "没当成用过的",
+              "body": "一次请求里同时锁首帧和定妆、首尾帧、视频编辑，这个环境仍然没有。官方延长上一轮会跑到岸上，这一轮没有再用。没有字幕，没有中文配音。夜里挨得太近的镜头没有再做。"
+            }
+          ],
+          "shots": [
+            {
+              "id": "01",
+              "title": "看见巨兽",
+              "action": "两人分开站在绿船甲板上，船尾拖着小艇。巨兽的背和一只浑浊的眼睛还在远处，并且慢慢变大。",
+              "image": "projects/salt-glv/stills/v5-01.jpg",
+              "clip": "projects/salt-glv/clips/v5/02.mp4"
+            },
+            {
+              "id": "02",
+              "title": "先上小艇",
+              "action": "从他们看见巨兽的画面接上。年轻人先迈进小艇，老周还留在大船上，两人不碰。",
+              "image": "projects/salt-glv/stills/v5-02.jpg",
+              "clip": "projects/salt-glv/clips/v5/03.mp4"
+            },
+            {
+              "id": "03",
+              "title": "巨兽抬头",
+              "action": "切到同一条船的全景。巨兽从船后方升起，小艇还拴在左侧，船体还没有被撞碎。",
+              "image": "projects/salt-glv/stills/v5-03.jpg",
+              "clip": "projects/salt-glv/clips/v5/06.mp4"
+            },
+            {
+              "id": "04",
+              "title": "侧面撞击",
+              "action": "巨兽的身体压上绿色船舷。小艇仍在左侧。这一镜从头到尾巨兽都在。",
+              "image": "projects/salt-glv/stills/v5-04.jpg",
+              "clip": "projects/salt-glv/clips/v5/07.mp4"
+            },
+            {
+              "id": "05",
+              "title": "桅杆倒下",
+              "action": "从撞击还清楚的画面接上。桅杆折断，倒在船上，巨兽和小艇都还在。",
+              "image": "projects/salt-glv/stills/v5-05.jpg",
+              "clip": "projects/salt-glv/clips/v5/08.mp4"
+            },
+            {
+              "id": "06",
+              "title": "再压下去",
+              "action": "断桅的画面再往下。巨兽把船往下压，小艇被绳子拽着。",
+              "image": "projects/salt-glv/stills/v5-06.jpg",
+              "clip": "projects/salt-glv/clips/v5/09.mp4"
+            },
+            {
+              "id": "07",
+              "title": "人已经在小艇",
+              "action": "切回两个人。年轻人坐在小艇里，老周正在下来。巨兽还压着大船。手快挨上之前就剪掉。",
+              "image": "projects/salt-glv/stills/v5-07.jpg",
+              "clip": "projects/salt-glv/clips/v5/10.mp4"
+            },
+            {
+              "id": "08",
+              "title": "小艇离开",
+              "action": "两人分开坐在小艇两头。大船和巨兽留在后面，并且继续留在画面里。",
+              "image": "projects/salt-glv/stills/v5-08.jpg",
+              "clip": "projects/salt-glv/clips/v5/12.mp4"
+            },
+            {
+              "id": "09",
+              "title": "黎明来船",
+              "action": "换到黎明。同一条小艇，两人仍分开坐，远处有一条船。没有字幕。",
+              "image": "projects/salt-glv/stills/v5-09.jpg",
+              "clip": "projects/salt-glv/clips/v5/13.mp4"
             }
           ]
         }

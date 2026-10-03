@@ -297,5 +297,43 @@
       "09": "0-6.5s, later edge artifact",
       "10": "0-4s, a third man appears later"
     }
+  },
+  "v5": {
+    "film": "projects/salt-glv/盐与星-技能版-v5.mp4",
+    "status": "draft_ready",
+    "not": "final_approved",
+    "run_id": "salt-glv-r3",
+    "story": "Same green boat and towed skiff. Leviathan rises, crushes the boat, two men leave in the skiff, a ship appears at dawn.",
+    "reason": "User asked for more dense action and tight joins. v4 was 69s with very short trims.",
+    "audio": "native_only",
+    "subtitles": false,
+    "chinese_dub": false,
+    "duration_s": 63.06,
+    "size": "33MB",
+    "routes": {
+      "real_tail_i2v": [
+        "02 look from dep frame at 2s",
+        "03 step from look at 5s",
+        "04 climb from step at 5.4s",
+        "06 rise from approach at 2s",
+        "08 mast from strike at 5.5s",
+        "09 crush from mast-down frame",
+        "12 drift continuation from drift at 5s"
+      ],
+      "state_advance_then_i2v": [
+        "10 abandon uses a face-corrected still, not the drifted Caucasian pair",
+        "11 drift-away still from the abandon frame",
+        "13 dawn is a time cut from the drift frame"
+      ],
+      "rejected": [
+        "close two-shot that lost the whale",
+        "jump clip whose faces changed and started grabbing",
+        "sinking still whose whale became a different creature",
+        "list clip that changed camera within 1.5s",
+        "native extend not used; prior extend left the scene"
+      ],
+      "native_first_plus_refs": "unavailable on this adapter; fused still then i2v"
+    },
+    "order": ["01 0-2.0","02 0-5.0","03 0-5.4","04 0-6.0","05 0-2.0","06 0-6.0","07 0-5.5","08 0-5.4","09 0-5.5","10 0-3.2","11 0-5.0","12 0-6.0","13 0-6.0"]
   }
 }
