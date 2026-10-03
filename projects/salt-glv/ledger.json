@@ -1,0 +1,194 @@
+{
+  "schema": "GLV/1.0",
+  "project_id": "salt-and-stars",
+  "run_id": "salt-glv-r1",
+  "revision_basis": "story-md-2026-10-03",
+  "skill_version": "v0.1",
+  "status": "draft_ready",
+  "not": "final_approved",
+  "capability_profile": {
+    "id": "grok-build-imagine-tools-20261003",
+    "adapter": "imagine_text_to_image / imagine_reference_to_image / imagine_image_to_video / imagine_reference_to_video",
+    "evidence": "adapter_schema",
+    "working_resolution": "720p",
+    "aspect_ratio": "16:9",
+    "audio_strategy": "hybrid",
+    "routes": {
+      "independent_t2v": "available_not_used_for_identity_shots",
+      "approved_frame_i2v": "used",
+      "reference_reestablish": "available_on_imagine_reference_to_video_6_or_10s_not_used_as_primary",
+      "native_first_plus_refs": "unavailable_on_this_adapter",
+      "fused_new_first": "used_via_imagine_reference_to_image_then_i2v",
+      "first_last_generate": "unavailable",
+      "timed_keyframe_generate": "unavailable",
+      "native_extend": "unavailable",
+      "native_edit": "unavailable",
+      "editorial_cut": "used_for_assembly",
+      "seed": null
+    },
+    "downgrade": "身份镜头无法把真实首帧和 Look 放进同一次视频请求。先用定妆和地点板融出审核静帧，再单图图生视频。不把这条路径写成原生首帧加参考。"
+  },
+  "anchors": {
+    "LOOK_CHEN": {
+      "version": 1,
+      "file": "projects/salt-glv/stills/look-chen.jpg",
+      "state": "draft_carried"
+    },
+    "LOOK_ZHOU": {
+      "version": 1,
+      "file": "projects/salt-glv/stills/look-zhou.jpg",
+      "state": "draft_carried"
+    },
+    "boat": "暗绿色小渔船，短桅，白舵室。风暴前桅杆还在，风暴后折断。"
+  },
+  "units": [
+    {
+      "id": "01",
+      "route": "fused_new_first",
+      "request_id": "0accd70f-dc2b-4630-ba1e-0b0c4213616e",
+      "still": "456fbc11-8c1b-4c27-a9be-8309880cf748",
+      "dur": 15,
+      "qc": "keep",
+      "note": "雾航双人，脸和船都站住。"
+    },
+    {
+      "id": "02",
+      "route": "fused_new_first",
+      "request_id": "87e0bacc-34de-45ce-9fc7-108650204c6f",
+      "still": "d801afde-70f1-4a9f-acd9-f0f6075fa263",
+      "dur": 10,
+      "qc": "accepted_with_deviation",
+      "note": "前段回头正确。后段舵边多出一张不在计划里的脸。整段保留，标偏差，不覆盖原片。"
+    },
+    {
+      "id": "03",
+      "route": "fused_new_first",
+      "request_id": "e6e88f4f-9544-446f-a0ce-662bdca361fb",
+      "still": "26842f7c-8554-4b8f-834e-835b68de3b22",
+      "dur": 15,
+      "qc": "keep",
+      "note": "舱底渗水，对峙。"
+    },
+    {
+      "id": "04",
+      "route": "fused_new_first",
+      "request_id": "54a21dc4-8c68-4d3a-b8fc-7c6ff4ec9dfc",
+      "still": "00ef7a04-8b5e-475e-961e-57ef477ba084",
+      "dur": 10,
+      "qc": "keep",
+      "note": "老周背身走开。对白外贴，不靠口型。"
+    },
+    {
+      "id": "05",
+      "route": "fused_new_first",
+      "request_id": "6dc139d3-1873-4675-a396-addd702d1370",
+      "still": "06c77ee6-a144-4468-bb0d-c0ebb350915c",
+      "dur": 15,
+      "qc": "keep",
+      "note": "风暴，桅杆结束时还在。"
+    },
+    {
+      "id": "06",
+      "route": "fused_new_first",
+      "request_id": "2f83305d-eca4-435d-9e14-6eb6360903a5",
+      "still": "284f591d-c8fe-4452-bae1-c1054370cedd",
+      "dur": 15,
+      "qc": "keep",
+      "note": "桅杆拦腰折断，船体倾斜。"
+    },
+    {
+      "id": "07",
+      "route": "fused_new_first",
+      "request_id": "4bbd8343-8607-494a-872d-df94000b4658",
+      "still": "674de3c5-d285-453a-b947-0bb3ef885067",
+      "dur": 15,
+      "qc": "keep",
+      "note": "水瓶推过去又推回，谁也没喝。"
+    },
+    {
+      "id": "08",
+      "route": "fused_new_first",
+      "request_id": "c0b5d431-163f-48a7-8625-32c6b049743d",
+      "still": "14b90ed7-92a7-4c89-a5fa-7348170d6b74",
+      "dur": 15,
+      "qc": "keep",
+      "note": "烈日，罐头推过去，话没有被接住。"
+    },
+    {
+      "id": "09",
+      "route": "fused_new_first",
+      "request_id": "fa02e4a5-1d7e-45e1-9ad4-0e3ed8a2f0ad",
+      "still": "10f73784-aa87-4475-9fa9-8156ded09835",
+      "dur": 10,
+      "qc": "keep",
+      "note": "发烧攥腕。老周的脸有轻微漂移，服装和动作成立。"
+    },
+    {
+      "id": "10",
+      "route": "fused_new_first",
+      "request_id": "0647c16a-37b4-4c8d-85d9-bd5b62590bed",
+      "still": "c46af7e4-247e-425e-8852-0be7e333ce06",
+      "dur": 10,
+      "qc": "accepted_with_deviation",
+      "note": "信天翁和第一次笑在。老周近景不像定妆，标偏差。"
+    },
+    {
+      "id": "11",
+      "route": "fused_new_first",
+      "request_id": "5df82fcb-b2e3-4a4f-87d8-6882fe69e51d",
+      "still": "714e2d2b-a694-470a-a10f-d5ddd89185b8",
+      "dur": 15,
+      "qc": "keep",
+      "note": "逆光分水。第一张静帧脸漂移，已换成剪影静帧再生成，没有覆盖那张废帧的编号。"
+    },
+    {
+      "id": "12",
+      "route": "fused_new_first",
+      "request_id": "08eb1756-0e23-437f-894e-3db7fec2108c",
+      "still": "1b7da395-ed88-47d3-85f5-6c352a096f8e",
+      "dur": 15,
+      "qc": "keep",
+      "note": "船影变大，两人在船头挥手，不说破。"
+    }
+  ],
+  "assembly": {
+    "output": "projects/salt-glv/盐与星-技能版.mp4",
+    "spec": "1280x720 24fps h264 aac",
+    "duration_s": 182.04,
+    "bytes": 33146325,
+    "order": [
+      "title 8s",
+      "01-12 as durations above",
+      "end 14s"
+    ],
+    "overlap": 0,
+    "dialogue": [
+      {
+        "line": "最后一次了",
+        "at": 50.0,
+        "source": "reused line-last.mp3"
+      },
+      {
+        "line": "我不该让他出海",
+        "at": 107.0,
+        "source": "reused line-father.mp3"
+      },
+      {
+        "line": "是我来得太晚",
+        "at": 120.0,
+        "source": "reused line-late.mp3"
+      },
+      {
+        "line": "回去以后，教我打渔吧",
+        "at": 142.0,
+        "source": "reused line-fish.mp3"
+      },
+      {
+        "line": "片尾句",
+        "at": 170.0,
+        "source": "reused line-end.mp3"
+      }
+    ],
+    "supersample": false
+  }
+}

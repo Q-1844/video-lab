@@ -468,6 +468,360 @@
         "skills/grok-long-video/orchestrate/SKILL.md"
       ],
       "projects": []
+    },
+    {
+      "id": "grok2",
+      "name": "Grok 2",
+      "model": "Grok",
+      "conversation": "对话 2",
+      "session": "grok-2",
+      "role": "分镜与合成",
+      "description": "这一条对话做《盐与星》。下面三部片子放在一起，用来对比：前两部是同一批镜头的两种剪法，第三部是按 grok-long-video v0.1 重新生成的粗剪。",
+      "skill_entry": "skills/grok-long-video/SKILL.md",
+      "skill_version": "v0.1",
+      "skills": [
+        "skills/grok-long-video/SKILL.md",
+        "skills/grok-long-video/GUIDE.md",
+        "skills/grok-long-video/create/SKILL.md",
+        "skills/grok-long-video/repair/SKILL.md",
+        "skills/grok-long-video/orchestrate/SKILL.md"
+      ],
+      "projects": [
+        {
+          "name": "盐与星 · 叙事版",
+          "note": "甲片。约 3 分 18 秒，16:9。和影像版共用同一批镜头，按故事时间顺序接满。这一版做的时候，当前对话还没读到本仓库的 grok-long-video。保留原片，不覆盖。",
+          "film": "projects/salt-narrative/盐与星-叙事版.mp4",
+          "filename": "盐与星-叙事版.mp4",
+          "poster": "projects/salt-narrative/stills/01.jpg",
+          "steps": [
+            {
+              "title": "先定两张脸",
+              "body": "陈澈，二十八岁，靛蓝毛衣。老周，五十出头，赭色油布衣，一根很呛的烟。后面的双人镜头都从这两张脸出发。"
+            },
+            {
+              "title": "十二张静帧",
+              "body": "三幕收成十二镜：雾中离岸、回头、渗水、背身、风暴、折桅、月下推水、烈日坦白、夜里攥腕、信天翁、分水、船影。静帧先于动画。"
+            },
+            {
+              "title": "逐镜图生视频",
+              "body": "一镜一件事，大约十五秒。不把整部片子一次生成。"
+            },
+            {
+              "title": "声音",
+              "body": "四句原文对白：最后一次了、我不该让他出海、是我来得太晚、回去以后教我打渔吧。另加很短的旁白，把沉默的段落接上。片尾念同一句。"
+            },
+            {
+              "title": "按时间接",
+              "body": "离岸、渗水、风暴、推水、坦白、发烧、信天翁、分水、船影。冷调。这一版不改镜头顺序。"
+            }
+          ],
+          "shots": [
+            {
+              "id": "01",
+              "title": "晨雾启航",
+              "action": "陈澈生疏地理缆，老周在舵边抽烟。雾只有边缘是金的。",
+              "image": "projects/salt-narrative/stills/01.jpg"
+            },
+            {
+              "id": "02",
+              "title": "回头",
+              "action": "海岸线远了。他回头，像被什么硌了一下。",
+              "image": "projects/salt-narrative/stills/02.jpg"
+            },
+            {
+              "id": "03",
+              "title": "底舱渗水",
+              "action": "正午无风。他质问为什么不等检修完。水在舱底一滴一滴响。",
+              "image": "projects/salt-narrative/stills/03.jpg"
+            },
+            {
+              "id": "04",
+              "title": "最后一次",
+              "action": "老周把背转过去。这一镜外贴他的那句「最后一次了」。",
+              "image": "projects/salt-narrative/stills/04.jpg"
+            },
+            {
+              "id": "05",
+              "title": "铅灰风暴",
+              "action": "天压下来。老周死守舵轮，陈澈在甲板上收帆。桅杆还在。",
+              "image": "projects/salt-narrative/stills/05.jpg"
+            },
+            {
+              "id": "06",
+              "title": "折桅",
+              "action": "浪砸上船头，桅杆拦腰折断，船体倾斜。",
+              "image": "projects/salt-narrative/stills/06.jpg"
+            },
+            {
+              "id": "07",
+              "title": "月下推水",
+              "action": "半瓶淡水被推过去，又被推回来。谁也没喝。",
+              "image": "projects/salt-narrative/stills/07.jpg"
+            },
+            {
+              "id": "08",
+              "title": "烈日坦白",
+              "action": "陈澈说「我不该让他出海」。老周不接话，把最后一只罐头撬开推过去。",
+              "image": "projects/salt-narrative/stills/08.jpg"
+            },
+            {
+              "id": "09",
+              "title": "夜里的故事",
+              "action": "陈澈发烧，攥住老周的手腕。老周说「是我来得太晚」。",
+              "image": "projects/salt-narrative/stills/09.jpg"
+            },
+            {
+              "id": "10",
+              "title": "黎明信天翁",
+              "action": "最后一口水放在手边。信天翁低低飞过。漂流后他第一次笑。",
+              "image": "projects/salt-narrative/stills/10.jpg"
+            },
+            {
+              "id": "11",
+              "title": "日出分水",
+              "action": "一人一口。他说「回去以后，教我打渔吧」。烟头按灭在船舷上。",
+              "image": "projects/salt-narrative/stills/11.jpg"
+            },
+            {
+              "id": "12",
+              "title": "船影",
+              "action": "远处船影变大。两人挥手。是搜救还是幻觉，没说破。",
+              "image": "projects/salt-narrative/stills/12.jpg"
+            }
+          ]
+        },
+        {
+          "name": "盐与星 · 影像版",
+          "note": "乙片。约 3 分 12 秒。画面素材和叙事版是同一批，不重拍。差别在顺序、长短和声音。从月夜那瓶没人喝的水打开，风暴和渗水变成后来的记忆。",
+          "film": "projects/salt-image/盐与星-影像版.mp4",
+          "filename": "盐与星-影像版.mp4",
+          "poster": "projects/salt-image/stills/07.jpg",
+          "steps": [
+            {
+              "title": "不重拍",
+              "body": "沿用叙事版那十二镜。新的只是剪法。原片留着，这一版是另外一个文件。"
+            },
+            {
+              "title": "从月夜进入",
+              "body": "先是没人喝的那瓶水，再短暂看见黎明，然后才出片名。雾航和风暴被缩短，像后来想起来的。渗水被放到坦白之后。"
+            },
+            {
+              "title": "拿掉旁白",
+              "body": "只留四句对白和片尾那句。对白周围留白。颜色更暗，阴影偏金。"
+            },
+            {
+              "title": "顺序",
+              "body": "月夜，黎明一闪，片名，离岸，回头，风暴，折桅，坦白，渗水，背身，夜里的故事，再回到那瓶水，信天翁，分水，船影。"
+            }
+          ],
+          "shots": [
+            {
+              "id": "01",
+              "title": "晨雾启航",
+              "action": "陈澈生疏地理缆，老周在舵边抽烟。雾只有边缘是金的。",
+              "image": "projects/salt-image/stills/01.jpg"
+            },
+            {
+              "id": "02",
+              "title": "回头",
+              "action": "海岸线远了。他回头，像被什么硌了一下。",
+              "image": "projects/salt-image/stills/02.jpg"
+            },
+            {
+              "id": "03",
+              "title": "底舱渗水",
+              "action": "正午无风。他质问为什么不等检修完。水在舱底一滴一滴响。",
+              "image": "projects/salt-image/stills/03.jpg"
+            },
+            {
+              "id": "04",
+              "title": "最后一次",
+              "action": "老周把背转过去。这一镜外贴他的那句「最后一次了」。",
+              "image": "projects/salt-image/stills/04.jpg"
+            },
+            {
+              "id": "05",
+              "title": "铅灰风暴",
+              "action": "天压下来。老周死守舵轮，陈澈在甲板上收帆。桅杆还在。",
+              "image": "projects/salt-image/stills/05.jpg"
+            },
+            {
+              "id": "06",
+              "title": "折桅",
+              "action": "浪砸上船头，桅杆拦腰折断，船体倾斜。",
+              "image": "projects/salt-image/stills/06.jpg"
+            },
+            {
+              "id": "07",
+              "title": "月下推水",
+              "action": "半瓶淡水被推过去，又被推回来。谁也没喝。",
+              "image": "projects/salt-image/stills/07.jpg"
+            },
+            {
+              "id": "08",
+              "title": "烈日坦白",
+              "action": "陈澈说「我不该让他出海」。老周不接话，把最后一只罐头撬开推过去。",
+              "image": "projects/salt-image/stills/08.jpg"
+            },
+            {
+              "id": "09",
+              "title": "夜里的故事",
+              "action": "陈澈发烧，攥住老周的手腕。老周说「是我来得太晚」。",
+              "image": "projects/salt-image/stills/09.jpg"
+            },
+            {
+              "id": "10",
+              "title": "黎明信天翁",
+              "action": "最后一口水放在手边。信天翁低低飞过。漂流后他第一次笑。",
+              "image": "projects/salt-image/stills/10.jpg"
+            },
+            {
+              "id": "11",
+              "title": "日出分水",
+              "action": "一人一口。他说「回去以后，教我打渔吧」。烟头按灭在船舷上。",
+              "image": "projects/salt-image/stills/11.jpg"
+            },
+            {
+              "id": "12",
+              "title": "船影",
+              "action": "远处船影变大。两人挥手。是搜救还是幻觉，没说破。",
+              "image": "projects/salt-image/stills/12.jpg"
+            }
+          ]
+        },
+        {
+          "name": "盐与星 · 技能版",
+          "note": "丙片。3 分 02 秒，1280×720。按 grok-long-video v0.1 重新生成，不是把甲、乙再剪一次。状态是可播放粗剪，还不是定稿。过程账在 projects/salt-glv/ledger.json。",
+          "skill": "grok-long-video",
+          "film": "projects/salt-glv/盐与星-技能版.mp4",
+          "filename": "盐与星-技能版.mp4",
+          "poster": "projects/salt-glv/stills/07.jpg",
+          "steps": [
+            {
+              "title": "1. 先读技能，不先开拍",
+              "body": "按仓库规则读了 brief、AGENTS、技能清单，以及 grok-long-video 的 SKILL.md、GUIDE.md、共享协议、能力档、首次生成和闭环编排。版本 v0.1。这是实验方法，不能把计划说成已经验收。"
+            },
+            {
+              "title": "2. 冻结这一轮",
+              "body": "故事用原文《盐与星》。目标三分钟以上，16:9，工作分辨率 720p。声音用 hybrid：留下每镜自己的海声，对白另贴。定妆沿用已有的陈澈和老周，标成草稿，不重新换脸。船固定成暗绿色小渔船。"
+            },
+            {
+              "title": "3. 先看这个环境实际能做什么",
+              "body": "能做文生图、最多三张参考融图、单图图生视频、参考图生视频。不能把一张首帧和另外的定妆放进同一次视频请求，也没有延长和视频编辑。所以身份镜头降级：定妆加地点板融成新静帧，审过再图生视频。不把这条写成原生首帧加参考。"
+            },
+            {
+              "title": "4. 先做地点板，再放人",
+              "body": "雾航、船舱、月夜、风暴、折桅后的正午、黎明、日出，各有一张没有人的船。人只从定妆来。一镜一张图，不把上一镜的背景混进来。"
+            },
+            {
+              "title": "5. 十二个生成单元",
+              "body": "离岸四镜、风暴两镜、漂流四镜、归途两镜。近景用十秒，海和风暴用十五秒。不把十五秒当成每镜默认。组与组之间用正常切镜，不假装是一条没有断点的长镜头。"
+            },
+            {
+              "title": "6. 先看三镜再铺开",
+              "body": "先做回头、船舱对峙、月下推水。脸、渗水和那瓶水站得住，再做其余九镜。独立镜头并行。没有用没选中的尾帧去接下一镜。"
+            },
+            {
+              "title": "7. 质检里留下的偏差",
+              "body": "回头镜后段，舵边多出一张计划里没有的脸，整段保留并写进账，不覆盖。黎明镜老周的近景不像定妆。分水第一张静帧脸不对，换成逆光剪影后重做，废帧没有删编号。折桅、推水、船影按终态通过。"
+            },
+            {
+              "title": "8. 声音",
+              "body": "不靠口型。四句对白和片尾句用已经录过的同一批声音，好跟甲、乙对比。环境声留着，对白时不把海声抹掉。没有另铺音乐。"
+            },
+            {
+              "title": "9. 接成粗剪",
+              "body": "片头八秒，十二镜硬切，片尾十四秒。总长 3 分 02 秒，31.6MB。片尾字幕是原文那句。这不是已批准的终版。"
+            }
+          ],
+          "shots": [
+            {
+              "id": "01",
+              "title": "晨雾启航",
+              "action": "陈澈生疏地理缆，老周在舵边抽烟。雾只有边缘是金的。",
+              "image": "projects/salt-glv/stills/01.jpg",
+              "clip": "projects/salt-glv/clips/01.mp4"
+            },
+            {
+              "id": "02",
+              "title": "回头",
+              "action": "海岸线远了。他回头，像被什么硌了一下。",
+              "image": "projects/salt-glv/stills/02.jpg",
+              "clip": "projects/salt-glv/clips/02.mp4"
+            },
+            {
+              "id": "03",
+              "title": "底舱渗水",
+              "action": "正午无风。他质问为什么不等检修完。水在舱底一滴一滴响。",
+              "image": "projects/salt-glv/stills/03.jpg",
+              "clip": "projects/salt-glv/clips/03.mp4"
+            },
+            {
+              "id": "04",
+              "title": "最后一次",
+              "action": "老周把背转过去。这一镜外贴他的那句「最后一次了」。",
+              "image": "projects/salt-glv/stills/04.jpg",
+              "clip": "projects/salt-glv/clips/04.mp4"
+            },
+            {
+              "id": "05",
+              "title": "铅灰风暴",
+              "action": "天压下来。老周死守舵轮，陈澈在甲板上收帆。桅杆还在。",
+              "image": "projects/salt-glv/stills/05.jpg",
+              "clip": "projects/salt-glv/clips/05.mp4"
+            },
+            {
+              "id": "06",
+              "title": "折桅",
+              "action": "浪砸上船头，桅杆拦腰折断，船体倾斜。",
+              "image": "projects/salt-glv/stills/06.jpg",
+              "clip": "projects/salt-glv/clips/06.mp4"
+            },
+            {
+              "id": "07",
+              "title": "月下推水",
+              "action": "半瓶淡水被推过去，又被推回来。谁也没喝。",
+              "image": "projects/salt-glv/stills/07.jpg",
+              "clip": "projects/salt-glv/clips/07.mp4"
+            },
+            {
+              "id": "08",
+              "title": "烈日坦白",
+              "action": "陈澈说「我不该让他出海」。老周不接话，把最后一只罐头撬开推过去。",
+              "image": "projects/salt-glv/stills/08.jpg",
+              "clip": "projects/salt-glv/clips/08.mp4"
+            },
+            {
+              "id": "09",
+              "title": "夜里的故事",
+              "action": "陈澈发烧，攥住老周的手腕。老周说「是我来得太晚」。",
+              "image": "projects/salt-glv/stills/09.jpg",
+              "clip": "projects/salt-glv/clips/09.mp4"
+            },
+            {
+              "id": "10",
+              "title": "黎明信天翁",
+              "action": "最后一口水放在手边。信天翁低低飞过。漂流后他第一次笑。",
+              "image": "projects/salt-glv/stills/10.jpg",
+              "clip": "projects/salt-glv/clips/10.mp4"
+            },
+            {
+              "id": "11",
+              "title": "日出分水",
+              "action": "一人一口。他说「回去以后，教我打渔吧」。烟头按灭在船舷上。",
+              "image": "projects/salt-glv/stills/11.jpg",
+              "clip": "projects/salt-glv/clips/11.mp4"
+            },
+            {
+              "id": "12",
+              "title": "船影",
+              "action": "远处船影变大。两人挥手。是搜救还是幻觉，没说破。",
+              "image": "projects/salt-glv/stills/12.jpg",
+              "clip": "projects/salt-glv/clips/12.mp4"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
