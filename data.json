@@ -52,8 +52,17 @@
               "id": "01",
               "title": "死地球",
               "action": "轨道站漂近。没有人，没有台词。",
-              "image": "projects/echo/stills/01.jpg",
-              "clip": "projects/echo/clips/01.mp4"
+              "image": "",
+              "clip": "projects/echo/clips/01-v2.mp4",
+              "history": [
+                {
+                  "clip": "projects/echo/clips/01.mp4",
+                  "image": "projects/echo/stills/01.jpg",
+                  "note": "最终验证-改版：换演示视频",
+                  "date": "2026-10-03"
+                }
+              ],
+              "status": "review"
             },
             {
               "id": "01a",
