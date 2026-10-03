@@ -56,6 +56,13 @@
               "clip": "projects/echo/clips/01.mp4"
             },
             {
+              "id": "01a",
+              "title": "测试插入镜",
+              "action": "测试用，稍后删除",
+              "clip": "projects/echo/clips/01.mp4",
+              "status": "review"
+            },
+            {
               "id": "02",
               "title": "大厅",
               "action": "同一台白色机器人站在唯一的暖灯前，背对镜头。",
