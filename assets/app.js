@@ -1,6 +1,135 @@
 (function () {
   const BASE = "/video-lab/";
-  const state = { board: [], agents: [], agentIndex: 0, projectIndex: 0 };
+  const state = { board: [], agents: [], agentIndex: 0, projectIndex: 0, feedback: {} };
+
+  function feedbackKey(agent, project, target) {
+    return `${agent.id || "agent"}::${project.name || "项目"}::${target}`;
+  }
+
+  function localFeedback(key) {
+    try {
+      return JSON.parse(localStorage.getItem(`vl-feedback::${key}`)) || [];
+    } catch {
+      return [];
+    }
+  }
+
+  function saveLocalFeedback(key, entries) {
+    try {
+      localStorage.setItem(`vl-feedback::${key}`, JSON.stringify(entries));
+    } catch { /* 本机存不下就只做当次展示 */ }
+  }
+
+  function copyText(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text);
+    }
+    const area = document.createElement("textarea");
+    area.value = text;
+    document.body.append(area);
+    area.select();
+    document.execCommand("copy");
+    area.remove();
+    return Promise.resolve();
+  }
+
+  function flashButton(button, message) {
+    const original = button.textContent;
+    button.textContent = message;
+    setTimeout(() => { button.textContent = original; }, 1800);
+  }
+
+  // 有视频的成片/分镜下方的用户评价框。
+  // 提交后先存本机草稿，点「复制」发给任一 Agent，由 Agent 写入 reviews/user-feedback.json 供所有 Agent 读取。
+  function renderFeedback(agent, project, target, targetLabel) {
+    const key = feedbackKey(agent, project, target);
+    const box = document.createElement("div");
+    box.className = "feedback-box";
+    const title = document.createElement("p");
+    title.className = "meta";
+    title.textContent = "用户评价";
+    box.append(title);
+
+    const input = document.createElement("textarea");
+    input.className = "feedback-input";
+    input.rows = 2;
+    input.placeholder = "看完写一句，例如：口型没对上、节奏太慢、光不对，需要重做。";
+
+    const row = document.createElement("div");
+    row.className = "feedback-actions";
+    const submit = document.createElement("button");
+    submit.type = "button";
+    submit.className = "btn btn-small";
+    submit.textContent = "提交评价";
+    const hint = document.createElement("span");
+    hint.className = "feedback-hint";
+    hint.textContent = "提交后点「复制给 Agent」发给任一对话，由它写入仓库，所有 Agent 才能看到。";
+    row.append(submit, hint);
+
+    const list = document.createElement("div");
+    list.className = "feedback-list";
+
+    function drawList() {
+      list.replaceChildren();
+      const entries = [
+        ...(state.feedback[key] || []).map((entry) => ({ ...entry, repo: true })),
+        ...localFeedback(key).map((entry) => ({ ...entry, local: true })),
+      ];
+      entries.forEach((entry) => {
+        const item = document.createElement("div");
+        item.className = "feedback-entry" + (entry.local ? " feedback-local" : "");
+        const meta = document.createElement("p");
+        meta.className = "meta";
+        meta.textContent = `${entry.date || ""}${entry.repo ? " · 已入库，所有 Agent 可见" : " · 本机草稿，尚未入库"}`;
+        const body = document.createElement("p");
+        body.textContent = entry.text || "";
+        const ops = document.createElement("div");
+        ops.className = "button-row";
+        const copy = document.createElement("button");
+        copy.type = "button";
+        copy.className = "btn btn-small";
+        copy.textContent = "复制给 Agent";
+        copy.addEventListener("click", () => {
+          const payload = `[video-lab 用户评价] ${agentLabel(agent)} / ${project.name || "项目"} / ${targetLabel}（${entry.date || ""}）：${entry.text || ""}`;
+          copyText(payload).then(
+            () => flashButton(copy, "已复制，去粘贴给 Agent"),
+            () => flashButton(copy, "复制失败，请手动选择文本"),
+          );
+        });
+        ops.append(copy);
+        if (entry.local) {
+          const del = document.createElement("button");
+          del.type = "button";
+          del.className = "btn btn-small danger";
+          del.textContent = "删除草稿";
+          del.addEventListener("click", () => {
+            saveLocalFeedback(key, localFeedback(key).filter((item) => item.text !== entry.text || item.date !== entry.date));
+            drawList();
+          });
+          ops.append(del);
+        }
+        item.append(meta, body, ops);
+        list.append(item);
+      });
+    }
+
+    submit.addEventListener("click", () => {
+      const text = input.value.trim();
+      if (!text) {
+        input.focus();
+        return;
+      }
+      const entries = localFeedback(key);
+      entries.push({ text, date: new Date().toISOString().slice(0, 10) });
+      saveLocalFeedback(key, entries);
+      input.value = "";
+      drawList();
+    });
+
+    box.append(input, row, list);
+    drawList();
+    return box;
+  }
 
   const $ = (selector, root = document) => root.querySelector(selector);
 
@@ -79,14 +208,14 @@
     root.append(list);
   }
 
-  function renderShots(project, root) {
+  function renderShots(project, agent, root) {
     if (!project.shots || !project.shots.length) return;
     const heading = document.createElement("h3");
     heading.textContent = "分镜与过程素材";
     root.append(heading);
     const grid = document.createElement("div");
     grid.className = "shot-grid";
-    project.shots.forEach((shot) => {
+    project.shots.forEach((shot, shotIndex) => {
       const card = document.createElement("article");
       card.className = "shot-card";
       const kicker = document.createElement("p");
@@ -110,6 +239,9 @@
         links.append(downloadLink(safePath(shot.clip), `${project.name || "项目"}-${shot.id || "镜头"}.mp4`, "下载这一镜"));
       }
       if (links.childNodes.length) card.append(links);
+      if (shot.clip) {
+        card.append(renderFeedback(agent, project, `shot-${shot.id || shotIndex + 1}`, `分镜 ${shot.id || shotIndex + 1}（${shot.title || ""}）`));
+      }
       grid.append(card);
     });
     root.append(grid);
@@ -148,11 +280,12 @@
       label.textContent = "成片";
       filmBox.append(label, mediaPreview(project.film, project.poster));
       filmBox.append(downloadLink(safePath(project.film), project.filename || `${project.name || "成片"}.mp4`, "下载成片"));
+      filmBox.append(renderFeedback(agent, project, "film", "成片"));
       header.append(filmBox);
     }
     root.append(header);
     renderProcess(project, root);
-    renderShots(project, root);
+    renderShots(project, agent, root);
     if (!project.film && !project.steps?.length && !project.shots?.length) {
       const empty = document.createElement("p");
       empty.className = "empty-state";
@@ -225,9 +358,25 @@
     renderAgent();
   }
 
-  fetch(`${BASE}data.json?ts=${Date.now()}`)
-    .then((response) => response.json())
-    .then((data) => {
+  function loadFeedback() {
+    return fetch(`${BASE}reviews/user-feedback.json?ts=${Date.now()}`)
+      .then((response) => (response.ok ? response.json() : []))
+      .catch(() => [])
+      .then((entries) => {
+        const map = {};
+        (Array.isArray(entries) ? entries : []).forEach((entry) => {
+          const key = `${entry.agent || "agent"}::${entry.project || "项目"}::${entry.target || ""}`;
+          (map[key] = map[key] || []).push(entry);
+        });
+        state.feedback = map;
+      });
+  }
+
+  Promise.all([
+    fetch(`${BASE}data.json?ts=${Date.now()}`).then((response) => response.json()),
+    loadFeedback(),
+  ])
+    .then(([data]) => {
       state.board = Array.isArray(data.board) ? data.board : [];
       draw();
     })

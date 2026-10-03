@@ -119,6 +119,19 @@ button.btn { cursor: pointer; }
   .shot-grid { grid-template-columns: 1fr; }
 }
 
+/* ---- 用户评价 ---- */
+.feedback-box { border-top: 1px dashed var(--line); margin-top: 12px; padding-top: 10px; }
+.feedback-box .meta { margin: 0 0 6px; }
+.feedback-input { min-height: 64px; font-size: 14px; }
+.feedback-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+.feedback-hint { color: var(--muted); font-size: 12px; font-family: ui-sans-serif, sans-serif; line-height: 1.5; }
+.feedback-list { display: grid; gap: 8px; margin-top: 10px; }
+.feedback-entry { border: 1px solid var(--line); border-radius: 10px; background: var(--bg); padding: 10px 12px; }
+.feedback-entry.feedback-local { border-style: dashed; }
+.feedback-entry p { margin: 0 0 4px; font-size: 14px; }
+.feedback-entry .button-row { margin-top: 6px; }
+.shot-card .feedback-box { margin-top: 10px; }
+
 /* ---- 技能页 ---- */
 .skill-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; margin: 18px 0; }
 .skill-card { border: 1px solid var(--line); border-radius: 16px; background: var(--surface); padding: 18px; }
