@@ -132,6 +132,21 @@ button.btn { cursor: pointer; }
 .feedback-hint { color: var(--muted); font-size: 12px; font-family: ui-sans-serif, sans-serif; line-height: 1.5; }
 .shot-card .feedback-box { margin-top: 10px; }
 
+/* ---- 分镜管理 ---- */
+.shot-manage { margin-top: 10px; }
+.shot-form { display: grid; gap: 8px; margin-top: 10px; border: 1px dashed var(--line); border-radius: 10px; padding: 10px; }
+.shot-form .button-row { margin-top: 2px; }
+.shot-form input[type="file"] { font-size: 13px; color: var(--muted); font-family: ui-sans-serif, sans-serif; }
+.shot-history { margin-top: 10px; }
+.shot-history summary {
+  display: inline-flex; align-items: center; min-height: 36px; padding: 0 12px;
+  border-radius: 999px; border: 1px solid var(--line); background: var(--surface);
+  cursor: pointer; font-size: 13px; color: var(--muted); font-family: ui-sans-serif, sans-serif;
+}
+.shot-history[open] summary { margin-bottom: 8px; }
+.shot-history-item { margin-top: 8px; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); padding: 8px 12px; }
+.shot-history-item video { max-width: 100%; border-radius: 8px; display: block; margin-top: 6px; }
+
 /* ---- 技能页 ---- */
 .skill-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; margin: 18px 0; }
 .skill-card { border: 1px solid var(--line); border-radius: 16px; background: var(--surface); padding: 18px; }
