@@ -6,6 +6,76 @@
     return `${agent.id || "agent"}::${project.name || "项目"}::${target}`;
   }
 
+  // 用户 token 只存本机浏览器，用于直接把评价 commit 进仓库。绝不写进任何仓库文件。
+  function ghToken() {
+    try {
+      return localStorage.getItem("vl-gh-token") || "";
+    } catch {
+      return "";
+    }
+  }
+
+  function setGhToken(value) {
+    try {
+      if (value) localStorage.setItem("vl-gh-token", value);
+      else localStorage.removeItem("vl-gh-token");
+    } catch { /* 存不下就让用户每次手动粘贴 */ }
+  }
+
+  function encodeBase64Utf8(text) {
+    const bytes = new TextEncoder().encode(text);
+    let binary = "";
+    bytes.forEach((byte) => { binary += String.fromCharCode(byte); });
+    return btoa(binary);
+  }
+
+  function decodeBase64Utf8(base64) {
+    const binary = atob(base64.replace(/\n/g, ""));
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+    return new TextDecoder().decode(bytes);
+  }
+
+  const FEEDBACK_URL = "https://api.github.com/repos/Q-1844/video-lab/contents/reviews/user-feedback.json";
+
+  function pushFeedbackEntry(entry) {
+    const token = ghToken();
+    if (!token) return Promise.reject(new Error("no-token"));
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      Accept: "application/vnd.github+json",
+      "Content-Type": "application/json",
+      "X-GitHub-Api-Version": "2022-11-28",
+    };
+    return fetch(FEEDBACK_URL, { headers })
+      .then((response) => {
+        if (response.status === 404) return null;
+        if (response.status === 401) return Promise.reject(new Error("token 无效或过期"));
+        if (!response.ok) return Promise.reject(new Error(`读取评价文件失败 ${response.status}`));
+        return response.json();
+      })
+      .then((file) => {
+        const entries = file && file.content ? JSON.parse(decodeBase64Utf8(file.content)) : [];
+        const next = Array.isArray(entries) ? entries.slice() : [];
+        next.push(entry);
+        return fetch(FEEDBACK_URL, {
+          method: "PUT",
+          headers,
+          body: JSON.stringify({
+            message: `用户评价入库：${entry.agent} / ${entry.project} / ${entry.targetLabel}`,
+            content: encodeBase64Utf8(JSON.stringify(next, null, 2) + "\n"),
+            ...(file ? { sha: file.sha } : {}),
+          }),
+        });
+      })
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        if (response.status === 409 || response.status === 422) return Promise.reject(new Error("文件有新提交，请刷新页面后重试"));
+        if (response.status === 401) return Promise.reject(new Error("token 无效或过期"));
+        return Promise.reject(new Error(`写入失败 ${response.status}`));
+      });
+  }
+
   function localFeedback(key) {
     try {
       return JSON.parse(localStorage.getItem(`vl-feedback::${key}`)) || [];
@@ -36,11 +106,12 @@
   function flashButton(button, message) {
     const original = button.textContent;
     button.textContent = message;
-    setTimeout(() => { button.textContent = original; }, 1800);
+    setTimeout(() => { button.textContent = original; }, 2200);
   }
 
   // 有视频的成片/分镜下方的用户评价框。
-  // 提交后先存本机草稿，点「复制」发给任一 Agent，由 Agent 写入 reviews/user-feedback.json 供所有 Agent 读取。
+  // 已配置 Token：回车即提交，并直接 commit 进 reviews/user-feedback.json，所有 Agent 可见。
+  // 未配置 Token：回车只存本机草稿，可随时补配 Token 后再入库。
   function renderFeedback(agent, project, target, targetLabel) {
     const key = feedbackKey(agent, project, target);
     const box = document.createElement("div");
@@ -61,13 +132,33 @@
     submit.type = "button";
     submit.className = "btn btn-small";
     submit.textContent = "提交评价";
+    const tokenBtn = document.createElement("button");
+    tokenBtn.type = "button";
+    tokenBtn.className = "btn btn-small";
+    tokenBtn.textContent = "配置 Token";
+    tokenBtn.addEventListener("click", () => {
+      const value = window.prompt("粘贴 GitHub fine-grained token（只授权本仓库 Contents 读写，只存本机浏览器，不进仓库）。\n留空并确定 = 清除已存 token。", "");
+      if (value === null) return;
+      setGhToken(value.trim());
+      updateTokenUi();
+    });
     const hint = document.createElement("span");
     hint.className = "feedback-hint";
-    hint.textContent = "提交后点「复制给 Agent」发给任一对话，由它写入仓库，所有 Agent 才能看到。";
-    row.append(submit, hint);
+    row.append(submit, tokenBtn, hint);
+
+    const status = document.createElement("p");
+    status.className = "feedback-hint feedback-status";
 
     const list = document.createElement("div");
     list.className = "feedback-list";
+
+    function updateTokenUi() {
+      const hasToken = !!ghToken();
+      tokenBtn.style.display = hasToken ? "none" : "";
+      hint.textContent = hasToken
+        ? "回车提交，自动入库，所有 Agent 可见。Shift+回车换行。"
+        : "未配置 Token：回车只存本机草稿。点「配置 Token」后可自动入库。";
+    }
 
     function drawList() {
       list.replaceChildren();
@@ -80,9 +171,17 @@
         item.className = "feedback-entry" + (entry.local ? " feedback-local" : "");
         const meta = document.createElement("p");
         meta.className = "meta";
-        meta.textContent = `${entry.date || ""}${entry.repo ? " · 已入库，所有 Agent 可见" : " · 本机草稿，尚未入库"}`;
+        meta.textContent = `${entry.date || ""}${entry.repo ? " · 已入库，所有 Agent 可见" : " · 本机草稿，尚未入库"}${entry.handled ? " · Agent 已处理" : ""}`;
         const body = document.createElement("p");
         body.textContent = entry.text || "";
+        if (entry.handled && entry.result) {
+          const result = document.createElement("p");
+          result.className = "feedback-hint";
+          result.textContent = `处理结果：${entry.result}`;
+          item.append(meta, body, result);
+        } else {
+          item.append(meta, body);
+        }
         const ops = document.createElement("div");
         ops.className = "button-row";
         const copy = document.createElement("button");
@@ -92,7 +191,7 @@
         copy.addEventListener("click", () => {
           const payload = `[video-lab 用户评价] ${agentLabel(agent)} / ${project.name || "项目"} / ${targetLabel}（${entry.date || ""}）：${entry.text || ""}`;
           copyText(payload).then(
-            () => flashButton(copy, "已复制，去粘贴给 Agent"),
+            () => flashButton(copy, "已复制"),
             () => flashButton(copy, "复制失败，请手动选择文本"),
           );
         });
@@ -108,26 +207,75 @@
           });
           ops.append(del);
         }
-        item.append(meta, body, ops);
+        item.append(ops);
         list.append(item);
       });
     }
 
-    submit.addEventListener("click", () => {
+    function saveAsDraft(text) {
+      const entries = localFeedback(key);
+      entries.push({ text, date: new Date().toISOString().slice(0, 10) });
+      saveLocalFeedback(key, entries);
+      drawList();
+    }
+
+    function submitFeedback() {
       const text = input.value.trim();
       if (!text) {
         input.focus();
         return;
       }
-      const entries = localFeedback(key);
-      entries.push({ text, date: new Date().toISOString().slice(0, 10) });
-      saveLocalFeedback(key, entries);
-      input.value = "";
-      drawList();
+      if (!ghToken()) {
+        saveAsDraft(text);
+        input.value = "";
+        status.textContent = "已存本机草稿（未配置 Token）。点「配置 Token」后提交会自动入库。";
+        return;
+      }
+      const entry = {
+        agent: agent.id || "agent",
+        project: project.name || "项目",
+        target,
+        targetLabel,
+        text,
+        date: new Date().toISOString().slice(0, 10),
+      };
+      submit.disabled = true;
+      submit.textContent = "提交中…";
+      pushFeedbackEntry(entry).then(
+        () => {
+          (state.feedback[key] = state.feedback[key] || []).push(entry);
+          input.value = "";
+          drawList();
+          status.textContent = "已自动入库，所有 Agent 可见。";
+          flashButton(submit, "已入库");
+        },
+        (error) => {
+          saveAsDraft(text);
+          input.value = "";
+          status.textContent = `入库失败（${error.message}），已存本机草稿，可重试或用「复制给 Agent」。`;
+        },
+      ).finally?.(() => {
+        submit.disabled = false;
+        submit.textContent = "提交评价";
+      });
+      if (!Promise.prototype.finally) {
+        // 老浏览器兜底：立即恢复按钮，状态以提示文案为准
+        submit.disabled = false;
+        submit.textContent = "提交评价";
+      }
+    }
+
+    submit.addEventListener("click", submitFeedback);
+    input.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && !event.shiftKey && !event.isComposing) {
+        event.preventDefault();
+        submitFeedback();
+      }
     });
 
-    box.append(input, row, list);
+    updateTokenUi();
     drawList();
+    box.append(input, row, status, list);
     return box;
   }
 

@@ -125,6 +125,7 @@ button.btn { cursor: pointer; }
 .feedback-input { min-height: 64px; font-size: 14px; }
 .feedback-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
 .feedback-hint { color: var(--muted); font-size: 12px; font-family: ui-sans-serif, sans-serif; line-height: 1.5; }
+.feedback-status { margin: 6px 0 0; }
 .feedback-list { display: grid; gap: 8px; margin-top: 10px; }
 .feedback-entry { border: 1px solid var(--line); border-radius: 10px; background: var(--bg); padding: 10px 12px; }
 .feedback-entry.feedback-local { border-style: dashed; }
