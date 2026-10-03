@@ -209,5 +209,54 @@
     "extend_error": "personal-team-blocked:spending-limit",
     "real_tail_i2v_result": "not_executed",
     "real_tail_i2v_error": "media generation credits exhausted"
+  },
+  "v3": {
+    "film": "projects/salt-glv/盐与星-技能版-v3.mp4",
+    "status": "draft_ready",
+    "not": "final_approved",
+    "reason": "去掉中文配音和字幕，并用真实尾帧做组内接续。不覆盖 v1 和 v2。",
+    "audio": "native_only",
+    "subtitles": false,
+    "title_card": false,
+    "chinese_dub": false,
+    "spec": "1280x720 24fps h264 aac",
+    "duration_s": 180.02,
+    "bytes": 39035904,
+    "order": [
+      "01 keep 15s",
+      "02 real_tail_i2v from 01 15s",
+      "03 keep 15s cut",
+      "04 real_tail_i2v from 03 trimmed to 9s",
+      "05 keep 15s cut",
+      "06b real_tail_i2v from 05 10s",
+      "06c real_tail_i2v from 06b 10s",
+      "07 keep 15s cut",
+      "08 keep 15s cut",
+      "09 keep 10s cut",
+      "10 real_tail_i2v from 09 trimmed to 11s",
+      "11 keep 15s cut",
+      "12 real_tail_i2v from 11 15s",
+      "13 real_tail_i2v from 12 10s"
+    ],
+    "native_extend": {
+      "request_id": "9909012f-2873-9efd-93db-6a3b3afaae63",
+      "model": "grok-imagine-video",
+      "source": "clips/05 last 8 seconds",
+      "file_id": "file_592dbffb-99ba-468d-8c66-eee8b97a3585",
+      "returned_duration_s": 16,
+      "assembly": "rejected",
+      "reason": "Returned prefix stayed in the storm. The new seconds cut to a sunny beach and an unrelated person. Not used in the film."
+    },
+    "unavailable_not_claimed": [
+      "native_first_plus_refs",
+      "first_last_generate",
+      "timed_keyframe_generate",
+      "native_edit"
+    ],
+    "deviations": [
+      "04 later frames turn Zhou back to camera; film cuts at 9s",
+      "06c shows an extra arm while the mast snaps; broken-mast end state kept",
+      "10 gains a partial third face after 11s; film cuts there"
+    ]
   }
 }
