@@ -32,13 +32,6 @@
     return "";
   }
 
-  function setGhToken(value) {
-    try {
-      if (value) localStorage.setItem("vl-gh-token", value);
-      else localStorage.removeItem("vl-gh-token");
-    } catch { /* 存不下就让用户每次手动粘贴 */ }
-  }
-
   function encodeBase64Utf8(text) {
     const bytes = new TextEncoder().encode(text);
     let binary = "";
@@ -93,42 +86,13 @@
       });
   }
 
-  function localFeedback(key) {
-    try {
-      return JSON.parse(localStorage.getItem(`vl-feedback::${key}`)) || [];
-    } catch {
-      return [];
-    }
-  }
-
-  function saveLocalFeedback(key, entries) {
-    try {
-      localStorage.setItem(`vl-feedback::${key}`, JSON.stringify(entries));
-    } catch { /* 本机存不下就只做当次展示 */ }
-  }
-
-  function copyText(text) {
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      return navigator.clipboard.writeText(text);
-    }
-    const area = document.createElement("textarea");
-    area.value = text;
-    document.body.append(area);
-    area.select();
-    document.execCommand("copy");
-    area.remove();
-    return Promise.resolve();
-  }
-
   function flashButton(button, message) {
     const original = button.textContent;
     button.textContent = message;
     setTimeout(() => { button.textContent = original; }, 2200);
   }
 
-  // 有视频的成片/分镜下方的用户评价框。
-  // 已配置 Token：回车即提交，并直接 commit 进 reviews/user-feedback.json，所有 Agent 可见。
-  // 未配置 Token：回车只存本机草稿，可随时补配 Token 后再入库。
+  // 有视频的成片/分镜下方的用户评价框：输入 → 回车或点提交 → 自动 commit 进仓库，所有 Agent 可见。
   function renderFeedback(agent, project, target, targetLabel) {
     const key = feedbackKey(agent, project, target);
     const box = document.createElement("div");
@@ -138,114 +102,46 @@
     title.textContent = "用户评价";
     box.append(title);
 
-    const input = document.createElement("textarea");
-    input.className = "feedback-input";
-    input.rows = 2;
-    input.placeholder = "看完写一句，例如：口型没对上、节奏太慢、光不对，需要重做。";
-
     const row = document.createElement("div");
-    row.className = "feedback-actions";
+    row.className = "feedback-row";
+    const input = document.createElement("input");
+    input.type = "text";
+    input.className = "feedback-input";
+    input.placeholder = "写一句评价，回车提交";
     const submit = document.createElement("button");
     submit.type = "button";
     submit.className = "btn btn-small";
-    submit.textContent = "提交评价";
-    const tokenBtn = document.createElement("button");
-    tokenBtn.type = "button";
-    tokenBtn.className = "btn btn-small";
-    tokenBtn.textContent = "配置 Token";
-    tokenBtn.addEventListener("click", () => {
-      const value = window.prompt("粘贴 GitHub fine-grained token（本机优先，可覆盖站点内置 token）。\n留空并确定 = 清除本机 token，回退到站点内置 token。", "");
-      if (value === null) return;
-      setGhToken(value.trim());
-      updateTokenUi();
-    });
-    const hint = document.createElement("span");
-    hint.className = "feedback-hint";
-    row.append(submit, tokenBtn, hint);
-
-    const status = document.createElement("p");
-    status.className = "feedback-hint feedback-status";
+    submit.textContent = "提交";
+    row.append(input, submit);
 
     const list = document.createElement("div");
     list.className = "feedback-list";
 
-    function updateTokenUi() {
-      const hasToken = !!ghToken();
-      tokenBtn.style.display = hasToken ? "none" : "";
-      hint.textContent = hasToken
-        ? "回车提交，自动入库，所有 Agent 可见。Shift+回车换行。"
-        : "未配置 Token：回车只存本机草稿。点「配置 Token」后可自动入库。";
-    }
-
     function drawList() {
       list.replaceChildren();
-      const entries = [
-        ...(state.feedback[key] || []).map((entry) => ({ ...entry, repo: true })),
-        ...localFeedback(key).map((entry) => ({ ...entry, local: true })),
-      ];
-      entries.forEach((entry) => {
+      (state.feedback[key] || []).forEach((entry) => {
         const item = document.createElement("div");
-        item.className = "feedback-entry" + (entry.local ? " feedback-local" : "");
+        item.className = "feedback-entry" + (entry.handled ? " feedback-handled" : "");
         const meta = document.createElement("p");
         meta.className = "meta";
-        meta.textContent = `${entry.date || ""}${entry.repo ? " · 已入库，所有 Agent 可见" : " · 本机草稿，尚未入库"}${entry.handled ? " · Agent 已处理" : ""}`;
+        meta.textContent = `${entry.date || ""} · ${entry.handled ? "已处理" : "待处理"}`;
         const body = document.createElement("p");
         body.textContent = entry.text || "";
-        if (entry.handled && entry.result) {
+        item.append(meta, body);
+        if (entry.result) {
           const result = document.createElement("p");
           result.className = "feedback-hint";
           result.textContent = `处理结果：${entry.result}`;
-          item.append(meta, body, result);
-        } else {
-          item.append(meta, body);
+          item.append(result);
         }
-        const ops = document.createElement("div");
-        ops.className = "button-row";
-        const copy = document.createElement("button");
-        copy.type = "button";
-        copy.className = "btn btn-small";
-        copy.textContent = "复制给 Agent";
-        copy.addEventListener("click", () => {
-          const payload = `[video-lab 用户评价] ${agentLabel(agent)} / ${project.name || "项目"} / ${targetLabel}（${entry.date || ""}）：${entry.text || ""}`;
-          copyText(payload).then(
-            () => flashButton(copy, "已复制"),
-            () => flashButton(copy, "复制失败，请手动选择文本"),
-          );
-        });
-        ops.append(copy);
-        if (entry.local) {
-          const del = document.createElement("button");
-          del.type = "button";
-          del.className = "btn btn-small danger";
-          del.textContent = "删除草稿";
-          del.addEventListener("click", () => {
-            saveLocalFeedback(key, localFeedback(key).filter((item) => item.text !== entry.text || item.date !== entry.date));
-            drawList();
-          });
-          ops.append(del);
-        }
-        item.append(ops);
         list.append(item);
       });
-    }
-
-    function saveAsDraft(text) {
-      const entries = localFeedback(key);
-      entries.push({ text, date: new Date().toISOString().slice(0, 10) });
-      saveLocalFeedback(key, entries);
-      drawList();
     }
 
     function submitFeedback() {
       const text = input.value.trim();
       if (!text) {
         input.focus();
-        return;
-      }
-      if (!ghToken()) {
-        saveAsDraft(text);
-        input.value = "";
-        status.textContent = "已存本机草稿（未配置 Token）。点「配置 Token」后提交会自动入库。";
         return;
       }
       const entry = {
@@ -263,36 +159,28 @@
           (state.feedback[key] = state.feedback[key] || []).push(entry);
           input.value = "";
           drawList();
-          status.textContent = "已自动入库，所有 Agent 可见。";
-          flashButton(submit, "已入库");
+          flashButton(submit, "已提交");
         },
-        (error) => {
-          saveAsDraft(text);
-          input.value = "";
-          status.textContent = `入库失败（${error.message}），已存本机草稿，可重试或用「复制给 Agent」。`;
+        () => {
+          input.focus();
+          flashButton(submit, "提交失败，重试");
         },
-      ).finally?.(() => {
+      ).finally(() => {
         submit.disabled = false;
-        submit.textContent = "提交评价";
+        submit.textContent = "提交";
       });
-      if (!Promise.prototype.finally) {
-        // 老浏览器兜底：立即恢复按钮，状态以提示文案为准
-        submit.disabled = false;
-        submit.textContent = "提交评价";
-      }
     }
 
     submit.addEventListener("click", submitFeedback);
     input.addEventListener("keydown", (event) => {
-      if (event.key === "Enter" && !event.shiftKey && !event.isComposing) {
+      if (event.key === "Enter" && !event.isComposing) {
         event.preventDefault();
         submitFeedback();
       }
     });
 
-    updateTokenUi();
     drawList();
-    box.append(input, row, status, list);
+    box.append(row, list);
     return box;
   }
 

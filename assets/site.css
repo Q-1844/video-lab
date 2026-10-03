@@ -122,15 +122,14 @@ button.btn { cursor: pointer; }
 /* ---- 用户评价 ---- */
 .feedback-box { border-top: 1px dashed var(--line); margin-top: 12px; padding-top: 10px; }
 .feedback-box .meta { margin: 0 0 6px; }
-.feedback-input { min-height: 64px; font-size: 14px; }
-.feedback-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
-.feedback-hint { color: var(--muted); font-size: 12px; font-family: ui-sans-serif, sans-serif; line-height: 1.5; }
-.feedback-status { margin: 6px 0 0; }
+.feedback-row { display: flex; gap: 8px; align-items: center; }
+.feedback-row .feedback-input { flex: 1; min-height: 40px; margin: 0; }
+.feedback-row .btn-small { flex: none; }
 .feedback-list { display: grid; gap: 8px; margin-top: 10px; }
-.feedback-entry { border: 1px solid var(--line); border-radius: 10px; background: var(--bg); padding: 10px 12px; }
-.feedback-entry.feedback-local { border-style: dashed; }
+.feedback-entry { border: 1px solid var(--line); border-radius: 10px; background: var(--bg); padding: 8px 12px; }
 .feedback-entry p { margin: 0 0 4px; font-size: 14px; }
-.feedback-entry .button-row { margin-top: 6px; }
+.feedback-entry.feedback-handled { opacity: 0.6; }
+.feedback-hint { color: var(--muted); font-size: 12px; font-family: ui-sans-serif, sans-serif; line-height: 1.5; }
 .shot-card .feedback-box { margin-top: 10px; }
 
 /* ---- 技能页 ---- */
