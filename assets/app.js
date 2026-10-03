@@ -6,13 +6,30 @@
     return `${agent.id || "agent"}::${project.name || "项目"}::${target}`;
   }
 
-  // 用户 token 只存本机浏览器，用于直接把评价 commit 进仓库。绝不写进任何仓库文件。
+  // 用户评价入库 token 的取用顺序：
+  // 1) 本机浏览器 localStorage 里自己配的 token（在「配置 Token」里粘贴的）；
+  // 2) 站点内置 token（assets/site-config.js，站主确认内置，全设备免配置）。
+  function decodeBuiltinToken(config) {
+    const raw = atob(config.feedbackToken);
+    const key = config.feedbackTokenKey || "";
+    let out = "";
+    for (let i = 0; i < raw.length; i++) {
+      out += String.fromCharCode(raw.charCodeAt(i) ^ key.charCodeAt(i % key.length));
+    }
+    return out;
+  }
+
   function ghToken() {
     try {
-      return localStorage.getItem("vl-gh-token") || "";
-    } catch {
-      return "";
-    }
+      const local = localStorage.getItem("vl-gh-token");
+      if (local) return local;
+    } catch { /* 读不到就走内置 */ }
+    try {
+      if (window.VIDEO_LAB_CONFIG && window.VIDEO_LAB_CONFIG.feedbackToken) {
+        return decodeBuiltinToken(window.VIDEO_LAB_CONFIG);
+      }
+    } catch { /* 配置缺失或解码失败按无 token 处理 */ }
+    return "";
   }
 
   function setGhToken(value) {
@@ -137,7 +154,7 @@
     tokenBtn.className = "btn btn-small";
     tokenBtn.textContent = "配置 Token";
     tokenBtn.addEventListener("click", () => {
-      const value = window.prompt("粘贴 GitHub fine-grained token（只授权本仓库 Contents 读写，只存本机浏览器，不进仓库）。\n留空并确定 = 清除已存 token。", "");
+      const value = window.prompt("粘贴 GitHub fine-grained token（本机优先，可覆盖站点内置 token）。\n留空并确定 = 清除本机 token，回退到站点内置 token。", "");
       if (value === null) return;
       setGhToken(value.trim());
       updateTokenUi();
