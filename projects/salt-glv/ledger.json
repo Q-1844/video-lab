@@ -190,5 +190,24 @@
       }
     ],
     "supersample": false
+  },
+  "v2": {
+    "film": "projects/salt-glv/盐与星-技能版-v2.mp4",
+    "reason": "用户要求去掉中文旁白、系统配音和中文字幕，只拼接分镜。",
+    "audio": "native_only",
+    "subtitles": false,
+    "title_card": false,
+    "duration_s": 160.54,
+    "extends_attempted": [
+      "01",
+      "03",
+      "05",
+      "09",
+      "11"
+    ],
+    "extend_result": "not_executed",
+    "extend_error": "personal-team-blocked:spending-limit",
+    "real_tail_i2v_result": "not_executed",
+    "real_tail_i2v_error": "media generation credits exhausted"
   }
 }
