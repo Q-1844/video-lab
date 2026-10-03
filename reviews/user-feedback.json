@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "agent": "grok",
+    "project": "回响",
+    "target": "film",
+    "targetLabel": "成片",
+    "text": "链路测试：这条由自动化验证提交，稍后删除",
+    "date": "2026-10-03"
+  }
+]
