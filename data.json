@@ -57,6 +57,13 @@
             },
             {
               "id": "01a",
+              "title": "重绘测试",
+              "action": "验证即时重绘",
+              "clip": "projects/echo/clips/02.mp4",
+              "status": "review"
+            },
+            {
+              "id": "01a",
               "title": "测试插入镜",
               "action": "测试用，稍后删除",
               "clip": "projects/echo/clips/01.mp4",
