@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "agent": "grok",
+    "project": "回响",
+    "target": "film",
+    "targetLabel": "成片",
+    "text": "简化版UI验证，稍后删除",
+    "date": "2026-10-03"
+  }
+]
