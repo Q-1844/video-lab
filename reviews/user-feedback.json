@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "agent": "grok2",
+    "project": "盐与星 · 技能版",
+    "target": "shot-01",
+    "targetLabel": "分镜 01（晨雾启航）",
+    "text": "还不错",
+    "date": "2026-10-03"
+  }
+]
