@@ -476,7 +476,7 @@
       "conversation": "对话 2",
       "session": "grok-2",
       "role": "分镜与合成",
-      "description": "这一条对话做《盐与星》。下面三部片子放在一起对比。第三部是按 grok-long-video 重做后的技能版第三稿，没有字幕，也没有另配的中文声音。",
+      "description": "这一条对话做《盐与星》。叙事版、影像版和技能版前几稿都留着。最新一部是按审核改过的巨兽稿。",
       "skill_entry": "skills/grok-long-video/SKILL.md",
       "skill_version": "v0.1",
       "skills": [
@@ -813,6 +813,111 @@
               "action": "从挥手的最后一帧再往后。船影更大，镜头拉远，还是两个人的剪影。",
               "image": "projects/salt-glv/stills/12.jpg",
               "clip": "projects/salt-glv/clips/v3/13.mp4"
+            }
+          ]
+        },
+        {
+          "name": "盐与星 · 巨兽",
+          "note": "按审核新做的一稿，约 1 分 09 秒。大船拖着小艇出海，巨兽把大船撞毁，两人跳上小艇逃走，再漂到远处来船。没有字幕，没有另配的中文。旧的三部片子都还在。",
+          "skill": "grok-long-video",
+          "film": "projects/salt-glv/盐与星-技能版-v4.mp4",
+          "filename": "盐与星-技能版-v4.mp4",
+          "poster": "projects/salt-glv/stills/v4-04.jpg",
+          "steps": [
+            {
+              "title": "审核里要改的",
+              "body": "船前后对不上，镜头之间跳太远，夜里的近景太暧昧。要求改成巨兽把大船毁掉，人弃船跳上小艇。激烈的地方要多接几镜，不要配中文，不要加字幕。"
+            },
+            {
+              "title": "技能里怎么做的",
+              "body": "这是新的一轮，不把旧故事和巨兽故事拼成一条。人物还是原来的陈澈和老周。大船、拖在后面的小艇、那只一只眼的巨兽先各自定死。同一段动作用上一镜还清楚的画面往下接。换了时间就切开，不硬接。接下去会跑偏的尾段剪掉，不拿叠化盖住。"
+            },
+            {
+              "title": "激烈段为什么拆开",
+              "body": "一次生成太长，巨兽会从画面里消失，船也会换成别的船。所以撞击、断桅、船裂、跳艇、小艇离开，分成短镜。每一镜先看开头和结尾，坏掉的后半段不用。"
+            },
+            {
+              "title": "没当成用过的",
+              "body": "一次请求里同时给开头帧和定妆、首尾帧、视频编辑，这里仍然没有。官方延长上一轮会跑到岸上，这一轮没有再拿它接风暴。声音只用镜头里原来的风声和水声。"
+            }
+          ],
+          "shots": [
+            {
+              "id": "01",
+              "title": "大船离岸",
+              "action": "深绿色大渔船在雾里往前走，船尾拖着一条小木艇。甲板上只有两个人。",
+              "image": "projects/salt-glv/stills/v4-01.jpg",
+              "clip": "projects/salt-glv/clips/v4/01.mp4"
+            },
+            {
+              "id": "02",
+              "title": "回头",
+              "action": "从甲板接着往下。年轻人回头看岸，镜头再拉开，小艇还在绳子上。",
+              "image": "projects/salt-glv/stills/v4-02.jpg",
+              "clip": "projects/salt-glv/clips/v4/02.mp4"
+            },
+            {
+              "id": "03",
+              "title": "看住小艇",
+              "action": "他走到船尾看那条小艇。小艇从这里就被认出来，后面才跳得下去。",
+              "image": "projects/salt-glv/stills/v4-03.jpg",
+              "clip": "projects/salt-glv/clips/v4/03.mp4"
+            },
+            {
+              "id": "04",
+              "title": "巨兽出水",
+              "action": "同一条船旁边，巨兽带着那只浑浊的眼睛撞上来。只留巨兽还在的开头。",
+              "image": "projects/salt-glv/stills/v4-04.jpg",
+              "clip": "projects/salt-glv/clips/v4/04.mp4"
+            },
+            {
+              "id": "05",
+              "title": "桅断",
+              "action": "巨兽还在画面里，船身开裂，桅杆往下倒。",
+              "image": "projects/salt-glv/stills/v4-05.jpg",
+              "clip": "projects/salt-glv/clips/v4/05.mp4"
+            },
+            {
+              "id": "06",
+              "title": "船裂",
+              "action": "从断船的画面再往下。船头翘起，巨兽仍在旁边。",
+              "image": "projects/salt-glv/stills/v4-06.jpg",
+              "clip": "projects/salt-glv/clips/v4/06.mp4"
+            },
+            {
+              "id": "07",
+              "title": "跳上小艇",
+              "action": "两个人从大船跳向小艇。跳完之前切开，避免又回到大船上。",
+              "image": "projects/salt-glv/stills/v4-07.jpg",
+              "clip": "projects/salt-glv/clips/v4/07.mp4"
+            },
+            {
+              "id": "08",
+              "title": "小艇离开",
+              "action": "人已经在小艇上，大船和巨兽留在身后。两人分开坐，不挨在一起。",
+              "image": "projects/salt-glv/stills/v4-08.jpg",
+              "clip": "projects/salt-glv/clips/v4/08.mp4"
+            },
+            {
+              "id": "09",
+              "title": "夜里的水",
+              "action": "换到夜里。还是这条小艇，两人各坐一头，水瓶放在中间。后段多余的影子剪掉了。",
+              "image": "projects/salt-glv/stills/v4-09.jpg",
+              "clip": "projects/salt-glv/clips/v4/09.mp4"
+            },
+            {
+              "id": "10",
+              "title": "烈日",
+              "action": "正午，罐头从一头推向另一头。第三人出现之前就剪掉。",
+              "image": "projects/salt-glv/stills/v4-10.jpg",
+              "clip": "projects/salt-glv/clips/v4/10.mp4"
+            },
+            {
+              "id": "11",
+              "title": "远处的船",
+              "action": "黎明，两个人的剪影对着远处的船挥手。",
+              "image": "projects/salt-glv/stills/v4-11.jpg",
+              "clip": "projects/salt-glv/clips/v4/11.mp4"
             }
           ]
         }

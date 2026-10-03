@@ -258,5 +258,44 @@
       "06c shows an extra arm while the mast snaps; broken-mast end state kept",
       "10 gains a partial third face after 11s; film cuts there"
     ]
+  },
+  "v4": {
+    "film": "projects/salt-glv/盐与星-技能版-v4.mp4",
+    "status": "draft_ready",
+    "not": "final_approved",
+    "run_id": "salt-glv-r2",
+    "story": "Giant leviathan destroys the large boat. The two men abandon it for the towed skiff.",
+    "reason": "User review: boat mismatch, missing bridges, intimate night shots rejected, plot change accepted.",
+    "audio": "native_only",
+    "subtitles": false,
+    "chinese_dub": false,
+    "duration_s": 69.44,
+    "routes": {
+      "real_tail_i2v": [
+        "02 from a clear frame of 01, not the drifted final frame",
+        "03 from 02 tail"
+      ],
+      "state_advance_then_i2v": [
+        "monster breach",
+        "mast break",
+        "hull split",
+        "jump",
+        "skiff escape"
+      ],
+      "time_cut": [
+        "night",
+        "noon",
+        "dawn"
+      ],
+      "native_extend": "not used this run; previous extend left the scene",
+      "native_first_plus_refs": "unavailable"
+    },
+    "trims": {
+      "01": "0-5s, later frame loses Chen",
+      "04": "0-2.2s, monster leaves the shot after that",
+      "07": "0-4s, later returns to the wreck without the skiff",
+      "09": "0-6.5s, later edge artifact",
+      "10": "0-4s, a third man appears later"
+    }
   }
 }
