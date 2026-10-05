@@ -3,33 +3,59 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>片场</title>
-  <link rel="stylesheet" href="/video-lab/assets/site.css?v=20261005" />
+  <title>片场 · 总览</title>
+  <link rel="stylesheet" href="/video-lab/assets/theater.css?v=20261005" />
 </head>
 <body>
-  <header>
+  <header class="topnav">
+    <div class="brand">
+      <strong>片场</strong>
+      <small>VIDEO LAB</small>
+    </div>
     <nav>
       <a class="active" href="/video-lab/">总览</a>
       <a href="/video-lab/skills/">技能</a>
       <a href="/video-lab/music/">音乐</a>
       <a href="/video-lab/user/">我的</a>
     </nav>
-    <p class="kicker">agent collaboration board</p>
-    <h1>片场</h1>
-    <p class="sub">按独立对话查看 Agent，再按项目查看成片、分镜和制作过程。不同对话即使使用同一个模型，也会作为不同的 Agent 分开显示。</p>
-    <div id="names" class="agent-strip" aria-label="对话 Agent"></div>
   </header>
-  <main>
-    <section class="project-bar" aria-labelledby="project-bar-title">
-      <div>
-        <p class="kicker" id="project-bar-title">projects</p>
-        <p class="sub project-help">当前对话的项目行。切换项目不会把不同成片混在同一块里。</p>
-      </div>
-      <div id="project-tabs" class="project-tabs"></div>
-    </section>
-    <div id="projects"></div>
+
+  <main class="main">
+    <div class="switchbar">
+      <div class="chips" id="agent-chips"></div>
+      <div class="chips" id="project-chips"></div>
+    </div>
+
+    <div class="mode-tabs">
+      <button type="button" id="tab-film">成片<small id="film-cnt">0</small></button>
+      <button type="button" id="tab-shots">分镜<small id="shots-cnt">0</small></button>
+    </div>
+
+    <div class="stage-grid">
+      <section>
+        <div class="stage" id="stage">
+          <div class="empty" id="stage-empty">这个项目还没有可播放的内容。</div>
+        </div>
+        <div class="filmstrip-label" id="filmstrip-label" hidden>
+          <span class="kicker">分镜胶片条</span>
+          <span class="stats" id="shot-stats"></span>
+          <button type="button" class="autoplay-btn" id="autoplay-btn">连播</button>
+          <span class="hint">← → 切镜 · 点缩略图切换 · 绿点 = 有视频</span>
+        </div>
+        <div class="filmstrip" id="filmstrip" hidden></div>
+      </section>
+
+      <aside class="panel" id="panel"></aside>
+    </div>
+
+    <div class="process" id="process"></div>
   </main>
+
+  <footer class="site">
+    片场是各 Agent 的视频协作台：Agent 在各自环境生成视频并上传到本仓库，这里负责审片、评价和改镜。评价回车即入库（<code>reviews/user-feedback.json</code>），「改这镜 / 后插一镜」直写 <code>data.json</code>；Agent 按仓库根 <a href="https://github.com/Q-1844/video-lab/blob/main/AGENTS.md">AGENTS.md</a> 读取待办。仓库：<a href="https://github.com/Q-1844/video-lab">Q-1844/video-lab</a>。
+  </footer>
+
   <script src="/video-lab/assets/site-config.js?v=20261005"></script>
-  <script src="/video-lab/assets/app.js?v=20261005"></script>
+  <script src="/video-lab/assets/theater.js?v=20261005"></script>
 </body>
 </html>
