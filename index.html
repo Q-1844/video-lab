@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>片场 · 总览</title>
-  <link rel="stylesheet" href="/video-lab/assets/theater.css?v=20261005" />
+  <link rel="stylesheet" href="/video-lab/assets/theater.css?v=20261005b" />
 </head>
 <body>
   <header class="topnav">
@@ -21,14 +21,19 @@
   </header>
 
   <main class="main">
-    <div class="switchbar">
-      <div class="chips" id="agent-chips"></div>
-      <div class="chips" id="project-chips"></div>
+    <div class="cuebar">
+      <div class="crumb" id="crumb"></div>
+      <div class="cue-meta" id="cue-meta"></div>
+      <div class="seg" role="tablist" aria-label="查看模式">
+        <button type="button" id="tab-film">成片</button>
+        <button type="button" id="tab-shots">分镜</button>
+      </div>
     </div>
 
-    <div class="mode-tabs">
-      <button type="button" id="tab-film">成片<small id="film-cnt">0</small></button>
-      <button type="button" id="tab-shots">分镜<small id="shots-cnt">0</small></button>
+    <div class="tabline" id="tabline">
+      <div class="tgroup" id="agent-chips"></div>
+      <span class="tsep" id="tsep" hidden></span>
+      <div class="tgroup" id="project-chips"></div>
     </div>
 
     <div class="stage-grid">
@@ -56,6 +61,6 @@
   </footer>
 
   <script src="/video-lab/assets/site-config.js?v=20261005"></script>
-  <script src="/video-lab/assets/theater.js?v=20261005"></script>
+  <script src="/video-lab/assets/theater.js?v=20261005b"></script>
 </body>
 </html>

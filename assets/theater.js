@@ -159,48 +159,87 @@
     const ac = $("#agent-chips");
     ac.replaceChildren();
     state.board.forEach((agent, i) => {
-      const chip = document.createElement("button");
-      chip.type = "button";
-      chip.className = "chip" + (i === state.agentIndex ? " on" : "") + (hasStuff(agent) ? " has-stuff" : "");
+      const tab = document.createElement("button");
+      tab.type = "button";
+      tab.className = "tab" + (i === state.agentIndex ? " on" : "");
+      tab.title = agent.role ? `${agent.name || agent.id} · ${agent.role}` : (agent.name || agent.id || "");
       const st = document.createElement("span");
-      st.className = "st";
-      st.title = hasStuff(agent) ? "有内容" : "暂无内容";
-      chip.append(st, document.createTextNode(agent.name || agent.id || "未命名"));
-      chip.addEventListener("click", () => {
+      st.className = "tdot" + (hasStuff(agent) ? " ok" : "");
+      tab.append(st, document.createTextNode(agent.name || agent.id || "未命名"));
+      tab.addEventListener("click", () => {
         state.agentIndex = i;
         state.projectIndex = 0;
         state.shotIndex = 0;
         state.versionIndex = -1;
         renderAll();
       });
-      ac.append(chip);
+      ac.append(tab);
     });
 
     const pc = $("#project-chips");
     pc.replaceChildren();
     (agentOf().projects || []).forEach((p, i) => {
-      const chip = document.createElement("button");
-      chip.type = "button";
-      chip.className = "chip" + (i === state.projectIndex ? " on" : "");
-      chip.textContent = p.name || "未命名项目";
-      chip.addEventListener("click", () => {
+      const tab = document.createElement("button");
+      tab.type = "button";
+      tab.className = "tab tab-p" + (i === state.projectIndex ? " on" : "");
+      tab.textContent = p.name || "未命名项目";
+      tab.addEventListener("click", () => {
         state.projectIndex = i;
         state.shotIndex = 0;
         state.versionIndex = -1;
         renderAll();
       });
-      pc.append(chip);
+      pc.append(tab);
     });
-    pc.hidden = (agentOf().projects || []).length <= 1;
+    const multi = (agentOf().projects || []).length > 1;
+    pc.hidden = !multi;
+    $("#tsep").hidden = !multi;
+  }
+
+  // 场记条：面包屑（agent · 项目）+ 元数据（等宽小字）
+  function renderCuebar() {
+    const crumb = $("#crumb");
+    crumb.replaceChildren();
+    const agent = agentOf();
+    const p = projectOf();
+    const who = document.createElement("span");
+    who.className = "who";
+    who.textContent = (agent.name || agent.id || "AGENT").toUpperCase();
+    crumb.append(who);
+    const slash = document.createElement("span");
+    slash.className = "slash";
+    slash.textContent = "/";
+    crumb.append(slash);
+    const title = document.createElement("span");
+    title.className = "title";
+    title.textContent = p.name || "未命名项目";
+    crumb.append(title);
+
+    const meta = $("#cue-meta");
+    meta.replaceChildren();
+    const shots = (p.shots || []).length;
+    const bits = [];
+    if (shots) bits.push(`${shots} 镜`);
+    if (p.film) bits.push("1 成片");
+    bits.forEach((bit, i) => {
+      if (i) {
+        const sep = document.createElement("i");
+        sep.textContent = "·";
+        meta.append(sep);
+      }
+      const b = document.createElement("b");
+      b.textContent = bit;
+      meta.append(b);
+    });
   }
 
   function renderStage() {
     const stage = $("#stage");
     const p = projectOf();
+    if (state.mode === "film" && !p.film) state.mode = "shots"; // 无成片项目自动回落分镜（先回落再亮灯）
     $("#tab-film").classList.toggle("on", state.mode === "film");
     $("#tab-shots").classList.toggle("on", state.mode === "shots");
-    $("#film-cnt").textContent = p.film ? "1" : "0";
-    $("#shots-cnt").textContent = (p.shots || []).length || "0";
+    $("#tab-film").disabled = !p.film;
 
     stage.replaceChildren();
     let media = null;
@@ -676,6 +715,7 @@
   $("#tab-shots").addEventListener("click", () => { state.mode = "shots"; state.versionIndex = -1; renderAll(); });
 
   function renderAll() {
+    renderCuebar();
     renderChips();
     renderStage();
     renderFilmstrip();
