@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>样板 · 放映厅 · 片场</title>
+  <style>
+    :root {
+      --bg: #0d0d11;
+      --surface: #15151b;
+      --surface-2: #1b1b23;
+      --line: #26262f;
+      --fg: #ecece8;
+      --muted: #8b8b96;
+      --accent: #e8a849;
+      --accent-soft: rgba(232, 168, 73, 0.14);
+      --radius: 12px;
+      --sans: ui-sans-serif, system-ui, "PingFang SC", "Noto Sans SC", sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-text-size-adjust: 100%; }
+    body { background: var(--bg); color: var(--fg); font-family: var(--sans); line-height: 1.6; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; color: inherit; cursor: pointer; }
+    img, video { display: block; max-width: 100%; }
+    .kicker { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
+
+    /* ---- 顶部导航 ---- */
+    .topbar {
+      position: sticky; top: 0; z-index: 40;
+      background: rgba(13, 13, 17, 0.82); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+    .topnav {
+      max-width: 1200px; margin: 0 auto; padding: 0 20px;
+      display: flex; align-items: center; justify-content: space-between; height: 54px; gap: 16px;
+    }
+    .brand { display: flex; align-items: baseline; gap: 10px; font-weight: 700; font-size: 15px; letter-spacing: 0.06em; }
+    .brand .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); display: inline-block; margin-right: 8px; }
+    .brand small { font-weight: 400; color: var(--muted); letter-spacing: 0.2em; font-size: 10px; }
+    .topnav nav { display: flex; gap: 4px; }
+    .topnav nav a {
+      padding: 6px 12px; border-radius: 999px; font-size: 13px; color: var(--muted);
+      transition: color 0.2s, background 0.2s;
+    }
+    .topnav nav a:hover { color: var(--fg); }
+    .topnav nav a.active { color: var(--fg); background: var(--surface-2); }
+    .sample-flag {
+      font-size: 11px; color: var(--accent); background: var(--accent-soft);
+      border: 1px solid rgba(232, 168, 73, 0.3); border-radius: 999px; padding: 3px 10px; white-space: nowrap;
+    }
+
+    /* ---- 切换条 ---- */
+    .switchbar {
+      max-width: 1200px; margin: 0 auto; padding: 18px 20px 0;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .chips { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .chips .label { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-right: 6px; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 7px;
+      border: 1px solid var(--line); background: var(--surface); color: var(--muted);
+      border-radius: 999px; padding: 6px 14px; font-size: 13px;
+      transition: all 0.18s ease;
+    }
+    .chip:hover { color: var(--fg); border-color: #3a3a46; }
+    .chip.on { color: var(--fg); border-color: var(--accent); background: var(--accent-soft); }
+    .chip .st { width: 6px; height: 6px; border-radius: 50%; background: #4a4a55; }
+    .chip.has .st { background: #6fc07a; }
+    .chip.on .st { background: var(--accent); }
+    .chip small { opacity: 0.7; font-size: 11px; }
+
+    /* ---- 放映厅 ---- */
+    .theater { max-width: 1200px; margin: 0 auto; padding: 18px 20px 60px; }
+    .mode-tabs { display: flex; gap: 22px; border-bottom: 1px solid var(--line); margin-bottom: 18px; }
+    .mode-tab {
+      background: none; border: 0; padding: 10px 2px; font-size: 14px; color: var(--muted);
+      border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color 0.2s;
+      letter-spacing: 0.04em;
+    }
+    .mode-tab:hover { color: var(--fg); }
+    .mode-tab.on { color: var(--fg); border-bottom-color: var(--accent); }
+    .mode-tab .cnt { font-size: 11px; color: var(--muted); margin-left: 6px; }
+
+    .stage-grid { display: grid; grid-template-columns: minmax(0, 1fr) 330px; gap: 20px; align-items: start; }
+
+    /* 舞台 */
+    .stage {
+      background: #000; border-radius: var(--radius); overflow: hidden;
+      border: 1px solid var(--line); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+    }
+    .stage video, .stage img { width: 100%; aspect-ratio: 16 / 9; object-fit: contain; background: #000; }
+    .stage-meta {
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+      padding: 14px 18px; background: var(--surface); border-top: 1px solid var(--line);
+    }
+    .stage-meta .no { font-size: 12px; color: var(--accent); letter-spacing: 0.14em; font-weight: 700; }
+    .stage-meta .name { font-size: 15px; font-weight: 600; }
+    .stage-meta .desc { flex-basis: 100%; color: var(--muted); font-size: 13px; }
+    .status { font-size: 11px; padding: 2px 10px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+    .status.review { color: var(--accent); border-color: rgba(232, 168, 73, 0.4); }
+
+    /* 胶片条 */
+    .filmstrip-label { display: flex; align-items: baseline; justify-content: space-between; margin: 20px 2px 10px; }
+    .filmstrip-label .hint { font-size: 12px; color: var(--muted); }
+    .filmstrip {
+      display: flex; gap: 10px; overflow-x: auto; padding: 4px 2px 10px;
+      scrollbar-width: none; min-width: 0;
+    }
+    .filmstrip::-webkit-scrollbar { display: none; }
+    .frame {
+      flex: 0 0 128px; border: 2px solid var(--line); border-radius: 8px; overflow: hidden;
+      background: var(--surface); text-align: left; padding: 0; position: relative;
+      transition: border-color 0.18s, transform 0.18s;
+    }
+    .frame img { aspect-ratio: 16 / 9; object-fit: cover; width: 100%; filter: saturate(0.85); }
+    .frame:hover { border-color: #4a4a55; transform: translateY(-2px); }
+    .frame.on { border-color: var(--accent); }
+    .frame.on img { filter: none; }
+    .frame .tag {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 5px 8px 6px; font-size: 11px; color: var(--muted);
+    }
+    .frame .tag b { color: var(--fg); font-weight: 600; letter-spacing: 0.06em; }
+    .frame .tag .clipdot { width: 5px; height: 5px; border-radius: 50%; background: #4a4a55; }
+    .frame.hasclip .tag .clipdot { background: #6fc07a; }
+    .frame.on .tag { color: var(--fg); }
+
+    /* 侧栏 */
+    .panel { display: grid; gap: 14px; position: sticky; top: 96px; }
+    .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; }
+    .card h4 { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-bottom: 10px; }
+    .kv { display: flex; gap: 10px; font-size: 13px; padding: 3px 0; }
+    .kv b { color: var(--muted); font-weight: 400; min-width: 64px; }
+    .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn {
+      border: 1px solid var(--line); background: var(--surface-2); color: var(--fg);
+      border-radius: 999px; padding: 8px 16px; font-size: 13px; transition: all 0.18s;
+    }
+    .btn:hover { border-color: #4a4a55; }
+    .btn.primary { background: var(--accent); border-color: var(--accent); color: #161006; font-weight: 600; }
+    .btn.primary:hover { filter: brightness(1.08); }
+    .btn.ghost { background: none; }
+    .note { color: var(--muted); font-size: 12px; }
+    .note a { color: var(--accent); }
+
+    .review-input { display: grid; gap: 8px; }
+    .review-input textarea {
+      background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px;
+      color: var(--fg); font: inherit; font-size: 13px; padding: 10px 12px; min-height: 64px; resize: vertical;
+    }
+    .review-input textarea:focus { outline: none; border-color: var(--accent); }
+
+    /* 制作过程 */
+    .process { margin-top: 26px; }
+    .process details { border: 1px solid var(--line); border-radius: 10px; background: var(--surface); margin-bottom: 8px; }
+    .process summary { cursor: pointer; padding: 12px 16px; font-size: 13px; color: var(--fg); list-style: none; display: flex; align-items: baseline; gap: 10px; }
+    .process summary::before { content: "▸"; color: var(--muted); font-size: 10px; transition: transform 0.15s; }
+    .process details[open] summary::before { transform: rotate(90deg); }
+    .process details p { padding: 0 16px 14px; color: var(--muted); font-size: 13px; }
+    .process .idx { color: var(--muted); font-size: 11px; letter-spacing: 0.1em; }
+
+    .empty { text-align: center; color: var(--muted); padding: 60px 0; font-size: 14px; }
+    footer.site { max-width: 1200px; margin: 0 auto; padding: 0 20px 40px; color: var(--muted); font-size: 12px; border-top: 1px solid var(--line); padding-top: 20px; }
+    footer.site a { color: var(--accent); }
+
+    @media (max-width: 960px) {
+      .stage-grid { grid-template-columns: minmax(0, 1fr); }
+      .stage-grid > section { min-width: 0; }
+      .panel { position: static; }
+    }
+    @media (max-width: 640px) {
+      .topnav { padding: 0 14px; }
+      .brand small { display: none; }
+      .sample-flag { display: none; }
+      .topnav nav a { padding: 6px 8px; font-size: 12px; }
+      .switchbar, .theater { padding-left: 14px; padding-right: 14px; }
+      .frame { flex-basis: 104px; }
+      .stage-meta { padding: 12px 14px; }
+      .mode-tabs { gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topnav">
+      <div class="brand"><span class="dot"></span>片场 <small>VIDEO LAB</small></div>
+      <span class="sample-flag">样板预览</span>
+      <nav>
+        <a class="active" href="#">总览</a>
+        <a href="/video-lab/skills/">技能</a>
+        <a href="/video-lab/music/">音乐</a>
+        <a href="/video-lab/user/">我的</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="switchbar">
+    <div class="chips" id="agent-chips"><span class="label">Agent</span></div>
+    <div class="chips" id="project-chips"><span class="label">项目</span></div>
+  </div>
+
+  <main class="theater">
+    <div class="mode-tabs">
+      <button class="mode-tab" id="tab-film" type="button">成片<span class="cnt" id="film-cnt"></span></button>
+      <button class="mode-tab" id="tab-shots" type="button">分镜<span class="cnt" id="shots-cnt"></span></button>
+    </div>
+
+    <div class="stage-grid">
+      <section>
+        <div class="stage" id="stage">
+          <div class="empty" id="stage-empty">这个项目还没有可播放的内容。</div>
+        </div>
+        <div class="filmstrip-label" id="filmstrip-label" hidden>
+          <span class="kicker">分镜胶片条</span>
+          <span class="hint">点缩略图切换放映 · 绿点 = 有视频</span>
+        </div>
+        <div class="filmstrip" id="filmstrip" hidden></div>
+      </section>
+
+      <aside class="panel" id="panel"></aside>
+    </div>
+
+    <section class="process" id="process"></section>
+  </main>
+
+  <footer class="site">
+    这是主界面改版样板（design/home-sample.html）：真实 data.json 驱动，视频均可播放。评价与分镜管理为布局演示，未接提交。觉得可以就回复确认，我再把它变成正式主界面。
+  </footer>
+
+  <script>
+  (function () {
+    const BASE = "/video-lab/";
+    const state = { board: [], agentIndex: 0, projectIndex: 0, mode: "shots", shotIndex: 0 };
+
+    const $ = (s, r = document) => r.querySelector(s);
+
+    function safePath(path) {
+      if (!path) return "";
+      return path.startsWith("/") || path.startsWith("http") ? path : BASE + path;
+    }
+    function agentOf() { return state.board[state.agentIndex] || { projects: [] }; }
+    function projectOf() { return (agentOf().projects || [])[state.projectIndex] || { shots: [] }; }
+
+    /* ---- 切换条 ---- */
+    function renderChips() {
+      const ac = $("#agent-chips");
+      ac.querySelectorAll(".chip").forEach((n) => n.remove());
+      state.board.forEach((agent, i) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "chip" + (i === state.agentIndex ? " on" : "") + ((agent.projects || []).length ? " has" : "");
+        b.innerHTML = '<span class="st"></span>' + (agent.name || agent.id) + (agent.role ? "<small>" + agent.role + "</small>" : "");
+        b.addEventListener("click", () => { state.agentIndex = i; state.projectIndex = 0; state.mode = "shots"; state.shotIndex = 0; renderAll(); });
+        ac.append(b);
+      });
+
+      const pc = $("#project-chips");
+      pc.querySelectorAll(".chip").forEach((n) => n.remove());
+      const projects = agentOf().projects || [];
+      if (!projects.length) {
+        const tip = document.createElement("span");
+        tip.className = "note"; tip.textContent = "这个 Agent 还没有项目。";
+        pc.append(tip);
+      }
+      projects.forEach((p, i) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "chip" + (i === state.projectIndex ? " on" : "");
+        b.textContent = p.name || "未命名";
+        b.addEventListener("click", () => { state.projectIndex = i; state.shotIndex = 0; renderAll(); });
+        pc.append(b);
+      });
+    }
+
+    /* ---- 舞台 ---- */
+    function renderStage() {
+      const stage = $("#stage");
+      const p = projectOf();
+      const tabFilm = $("#tab-film"), tabShots = $("#tab-shots");
+      tabFilm.classList.toggle("on", state.mode === "film");
+      tabShots.classList.toggle("on", state.mode === "shots");
+      $("#film-cnt").textContent = p.film ? "1" : "0";
+      $("#shots-cnt").textContent = (p.shots || []).length || "0";
+
+      stage.replaceChildren();
+      let media = null;
+      if (state.mode === "film" && p.film) {
+        media = document.createElement("video");
+        media.controls = true; media.playsInline = true; media.preload = "metadata";
+        media.src = safePath(p.film);
+        if (p.poster) media.poster = safePath(p.poster);
+        stage.append(media);
+      } else if (state.mode === "shots") {
+        const shots = p.shots || [];
+        const shot = shots[state.shotIndex];
+        if (shot) {
+          if (shot.clip) {
+            media = document.createElement("video");
+            media.controls = true; media.playsInline = true; media.preload = "metadata";
+            media.src = safePath(shot.clip);
+            if (shot.image) media.poster = safePath(shot.image);
+          } else if (shot.image) {
+            media = document.createElement("img");
+            media.src = safePath(shot.image);
+            media.alt = "";
+          }
+          if (media) stage.append(media);
+          const meta = document.createElement("div");
+          meta.className = "stage-meta";
+          const no = document.createElement("span");
+          no.className = "no"; no.textContent = "分镜 " + (shot.id || "");
+          const name = document.createElement("span");
+          name.className = "name"; name.textContent = shot.title || "";
+          meta.append(no, name);
+          if (shot.status) {
+            const st = document.createElement("span");
+            st.className = "status " + shot.status; st.textContent = shot.status;
+            meta.append(st);
+          }
+          if (shot.action) {
+            const d = document.createElement("span");
+            d.className = "desc"; d.textContent = shot.action;
+            meta.append(d);
+          }
+          stage.append(meta);
+        } else {
+          const empty = document.createElement("div");
+          empty.className = "empty"; empty.textContent = "这个项目还没有登记分镜。";
+          stage.append(empty);
+        }
+      } else {
+        const empty = document.createElement("div");
+        empty.className = "empty"; empty.textContent = "这个项目还没有成片。";
+        stage.append(empty);
+      }
+    }
+
+    /* ---- 胶片条 ---- */
+    function renderFilmstrip() {
+      const strip = $("#filmstrip");
+      const label = $("#filmstrip-label");
+      const shots = projectOf().shots || [];
+      strip.replaceChildren();
+      const show = state.mode === "shots" && shots.length;
+      strip.hidden = !show;
+      label.hidden = !show;
+      if (!show) return;
+      shots.forEach((shot, i) => {
+        const f = document.createElement("button");
+        f.type = "button";
+        f.className = "frame" + (i === state.shotIndex ? " on" : "") + (shot.clip ? " hasclip" : "");
+        const img = document.createElement("img");
+        img.src = safePath(shot.image || shot.clip);
+        img.alt = shot.title || shot.id || "";
+        img.loading = "lazy";
+        const tag = document.createElement("div");
+        tag.className = "tag";
+        const b = document.createElement("b");
+        b.textContent = shot.id || String(i + 1);
+        const dot = document.createElement("span");
+        dot.className = "clipdot";
+        tag.append(b, dot);
+        f.append(img, tag);
+        f.addEventListener("click", () => { state.shotIndex = i; renderStage(); renderFilmstrip(); renderPanel(); });
+        strip.append(f);
+      });
+      const cur = strip.children[state.shotIndex];
+      if (cur) cur.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
+    }
+
+    /* ---- 侧栏 ---- */
+    function renderPanel() {
+      const panel = $("#panel");
+      panel.replaceChildren();
+      const p = projectOf();
+      const a = agentOf();
+
+      const info = document.createElement("div");
+      info.className = "card";
+      info.innerHTML = "<h4>项目信息</h4>";
+      const kv = (k, v) => {
+        const row = document.createElement("div");
+        row.className = "kv";
+        row.innerHTML = "<b>" + k + "</b><span></span>";
+        row.lastChild.textContent = v || "—";
+        return row;
+      };
+      info.append(kv("片名", p.name), kv("Agent", a.name), kv("比例/时长", (p.note || "").split("。")[0]), kv("技能", p.skill ? "grok-long-video" : "—"));
+
+      const ops = document.createElement("div");
+      ops.className = "card";
+      ops.innerHTML = "<h4>操作</h4>";
+      const actions = document.createElement("div");
+      actions.className = "actions";
+      if (state.mode === "shots" && (p.shots || []).length) {
+        [["改这镜", "primary"], ["后插一镜", ""], ["下载本镜", "ghost"]].forEach(([t, cls]) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "btn " + cls;
+          btn.textContent = t;
+          btn.addEventListener("click", () => flash(btn));
+          actions.append(btn);
+        });
+      } else if (state.mode === "film" && p.film) {
+        const btn = document.createElement("button");
+        btn.type = "button"; btn.className = "btn primary"; btn.textContent = "下载成片";
+        btn.addEventListener("click", () => flash(btn));
+        actions.append(btn);
+      } else {
+        const n = document.createElement("span");
+        n.className = "note"; n.textContent = "无内容可操作。";
+        actions.append(n);
+      }
+      ops.append(actions);
+      const hint = document.createElement("p");
+      hint.className = "note"; hint.style.marginTop = "10px";
+      hint.textContent = "样板里按钮为布局演示，正式版将接入现有的网页直写通道。";
+      ops.append(hint);
+
+      const review = document.createElement("div");
+      review.className = "card";
+      const rh = document.createElement("h4"); rh.textContent = "评价";
+      review.append(rh);
+      const form = document.createElement("div");
+      form.className = "review-input";
+      const ta = document.createElement("textarea");
+      ta.placeholder = "看完这一镜想说什么，回车提交…";
+      const submit = document.createElement("button");
+      submit.type = "button"; submit.className = "btn primary"; submit.textContent = "提交评价";
+      submit.addEventListener("click", () => { ta.value = ""; flash(submit, "样板预览：确认后接入"); });
+      ta.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); submit.click(); }
+      });
+      form.append(ta, submit);
+      review.append(form);
+
+      panel.append(info, ops, review);
+    }
+
+    function flash(btn, msg) {
+      const t = btn.textContent;
+      btn.textContent = msg || "样板预览";
+      setTimeout(() => { btn.textContent = t; }, 1600);
+    }
+
+    /* ---- 制作过程 ---- */
+    function renderProcess() {
+      const root = $("#process");
+      root.replaceChildren();
+      const steps = projectOf().steps || [];
+      if (!steps.length) return;
+      const h = document.createElement("div");
+      h.className = "filmstrip-label";
+      h.innerHTML = '<span class="kicker">制作过程</span>';
+      root.append(h);
+      steps.forEach((s, i) => {
+        const d = document.createElement("details");
+        if (i === 0) d.open = true;
+        const sum = document.createElement("summary");
+        const idx = document.createElement("span");
+        idx.className = "idx"; idx.textContent = String(i + 1).padStart(2, "0");
+        sum.append(idx, document.createTextNode(s.title || "步骤 " + (i + 1)));
+        const body = document.createElement("p");
+        body.textContent = s.body || "";
+        d.append(sum, body);
+        root.append(d);
+      });
+    }
+
+    function renderAll() {
+      renderChips(); renderStage(); renderFilmstrip(); renderPanel(); renderProcess();
+    }
+
+    $("#tab-film").addEventListener("click", () => { state.mode = "film"; renderAll(); });
+    $("#tab-shots").addEventListener("click", () => { state.mode = "shots"; renderAll(); });
+
+    fetch(BASE + "data.json?ts=" + Date.now())
+      .then((r) => r.json())
+      .then((data) => {
+        state.board = Array.isArray(data.board) ? data.board : [];
+        renderAll();
+      })
+      .catch(() => {
+        $("#stage").innerHTML = '<div class="empty">读不到 data.json，样板无法演示。</div>';
+      });
+  })();
+  </script>
+</body>
+</html>
