@@ -139,14 +139,30 @@
     stats();
     const grid = $("#skill-grid");
     grid.replaceChildren();
-    // 仓库内技能在前，外部标记次之，计划中垫底
-    const order = { repo: 0, external: 1, planned: 2 };
-    state.skills
+    document.querySelectorAll(".skill-planned").forEach((node) => node.remove());
+    if (!state.skills.length) {
+      grid.innerHTML = '<p class="empty-state">skills/skills.json 还没有登记任何技能。</p>';
+      return;
+    }
+    // 在用的技能（repo/external）进主区，repo 大卡全宽突出；计划中占位收进折叠区
+    const order = { repo: 0, external: 1 };
+    const active = state.skills.filter((s) => s.type !== "planned");
+    active
       .slice()
       .sort((a, b) => (order[a.type] ?? 9) - (order[b.type] ?? 9))
       .forEach((skill) => grid.append(card(skill)));
-    if (!state.skills.length) {
-      grid.innerHTML = '<p class="empty-state">skills/skills.json 还没有登记任何技能。</p>';
+    const planned = state.skills.filter((s) => s.type === "planned");
+    if (planned.length) {
+      const box = document.createElement("details");
+      box.className = "skill-planned";
+      const summary = document.createElement("summary");
+      summary.textContent = `计划中 ${planned.length} 项（暂未开工，开工后自动升级进上方主区）`;
+      box.append(summary);
+      const list = document.createElement("div");
+      list.className = "skill-planned-list";
+      planned.forEach((skill) => list.append(card(skill)));
+      box.append(list);
+      grid.after(box);
     }
   }
 

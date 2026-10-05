@@ -147,11 +147,28 @@ button.btn { cursor: pointer; }
 .shot-history-item { margin-top: 8px; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); padding: 8px 12px; }
 .shot-history-item video { max-width: 100%; border-radius: 8px; display: block; margin-top: 6px; }
 
+/* ---- 音乐页 ---- */
+.track-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; margin: 18px 0; }
+.track-card { border: 1px solid var(--line); border-radius: 16px; background: var(--surface); padding: 18px; }
+.track-head h4 { margin: 0 0 4px; }
+.track-card audio { width: 100%; margin-top: 10px; }
+.track-card .button-row { margin-top: 10px; }
+.mv-item { margin-top: 12px; border: 1px dashed var(--line); border-radius: 12px; background: var(--bg); padding: 10px 14px; }
+.mv-item video { max-width: 100%; border-radius: 8px; display: block; margin-top: 8px; }
+.music-upload { margin: 12px 0 18px; max-width: 560px; }
+@media (max-width: 760px) {
+  .track-grid { grid-template-columns: 1fr; }
+}
+
 /* ---- 技能页 ---- */
 .skill-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; margin: 18px 0; }
 .skill-card { border: 1px solid var(--line); border-radius: 16px; background: var(--surface); padding: 18px; }
+.skill-card.skill-repo { grid-column: 1 / -1; border-width: 1px; box-shadow: 0 1px 0 rgba(0,0,0,0.04); }
 .skill-card.skill-external { border-color: #7a6a3f; }
 .skill-card.skill-planned { opacity: 0.72; }
+.skill-planned { margin: 4px 0 18px; border: 1px dashed var(--line); border-radius: 12px; padding: 10px 14px; }
+.skill-planned summary { cursor: pointer; color: var(--muted); font-size: 13px; font-family: ui-sans-serif, sans-serif; }
+.skill-planned-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 12px; }
 .skill-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
 .skill-head h2 { margin: 0; font-size: 24px; }
 .badge {
@@ -173,6 +190,7 @@ button.btn { cursor: pointer; }
 .skill-users { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 12px 0; }
 @media (max-width: 760px) {
   .skill-grid { grid-template-columns: 1fr; }
+  .skill-planned-list { grid-template-columns: 1fr; }
   .skill-files li { grid-template-columns: auto 1fr; }
   .skill-files .file-link { grid-column: 1 / -1; }
 }

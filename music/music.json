@@ -1,15 +1,5 @@
 {
-  "tracks": [
-    {
-      "id": "m1791164347228",
-      "title": "测试曲目-入库链路",
-      "author": "灵光",
-      "style": "电子 / 测试",
-      "note": "验证后删除",
-      "src": "music/tracks/test-song-1791164345603.mp3",
-      "date": "2026-10-05",
-      "mvs": []
-    }
-  ],
-  "updated": "2026-10-05"
+  "updated": "2026-10-05",
+  "note": "音乐专区数据源，展示页 /video-lab/music/ 只读这里。灵光生成的音乐由网页上传表单自动登记（文件存 music/tracks/），Agent 也可以按同样结构登记。每条 track 字段：id、title、author（默认灵光）、style、note、src（音频路径）、date、mvs（配这条音乐做成的 MV 数组，每项 {title, video, project, note, date}）。",
+  "tracks": []
 }

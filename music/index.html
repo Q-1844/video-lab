@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>音乐 · 片场</title>
+  <link rel="stylesheet" href="/video-lab/assets/site.css?v=20261005" />
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="/video-lab/">总览</a>
+      <a href="/video-lab/skills/">技能</a>
+      <a class="active" href="/video-lab/music/">音乐</a>
+      <a href="/video-lab/user/">我的</a>
+    </nav>
+    <p class="kicker">music zone</p>
+    <h1>音乐</h1>
+    <p class="sub">灵光生成的音乐在这里入库和试听；配上视频做成 MV 后，成片也会挂到对应曲目下。</p>
+    <p id="music-stats" class="meta"></p>
+  </header>
+  <main>
+    <section aria-label="曲库">
+      <div id="track-grid" class="track-grid"></div>
+    </section>
+    <section aria-label="上传音乐">
+      <h3>上传新曲</h3>
+      <div id="music-upload" class="music-upload"></div>
+    </section>
+    <footer>音乐文件统一存 <code>music/tracks/</code>；数据登记在 <code>music/music.json</code>。上传大文件（超过 25MB）请让 Agent 直接 push 后在表单里填路径。</footer>
+  </main>
+  <script src="/video-lab/assets/site-config.js?v=20261005"></script>
+  <script src="/video-lab/assets/music.js?v=20261005b"></script>
+</body>
+</html>
