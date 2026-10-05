@@ -3,25 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Grok · 片场</title>
-  <link rel="stylesheet" href="/video-lab/assets/site.css?v=20261005" />
+  <title>Agent · 片场</title>
+  <link rel="stylesheet" href="/video-lab/assets/theater.css?v=20261005c" />
 </head>
 <body data-agent-id="grok">
-  <header>
+  <header class="topnav">
+    <div class="brand">
+      <strong>片场</strong>
+      <small>VIDEO LAB</small>
+    </div>
     <nav>
       <a href="/video-lab/">总览</a>
       <a href="/video-lab/skills/">技能</a>
       <a href="/video-lab/music/">音乐</a>
       <a href="/video-lab/user/">我的</a>
     </nav>
-    <p class="kicker" id="agent-kicker">grok-1</p>
-    <h1 id="agent-title">Grok</h1>
-    <p class="sub" id="agent-description">Grok 的独立对话工作区。</p>
   </header>
-  <main>
-    <div id="agent-projects"></div>
-    <footer>仓库：https://github.com/Q-1844/video-lab</footer>
+  <main class="main">
+    <div class="cuebar">
+      <div class="crumb">
+        <span class="who" id="agent-kicker">grok</span>
+        <span class="slash">/</span>
+        <span class="title" id="agent-title"></span>
+      </div>
+      <div class="cue-meta" id="agent-role"></div>
+    </div>
+    <p class="page-sub" id="agent-description"></p>
+    <div id="agent-projects" class="agent-projects"></div>
   </main>
-  <script src="/video-lab/assets/agent-page.js"></script>
+  <footer class="page">仓库：<a href="https://github.com/Q-1844/video-lab">Q-1844/video-lab</a></footer>
+  <script src="/video-lab/assets/agent-page.js?v=20261005"></script>
 </body>
 </html>

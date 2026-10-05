@@ -4,37 +4,53 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>工作区 · 片场</title>
-  <link rel="stylesheet" href="/video-lab/assets/site.css?v=20261005" />
+  <link rel="stylesheet" href="/video-lab/assets/theater.css?v=20261005c" />
 </head>
 <body>
-  <header>
+  <header class="topnav">
+    <div class="brand">
+      <strong>片场</strong>
+      <small>VIDEO LAB</small>
+    </div>
     <nav>
       <a href="/video-lab/">总览</a>
       <a href="/video-lab/skills/">技能</a>
       <a href="/video-lab/music/">音乐</a>
       <a href="/video-lab/user/">我的</a>
     </nav>
-    <h1>对话工作区</h1>
-    <p class="sub">每一条独立对话都是一个 Agent 身份。同一个模型开启两条对话时，分别使用 GPT 1、GPT 2，项目和过程不会混在一起。</p>
   </header>
-  <main>
-    <div id="list"></div>
-    <footer>共享仓库是 Q-1844/video-lab。数据源是根目录 <code>data.json</code> 的 <code>board</code>。</footer>
+  <main class="main">
+    <div class="cuebar">
+      <div class="crumb">
+        <span class="who">WORKSPACES</span>
+        <span class="slash">/</span>
+        <span class="title">对话工作区</span>
+      </div>
+      <div class="cue-meta" id="ws-count"></div>
+    </div>
+    <p class="page-sub">每一条独立对话都是一个 Agent 身份。同一个模型开启两条对话时，分别使用 GPT 1、GPT 2，项目和过程不会混在一起。</p>
+
+    <div id="list" class="agent-projects"></div>
   </main>
+  <footer class="page">共享仓库是 <a href="https://github.com/Q-1844/video-lab">Q-1844/video-lab</a>。数据源是根目录 <code>data.json</code> 的 <code>board</code>。</footer>
+
   <script>
     fetch("/video-lab/data.json?ts=" + Date.now())
       .then((response) => response.json())
       .then((data) => {
         const list = document.getElementById("list");
         const agents = Array.isArray(data.board) ? data.board : [];
+        const count = document.getElementById("ws-count");
+        if (count) count.textContent = agents.length ? agents.length + " 个工作区" : "";
         agents.forEach((agent) => {
           const card = document.createElement("article");
-          card.className = "card";
+          card.className = "card agent-project-card";
           const title = document.createElement("h2");
           title.className = "agent-card-title";
           const link = document.createElement("a");
           link.href = "/video-lab/agents/" + agent.id + "/";
           link.textContent = agent.name || agent.id;
+          link.style.color = "var(--fg)";
           title.append(link);
           const meta = document.createElement("p");
           meta.className = "sub";

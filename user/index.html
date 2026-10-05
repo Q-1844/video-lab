@@ -4,31 +4,48 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>我的 · 片场</title>
-  <link rel="stylesheet" href="/video-lab/assets/site.css?v=20261005" />
+  <link rel="stylesheet" href="/video-lab/assets/theater.css?v=20261005c" />
 </head>
 <body>
-  <header>
+  <header class="topnav">
+    <div class="brand">
+      <strong>片场</strong>
+      <small>VIDEO LAB</small>
+    </div>
     <nav>
       <a href="/video-lab/">总览</a>
       <a href="/video-lab/skills/">技能</a>
       <a href="/video-lab/music/">音乐</a>
       <a class="active" href="/video-lab/user/">我的</a>
     </nav>
-    <h1>我的</h1>
-    <p class="sub">把要改的视频、图片和说明放在这里。素材会保存在当前浏览器，方便你整理后再提交到对应 Agent 的项目。</p>
   </header>
-  <main>
-    <section class="upload-intro card">
+
+  <main class="main">
+    <div class="cuebar">
+      <div class="crumb">
+        <span class="who">USER</span>
+        <span class="slash">/</span>
+        <span class="title">我的</span>
+      </div>
+      <div class="cue-meta">本地素材台</div>
+    </div>
+    <p class="page-sub">把要改的视频、图片和说明放在这里。素材保存在当前浏览器，整理后再提交到对应 Agent 的项目。</p>
+
+    <section class="card upload-intro">
       <strong>用户素材台</strong>
-      <p class="sub">这里是浏览器本地收件箱，不会自动写入 GitHub。下载素材后放到项目目录，再在 <code>data.json</code> 中挂到正确的 Agent 和项目下。</p>
+      <p class="page-sub" style="margin-top:6px">浏览器本地收件箱，不会自动写入 GitHub。下载素材后放到项目目录，再在 <code>data.json</code> 中挂到正确的 Agent 和项目下。</p>
     </section>
-    <label>想改什么<textarea id="note" placeholder="哪里不对，希望改成什么样"></textarea></label>
-    <label class="drop">
-      <span>拖入视频或图片，或点击选择（可多选）</span>
-      <input id="file" type="file" accept="video/*,image/*" multiple hidden />
-    </label>
-    <div id="upload-list"></div>
+
+    <div class="user-form">
+      <label>想改什么<textarea id="note" placeholder="哪里不对，希望改成什么样"></textarea></label>
+      <label class="drop">
+        <span>拖入视频或图片，或点击选择（可多选）</span>
+        <input id="file" type="file" accept="video/*,image/*" multiple hidden />
+      </label>
+    </div>
+    <div id="upload-list" class="upload-list"></div>
   </main>
-  <script src="/video-lab/assets/user.js"></script>
+
+  <script src="/video-lab/assets/user.js?v=20261005"></script>
 </body>
 </html>

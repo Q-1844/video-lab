@@ -10,6 +10,8 @@
   function render(agent) {
     $("#agent-kicker").textContent = agent.session || agent.id || "conversation";
     $("#agent-title").textContent = agent.name || agent.id;
+    const role = $("#agent-role");
+    if (role) role.textContent = agent.role || "";
     $("#agent-description").textContent = agent.description || "这个页面只展示该对话 Agent 的项目和过程。";
     const root = $("#agent-projects");
     root.replaceChildren();

@@ -1,5 +1,6 @@
-/* 放映厅主题 · 总览主页专用（其他页面仍用 site.css 亮色） */
+/* 放映厅主题 · 全站（总览/技能/音乐/我的/Agent页/404 共用） */
 :root {
+  color-scheme: dark;
   --bg: #0d0d11;
   --surface: #15151b;
   --surface-2: #1b1b23;
@@ -222,11 +223,112 @@ img, video { display: block; max-width: 100%; }
 footer.site { max-width: 1200px; margin: 0 auto; padding: 0 20px 40px; color: var(--muted); font-size: 12px; border-top: 1px solid var(--line); padding-top: 20px; }
 footer.site a { color: var(--accent); }
 
+/* ---------- 全站通用内容样式 ---------- */
+.page-sub { color: var(--muted); font-size: 13px; margin: 6px 0 0; max-width: 720px; }
+.sub { color: var(--muted); font-size: 13px; }
+.meta { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); font-size: 13px; }
+.empty-state { color: var(--muted); font-size: 14px; padding: 40px 0; text-align: center; }
+.button-row { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0; }
+a.btn { color: var(--fg); }
+a.btn:hover { color: var(--accent); border-color: #4a4a55; }
+code { font-family: ui-monospace, monospace; font-size: 0.9em; background: var(--surface-2); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; }
+
+/* 页面级页脚（非总览） */
+footer.page { max-width: 1200px; margin: 0 auto; padding: 0 20px 40px; color: var(--muted); font-size: 12px; border-top: 1px solid var(--line); margin-top: 34px; padding-top: 18px; }
+footer.page a { color: var(--accent); }
+
+/* ---------- 技能页 ---------- */
+.skill-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; margin: 18px 0; }
+.skill-card { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 18px; }
+.skill-card.skill-repo { grid-column: 1 / -1; }
+.skill-card.skill-external { border-color: #5a4f2e; }
+.skill-card.skill-planned { opacity: 0.7; }
+.skill-planned { margin: 4px 0 18px; border: 1px dashed var(--line); border-radius: 10px; padding: 10px 14px; }
+.skill-planned summary { cursor: pointer; color: var(--muted); font-size: 13px; }
+.skill-planned-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 12px; }
+.skill-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+.skill-head h2 { margin: 0; font-size: 20px; }
+.badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  min-height: 22px; padding: 1px 10px; border-radius: 999px;
+  border: 1px solid var(--line); color: var(--muted); font-size: 11px;
+}
+.badge-repo { color: #0d0d11; background: var(--accent); border-color: var(--accent); font-weight: 600; }
+.badge-external { color: var(--accent); border-color: #5a4f2e; }
+.skill-files { list-style: none; padding: 0; margin: 8px 0 12px; display: grid; gap: 8px; }
+.skill-files li { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: baseline; border-bottom: 1px dashed var(--line); padding-bottom: 8px; }
+.skill-files li:last-child { border-bottom: 0; }
+.skill-files strong { white-space: nowrap; font-weight: 500; }
+.skill-files .muted { color: var(--muted); font-size: 12px; }
+.skill-files .file-link { font-size: 12px; white-space: nowrap; }
+.skill-files .file-link a, .file-link a { color: var(--accent); }
+.skill-refs summary { cursor: pointer; color: var(--muted); font-size: 12px; }
+.skill-users { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 12px 0; }
+
+/* ---------- 音乐页 ---------- */
+.track-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; margin: 18px 0; }
+.track-card { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 18px; }
+.track-head h4 { margin: 0 0 4px; font-size: 16px; }
+.track-card audio { width: 100%; margin-top: 12px; }
+.track-card .button-row { margin-top: 12px; }
+.mv-item { margin-top: 14px; border: 1px dashed var(--line); border-radius: 10px; background: var(--surface-2); padding: 10px 14px; }
+.mv-item video { max-width: 100%; border-radius: 8px; display: block; margin-top: 8px; }
+.music-upload { margin: 14px 0 18px; max-width: 560px; }
+.music-upload h3 { font-size: 12px; color: var(--muted); font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 10px; }
+
+/* 通用表单（音乐上传 / 我的素材台） */
+.shot-form { display: flex; flex-direction: column; gap: 8px; }
+.shot-form input[type="text"], .shot-form input[type="file"] {
+  background: var(--surface-2); border: 1px solid var(--line); border-radius: 8px; color: var(--fg);
+  padding: 8px 11px; font: inherit; font-size: 13px; width: 100%;
+}
+.shot-form input[type="file"] { padding: 6px; font-size: 12px; }
+.shot-form input:focus { outline: none; border-color: rgba(232, 168, 73, 0.55); }
+
+/* ---------- 我的（用户素材台） ---------- */
+.upload-intro { margin: 18px 0; }
+.user-form { display: flex; flex-direction: column; gap: 10px; max-width: 560px; }
+.user-form label { font-size: 12px; color: var(--muted); display: flex; flex-direction: column; gap: 6px; }
+.user-form textarea {
+  background: var(--surface-2); border: 1px solid var(--line); border-radius: 8px; color: var(--fg);
+  padding: 10px 12px; font: inherit; font-size: 13px; min-height: 84px; resize: vertical;
+}
+.user-form textarea:focus { outline: none; border-color: rgba(232, 168, 73, 0.55); }
+.drop {
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  border: 1.5px dashed var(--line); border-radius: var(--radius); background: var(--surface);
+  color: var(--muted); font-size: 13px; padding: 28px 16px; cursor: pointer; margin-top: 10px;
+  transition: border-color .15s, background .15s;
+}
+.drop:hover, .drop.dragging { border-color: rgba(232, 168, 73, 0.55); background: var(--surface-2); color: var(--fg); }
+.upload-card video, .upload-card img { max-width: 100%; border-radius: 8px; margin-top: 8px; }
+.upload-list { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
+
+/* ---------- Agent 详情页 ---------- */
+.agent-projects { display: grid; gap: 14px; margin: 18px 0; }
+.agent-project-card h2, .agent-project-card h3 { font-size: 16px; margin-bottom: 6px; }
+.agent-project-card video { border-radius: 8px; }
+.agent-project-card details { margin-top: 10px; }
+.agent-project-card summary { cursor: pointer; color: var(--muted); font-size: 12px; }
+.preline { white-space: pre-line; }
+
+/* ---------- 404 ---------- */
+.notfound { max-width: 620px; margin: 90px auto; padding: 0 20px; text-align: center; }
+.notfound h1 { font-size: 22px; margin: 14px 0 6px; }
+.notfound .navlist { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 22px; }
+.notfound .navlist a { font-size: 13px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; transition: color .15s, border-color .15s; }
+.notfound .navlist a:hover { color: var(--accent); border-color: rgba(232, 168, 73, 0.5); }
+
 @media (max-width: 960px) {
   .stage-grid { grid-template-columns: minmax(0, 1fr); }
   .stage-grid > section { min-width: 0; }
   .panel { position: static; }
 }
+@media (max-width: 760px) {
+  .skill-grid, .skill-planned-list, .track-grid { grid-template-columns: 1fr; }
+}
+
 @media (max-width: 640px) {
   .topnav { padding: 0 14px; }
   .brand small { display: none; }
