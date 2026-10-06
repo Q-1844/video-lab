@@ -27,3 +27,5 @@
 17. 分镜两阶段约定：首次生成走 `create/`，修复阶段走 `repair/`。改分镜时不要覆盖旧文件：新视频存为 `<镜号>-v2.mp4`、`-v3.mp4`，由总览页审片栏的「改这镜」把 `data.json` 里该镜的 `clip` 指向新版、旧版路径自动写进该镜的 `history` 数组（`{clip, image, note, date}`），放映器下方的版本条可在新旧版间切换；插入分镜存为 `<镜号>a.mp4`（镜号字母后缀，如 `03a`），用「后插一镜」或手动在 `data.json` 的 `shots` 数组对应位置插入条目，`status` 从 `draft` 起，不要为插入重排已有镜号。Agent 上传完视频文件后优先让用户在网页上登记，尽量不手改 `data.json`。
 18. 音乐专区（`/video-lab/music/`）：数据源是 `music/music.json`，音频文件存 `music/tracks/`。灵光生成的音乐优先由用户在网页表单上传（自动传文件 + 自动登记），Agent 上传时保持同一结构：`{id, title, author: "灵光", style, note, src: "music/tracks/<文件>", date, mvs: []}`，新曲目插到 `tracks` 数组最前。做 MV 时：视频文件按项目惯例归档，然后在该曲目的 `mvs` 数组追加 `{title, video: "<视频路径>", project: "<项目名>", note, date}`，页面会自动在曲目下渲染 MV 播放器。
 
+
+19. 全站统一放映厅暗色主题（theater.css 单一主题源，2026-10-05 起全站生效）：视频/音频文件缺失时页面会显示带路径的错误卡，Agent 看到后应检查 data.json/music.json 里的路径是否与仓库实际文件一致。
