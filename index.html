@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>片场 · 总览</title>
-  <link rel="stylesheet" href="/video-lab/assets/theater.css?v=20261005b" />
+  <link rel="stylesheet" href="/video-lab/assets/theater.css?v=20261006" />
 </head>
 <body>
   <header class="topnav">
@@ -22,7 +22,11 @@
 
   <main class="main">
     <div class="cuebar">
-      <div class="crumb" id="crumb"></div>
+      <div class="crumb" id="crumb">
+        <span class="who">STANDBY</span>
+        <span class="slash">/</span>
+        <span class="title muted-title">正在连接片场…</span>
+      </div>
       <div class="cue-meta" id="cue-meta"></div>
       <div class="seg" role="tablist" aria-label="查看模式">
         <button type="button" id="tab-film">成片</button>
@@ -61,6 +65,6 @@
   </footer>
 
   <script src="/video-lab/assets/site-config.js?v=20261005"></script>
-  <script src="/video-lab/assets/theater.js?v=20261005b"></script>
+  <script src="/video-lab/assets/theater.js?v=20261006"></script>
 </body>
 </html>

@@ -233,6 +233,27 @@
     });
   }
 
+  // 统一的放映器构造：暗色原生控件 + 文件缺失提示 + （分镜）播完连播
+  function makePlayer(src, poster, opts = {}) {
+    const v = document.createElement("video");
+    v.controls = true; v.playsInline = true; v.preload = "metadata";
+    v.src = safePath(src);
+    if (poster) v.poster = safePath(poster);
+    if (opts.onEnded) v.addEventListener("ended", opts.onEnded);
+    v.addEventListener("error", () => {
+      const err = document.createElement("div");
+      err.className = "verr";
+      const msg = document.createElement("strong");
+      msg.textContent = "视频文件缺失或无法解码";
+      const path = document.createElement("span");
+      path.className = "path";
+      path.textContent = src;
+      err.append(msg, path);
+      v.replaceWith(err);
+    });
+    return v;
+  }
+
   function renderStage() {
     const stage = $("#stage");
     const p = projectOf();
@@ -244,10 +265,7 @@
     stage.replaceChildren();
     let media = null;
     if (state.mode === "film" && p.film) {
-      media = document.createElement("video");
-      media.controls = true; media.playsInline = true; media.preload = "metadata";
-      media.src = safePath(p.film);
-      if (p.poster) media.poster = safePath(p.poster);
+      media = makePlayer(p.film, p.poster);
       stage.append(media);
       const meta = document.createElement("div");
       meta.className = "stage-meta";
@@ -274,11 +292,7 @@
         const clip = viewingHist ? hist[state.versionIndex].clip : shot.clip;
         const image = viewingHist ? (hist[state.versionIndex].image || "") : shot.image;
         if (clip) {
-          media = document.createElement("video");
-          media.controls = true; media.playsInline = true; media.preload = "metadata";
-          media.src = safePath(clip);
-          if (image) media.poster = safePath(image);
-          media.addEventListener("ended", () => { if (state.autoplay) nextShot(); });
+          media = makePlayer(clip, image, { onEnded: () => { if (state.autoplay) nextShot(); } });
           stage.append(media);
         } else if (image) {
           media = document.createElement("img");
@@ -400,6 +414,7 @@
       dot.className = "clipdot";
       tag.append(b, dot);
       f.append(img, tag);
+      f.setAttribute("aria-label", `分镜 ${shot.id || i + 1}${shot.title ? " " + shot.title : ""}${shot.clip ? "" : "（无视频）"}`);
       f.addEventListener("click", () => { selectShot(i); });
       strip.append(f);
     });
@@ -695,8 +710,8 @@
 
   document.addEventListener("keydown", (event) => {
     if (event.target && /^(INPUT|TEXTAREA|SELECT)$/.test(event.target.tagName)) return;
-    if (event.key === "ArrowRight") { event.preventDefault(); nextShot(); }
-    else if (event.key === "ArrowLeft") { event.preventDefault(); prevShot(); }
+    if (event.key === "ArrowRight" || event.key === "l") { event.preventDefault(); nextShot(); }
+    else if (event.key === "ArrowLeft" || event.key === "h") { event.preventDefault(); prevShot(); }
     else if (event.key === " ") {
       const v = $("#stage video");
       if (v) {
@@ -749,5 +764,7 @@
     })
     .catch(() => {
       $("#stage").innerHTML = '<div class="empty">暂时无法读取项目数据，请稍后刷新。</div>';
+      const t = document.querySelector(".crumb .title");
+      if (t) { t.textContent = "连接失败"; t.classList.add("muted-title"); }
     });
 })();

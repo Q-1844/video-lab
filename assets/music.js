@@ -115,6 +115,15 @@
       audio.controls = true;
       audio.preload = "metadata";
       audio.src = safePath(track.src);
+      audio.addEventListener("error", () => {
+        const err = document.createElement("p");
+        err.className = "aerr";
+        err.textContent = "音频文件缺失：";
+        const path = document.createElement("code");
+        path.textContent = track.src;
+        err.append(path);
+        audio.replaceWith(err);
+      });
       card.append(audio);
       const links = document.createElement("div");
       links.className = "button-row";
