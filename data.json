@@ -23,6 +23,133 @@
       ],
       "projects": [
         {
+          "name": "夜逃",
+          "note": "三分钟。船长和大副在夜船上遇见海中巨影，只做逃开这一段。衔接优先。技能 grok-long-video v0.1，配方 B。",
+          "skill": "grok-long-video",
+          "skill_version": "v0.1",
+          "skill_entry": "skills/grok-long-video/SKILL.md",
+          "recipe": "B 融合新首帧 + 图生视频",
+          "film": "projects/wake/夜逃.mp4",
+          "filename": "夜逃.mp4",
+          "poster": "projects/wake/stills/03.jpg",
+          "steps": [
+            {
+              "title": "技能",
+              "body": "grok-long-video v0.1 首次生成，配方 B。这边没有原生「尾帧加 Look 一次出视频」。尾帧管空间，锁定人像管脸和衣服，合成新首帧后再动。"
+            },
+            {
+              "title": "只做逃命",
+              "body": "同一条船、同一盏灯、同两个人。发现、触手、抓紧、下沉、船继续走。十二段各 15 秒，共 3 分 00 秒。"
+            },
+            {
+              "title": "怎么接",
+              "body": "每段取真实最后一帧，下一镜首帧从它改，同时用船长和大副的锁定图拉回胡子、帽子、辫子和衣服。景别变了就当成一次切。"
+            },
+            {
+              "title": "声音",
+              "body": "对白和音效是生成时自带的，原样保留。没有另配音，没有另铺背景音乐。接头只有极短淡化。"
+            }
+          ],
+          "shots": [
+            {
+              "id": "01",
+              "title": "掌舵",
+              "action": "船长说「把帆收紧」。这一镜的尾帧是下一镜的空间。",
+              "image": "projects/wake/stills/01.jpg",
+              "clip": "projects/wake/clips/01.mp4",
+              "status": "review"
+            },
+            {
+              "id": "02",
+              "title": "船尾",
+              "action": "大副指向船尾，说「船尾有东西」。",
+              "image": "projects/wake/stills/02.jpg",
+              "clip": "projects/wake/clips/02.mp4",
+              "status": "review"
+            },
+            {
+              "id": "03",
+              "title": "触手",
+              "action": "远处升起一条触手。船长说「别回头太久」。",
+              "image": "projects/wake/stills/03.jpg",
+              "clip": "projects/wake/clips/03.mp4",
+              "status": "review"
+            },
+            {
+              "id": "04",
+              "title": "抓紧",
+              "action": "船身倾斜。大副说「抓紧栏杆」。触手没有上船。",
+              "image": "projects/wake/stills/04.jpg",
+              "clip": "projects/wake/clips/04.mp4",
+              "status": "review"
+            },
+            {
+              "id": "05",
+              "title": "航向",
+              "action": "两人回到舵轮。船长说「航向不变」。",
+              "image": "projects/wake/stills/05.jpg",
+              "clip": "projects/wake/clips/05.mp4",
+              "status": "review"
+            },
+            {
+              "id": "06",
+              "title": "还在后面",
+              "action": "黑影升高。大副说「它还在后面」。",
+              "image": "projects/wake/stills/06.jpg",
+              "clip": "projects/wake/clips/06.mp4",
+              "status": "review"
+            },
+            {
+              "id": "07",
+              "title": "拉远",
+              "action": "船往前走，黑影留在后面。没有台词。",
+              "image": "projects/wake/stills/07.jpg",
+              "clip": "projects/wake/clips/07.mp4",
+              "status": "review"
+            },
+            {
+              "id": "08",
+              "title": "下沉",
+              "action": "黑影开始沉。船长说「继续跑」。",
+              "image": "projects/wake/stills/08.jpg",
+              "clip": "projects/wake/clips/08.mp4",
+              "status": "review"
+            },
+            {
+              "id": "09",
+              "title": "最后一条",
+              "action": "只剩远处一条触手。大副说「它沉下去了」。",
+              "image": "projects/wake/stills/09.jpg",
+              "clip": "projects/wake/clips/09.mp4",
+              "status": "review"
+            },
+            {
+              "id": "10",
+              "title": "余波",
+              "action": "触手没了，只剩一道暗纹。没有台词。",
+              "image": "projects/wake/stills/10.jpg",
+              "clip": "projects/wake/clips/10.mp4",
+              "status": "review"
+            },
+            {
+              "id": "11",
+              "title": "继续走",
+              "action": "镜头再退。船还在跑。",
+              "image": "projects/wake/stills/11.jpg",
+              "clip": "projects/wake/clips/11.mp4",
+              "status": "review"
+            },
+            {
+              "id": "12",
+              "title": "夜海",
+              "action": "船变小，灯还亮着。",
+              "image": "projects/wake/stills/12.jpg",
+              "clip": "projects/wake/clips/12.mp4",
+              "status": "review"
+            }
+          ]
+        },
+        {
           "name": "回响",
           "note": "三分钟，16:9。规划来自 Seedance 2.5 的 skill，本片用 Grok 的图生视频执行。测两个人的对白和特写。",
           "skill": "seedance-2.5",
