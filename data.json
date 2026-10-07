@@ -23,6 +23,254 @@
       ],
       "projects": [
         {
+          "name": "海狼号",
+          "note": "按《SEA WOLF》分镜重做。27 段，3 分 07 秒。尾帧校准后续写首帧。不加配乐。",
+          "skill": "grok-long-video",
+          "skill_version": "v0.1",
+          "skill_entry": "skills/grok-long-video/SKILL.md",
+          "recipe": "B 尾帧校准 + 锁定参照 + 图生视频",
+          "plan": "SEA-WOLF-克苏鲁追逃-分镜规划",
+          "film": "projects/seawolf/海狼号.mp4",
+          "filename": "海狼号.mp4",
+          "poster": "projects/seawolf/stills/11.jpg",
+          "steps": [
+            {
+              "title": "规划",
+              "body": "按《SEA-WOLF-克苏鲁追逃-分镜规划》重做。船长 Elias、大副 Mara、海狼号、怪物各锁一张。船损按时间线累计。"
+            },
+            {
+              "title": "技能和时长",
+              "body": "grok-long-video v0.1 配方 B。手册要 6–9 秒，工具只有 6 或 10。安静段 6 秒，追击和受击 10 秒。全片 3 分 07 秒。"
+            },
+            {
+              "title": "衔接",
+              "body": "每段回看真实尾帧，用它管空间，用锁定图管人和船，重写下一镜首帧。景别按手册切，不把尾帧当复印件。"
+            },
+            {
+              "title": "声音",
+              "body": "英文对白和现场声是生成时自带的。没有另配音，没有另铺背景音乐。"
+            }
+          ],
+          "shots": [
+            {
+              "id": "01",
+              "title": "静海",
+              "action": "航拍。海狼号独自破雾。没有台词。",
+              "image": "projects/seawolf/stills/01.jpg",
+              "clip": "projects/seawolf/clips/01.mp4",
+              "status": "review"
+            },
+            {
+              "id": "02",
+              "title": "甲板",
+              "action": "Mara：海太安静了。Elias：这种安静我不信。",
+              "image": "projects/seawolf/stills/02.jpg",
+              "clip": "projects/seawolf/clips/02.mp4",
+              "status": "review"
+            },
+            {
+              "id": "03",
+              "title": "无线电",
+              "action": "罗盘乱转。失真呼救：the water... it's alive。",
+              "image": "projects/seawolf/stills/03.jpg",
+              "clip": "projects/seawolf/clips/03.mp4",
+              "status": "review"
+            },
+            {
+              "id": "04",
+              "title": "隆起",
+              "action": "Mara 喊海水在动。船长让她准备跑。",
+              "image": "projects/seawolf/stills/04.jpg",
+              "clip": "projects/seawolf/clips/04.mp4",
+              "status": "review"
+            },
+            {
+              "id": "05",
+              "title": "水下",
+              "action": "船底巨影滑过，黄绿色眼睛睁开。没有台词。",
+              "image": "projects/seawolf/stills/05.jpg",
+              "clip": "projects/seawolf/clips/05.mp4",
+              "status": "review"
+            },
+            {
+              "id": "06",
+              "title": "破水",
+              "action": "触手在船侧炸开。FULL SPEED。",
+              "image": "projects/seawolf/stills/06.jpg",
+              "clip": "projects/seawolf/clips/06.mp4",
+              "status": "review"
+            },
+            {
+              "id": "07",
+              "title": "追击",
+              "action": "船尾跟拍。怪物在左后方。只有引擎和浪。",
+              "image": "projects/seawolf/stills/07.jpg",
+              "clip": "projects/seawolf/clips/07.mp4",
+              "status": "review"
+            },
+            {
+              "id": "08",
+              "title": "把舵",
+              "action": "Mara：它要追上来了。船长：稳住。",
+              "image": "projects/seawolf/stills/08.jpg",
+              "clip": "projects/seawolf/clips/08.mp4",
+              "status": "review"
+            },
+            {
+              "id": "09",
+              "title": "拍舷",
+              "action": "触手打碎右舷栏杆。BRACE。",
+              "image": "projects/seawolf/stills/09.jpg",
+              "clip": "projects/seawolf/clips/09.mp4",
+              "status": "review"
+            },
+            {
+              "id": "10",
+              "title": "落海",
+              "action": "救生圈被扫进海里。HANG ON。",
+              "image": "projects/seawolf/stills/10.jpg",
+              "clip": "projects/seawolf/clips/10.mp4",
+              "status": "review"
+            },
+            {
+              "id": "11",
+              "title": "巨首",
+              "action": "雾里抬头。逃不过，就比它聪明。",
+              "image": "projects/seawolf/stills/11.jpg",
+              "clip": "projects/seawolf/clips/11.mp4",
+              "status": "review"
+            },
+            {
+              "id": "12",
+              "title": "左满舵",
+              "action": "Mara 指向礁石水道。HARD TO PORT。",
+              "image": "projects/seawolf/stills/12.jpg",
+              "clip": "projects/seawolf/clips/12.mp4",
+              "status": "review"
+            },
+            {
+              "id": "13",
+              "title": "S 弯",
+              "action": "航拍。白浪画出弧线。没有台词。",
+              "image": "projects/seawolf/stills/13.jpg",
+              "clip": "projects/seawolf/clips/13.mp4",
+              "status": "review"
+            },
+            {
+              "id": "14",
+              "title": "缠网",
+              "action": "触手缠住船尾网。CUT THE NET。",
+              "image": "projects/seawolf/stills/14.jpg",
+              "clip": "projects/seawolf/clips/14.mp4",
+              "status": "review"
+            },
+            {
+              "id": "15",
+              "title": "割绳",
+              "action": "刀断开缆绳。船猛地往前冲。",
+              "image": "projects/seawolf/stills/15.jpg",
+              "clip": "projects/seawolf/clips/15.mp4",
+              "status": "review"
+            },
+            {
+              "id": "16",
+              "title": "缺口",
+              "action": "船长视角。THERE! The gap!",
+              "image": "projects/seawolf/stills/16.jpg",
+              "clip": "projects/seawolf/clips/16.mp4",
+              "status": "review"
+            },
+            {
+              "id": "17",
+              "title": "悬顶",
+              "action": "触手从左侧扬起，停在舵楼上方。",
+              "image": "projects/seawolf/stills/17.jpg",
+              "clip": "projects/seawolf/clips/17.mp4",
+              "status": "review"
+            },
+            {
+              "id": "18",
+              "title": "破舱",
+              "action": "玻璃碎。Mara 抓住舵轮。",
+              "image": "projects/seawolf/stills/18.jpg",
+              "clip": "projects/seawolf/clips/18.mp4",
+              "status": "review"
+            },
+            {
+              "id": "19",
+              "title": "入峡",
+              "action": "船冲进窄口。触手拍在礁石上。",
+              "image": "projects/seawolf/stills/19.jpg",
+              "clip": "projects/seawolf/clips/19.mp4",
+              "status": "review"
+            },
+            {
+              "id": "20",
+              "title": "峡内",
+              "action": "Did we lose her? 还没有。稳住。",
+              "image": "projects/seawolf/stills/20.jpg",
+              "clip": "projects/seawolf/clips/20.mp4",
+              "status": "review"
+            },
+            {
+              "id": "21",
+              "title": "沉海",
+              "action": "怪物在峡口外沉下去。没有台词。",
+              "image": "projects/seawolf/stills/21.jpg",
+              "clip": "projects/seawolf/clips/21.mp4",
+              "status": "review"
+            },
+            {
+              "id": "22",
+              "title": "进水",
+              "action": "油量见底。We're taking water。",
+              "image": "projects/seawolf/stills/22.jpg",
+              "clip": "projects/seawolf/clips/22.mp4",
+              "status": "review"
+            },
+            {
+              "id": "23",
+              "title": "余生",
+              "action": "我靠着破舱。The sea keeps her secrets。",
+              "image": "projects/seawolf/stills/23.jpg",
+              "clip": "projects/seawolf/clips/23.mp4",
+              "status": "review"
+            },
+            {
+              "id": "24",
+              "title": "金光",
+              "action": "雾散。构图回到开场那艘船。",
+              "image": "projects/seawolf/stills/24.jpg",
+              "clip": "projects/seawolf/clips/24.mp4",
+              "status": "review"
+            },
+            {
+              "id": "25",
+              "title": "远去",
+              "action": "船变小，尾迹留在金海里。",
+              "image": "projects/seawolf/stills/25.jpg",
+              "clip": "projects/seawolf/clips/25.mp4",
+              "status": "review"
+            },
+            {
+              "id": "26",
+              "title": "巨眼",
+              "action": "平静的水下，那只眼睛又睁开，再闭上。",
+              "image": "projects/seawolf/stills/26.jpg",
+              "clip": "projects/seawolf/clips/26.mp4",
+              "status": "review"
+            },
+            {
+              "id": "27",
+              "title": "记得",
+              "action": "The sea remembers。光线暗下去。",
+              "image": "projects/seawolf/stills/27.jpg",
+              "clip": "projects/seawolf/clips/27.mp4",
+              "status": "review"
+            }
+          ]
+        },
+        {
           "name": "夜逃",
           "note": "三分钟。船长和大副在夜船上遇见海中巨影，只做逃开这一段。衔接优先。技能 grok-long-video v0.1，配方 B。",
           "skill": "grok-long-video",
