@@ -202,5 +202,13 @@
     "targetLabel": "分镜 20 审片意见",
     "text": "船不对了",
     "date": "2026-10-07"
+  },
+  {
+    "agent": "grok",
+    "project": "海狼号",
+    "target": "shot-21",
+    "targetLabel": "分镜 21 审片意见",
+    "text": "船的位置不对",
+    "date": "2026-10-07"
   }
 ]
