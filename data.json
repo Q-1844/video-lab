@@ -272,37 +272,38 @@
         },
         {
           "name": "夜逃",
-          "note": "三分钟。船长和大副在夜船上遇见海中巨影，只做逃开这一段。衔接优先。技能 grok-long-video v0.1，配方 B。",
+          "note": "三分钟。同一船尾机位，船长和大副看见远处巨影再把它甩掉。衔接优先。技能 grok-long-video v0.1。这一版替换了会跳机位的第一版。",
           "skill": "grok-long-video",
           "skill_version": "v0.1",
           "skill_entry": "skills/grok-long-video/SKILL.md",
-          "recipe": "B 融合新首帧 + 图生视频",
+          "recipe": "B 尾帧改首帧 + 图生视频，机位锁定",
           "film": "projects/wake/夜逃.mp4",
           "filename": "夜逃.mp4",
           "poster": "projects/wake/stills/03.jpg",
+          "previous": "projects/wake/v1/夜逃.mp4",
           "steps": [
             {
               "title": "技能",
-              "body": "grok-long-video v0.1 首次生成，配方 B。这边没有原生「尾帧加 Look 一次出视频」。尾帧管空间，锁定人像管脸和衣服，合成新首帧后再动。"
+              "body": "grok-long-video v0.1，配方 B。先锁船长、大副和甲板。每一镜用上一镜的真实尾帧做底，只改一个小动作，再图生视频。没有另配音，没有另铺音乐。"
             },
             {
-              "title": "只做逃命",
-              "body": "同一条船、同一盏灯、同两个人。发现、触手、抓紧、下沉、船继续走。十二段各 15 秒，共 3 分 00 秒。"
+              "title": "为什么重做",
+              "body": "第一版人和衣服还在，但机位老跳，第一镜中途自己冒出巨影。那一版留在 projects/wake/v1。这一版十二镜都锁在船尾同一个舵轮后面。"
             },
             {
-              "title": "怎么接",
-              "body": "每段取真实最后一帧，下一镜首帧从它改，同时用船长和大副的锁定图拉回胡子、帽子、辫子和衣服。景别变了就当成一次切。"
+              "title": "只做逃开",
+              "body": "发现水纹、远处一条触手、抓紧、黑影升高再沉、海重新空下来。十二段各 15 秒，共 3 分 00 秒。没有把故事做成登船搏斗。"
             },
             {
               "title": "声音",
-              "body": "对白和音效是生成时自带的，原样保留。没有另配音，没有另铺背景音乐。接头只有极短淡化。"
+              "body": "对白和音效是生成时自带的，原样保留。接头只有极短淡化，避免爆音。"
             }
           ],
           "shots": [
             {
               "id": "01",
               "title": "掌舵",
-              "action": "船长说「把帆收紧」。这一镜的尾帧是下一镜的空间。",
+              "action": "机位锁在船尾。船长说「把帆收紧」。海上还是空的。",
               "image": "projects/wake/stills/01.jpg",
               "clip": "projects/wake/clips/01.mp4",
               "status": "review"
@@ -310,7 +311,7 @@
             {
               "id": "02",
               "title": "船尾",
-              "action": "大副指向船尾，说「船尾有东西」。",
+              "action": "同一机位。大副指向远处水纹，说「船尾有东西」。",
               "image": "projects/wake/stills/02.jpg",
               "clip": "projects/wake/clips/02.mp4",
               "status": "review"
@@ -318,7 +319,7 @@
             {
               "id": "03",
               "title": "触手",
-              "action": "远处升起一条触手。船长说「别回头太久」。",
+              "action": "水纹里升起一条远触手。船长说「别回头太久」。",
               "image": "projects/wake/stills/03.jpg",
               "clip": "projects/wake/clips/03.mp4",
               "status": "review"
@@ -326,7 +327,7 @@
             {
               "id": "04",
               "title": "抓紧",
-              "action": "船身倾斜。大副说「抓紧栏杆」。触手没有上船。",
+              "action": "船身一斜。大副说「抓紧栏杆」。触手没有上船。",
               "image": "projects/wake/stills/04.jpg",
               "clip": "projects/wake/clips/04.mp4",
               "status": "review"
@@ -334,7 +335,7 @@
             {
               "id": "05",
               "title": "航向",
-              "action": "两人回到舵轮。船长说「航向不变」。",
+              "action": "船长回到舵轮，说「航向不变」。大副拉了一把绳。",
               "image": "projects/wake/stills/05.jpg",
               "clip": "projects/wake/clips/05.mp4",
               "status": "review"
@@ -342,15 +343,15 @@
             {
               "id": "06",
               "title": "还在后面",
-              "action": "黑影升高。大副说「它还在后面」。",
+              "action": "远处黑影升高。大副说「它还在后面」。",
               "image": "projects/wake/stills/06.jpg",
               "clip": "projects/wake/clips/06.mp4",
               "status": "review"
             },
             {
               "id": "07",
-              "title": "拉远",
-              "action": "船往前走，黑影留在后面。没有台词。",
+              "title": "黑影",
+              "action": "黑影更大，仍在远处。没有台词。",
               "image": "projects/wake/stills/07.jpg",
               "clip": "projects/wake/clips/07.mp4",
               "status": "review"
@@ -381,16 +382,16 @@
             },
             {
               "id": "11",
-              "title": "继续走",
-              "action": "镜头再退。船还在跑。",
+              "title": "空海",
+              "action": "暗纹散掉。两人还在同一个舵轮前。",
               "image": "projects/wake/stills/11.jpg",
               "clip": "projects/wake/clips/11.mp4",
               "status": "review"
             },
             {
               "id": "12",
-              "title": "夜海",
-              "action": "船变小，灯还亮着。",
+              "title": "夜航",
+              "action": "灯还亮着，海是空的。没有再切到别的机位。",
               "image": "projects/wake/stills/12.jpg",
               "clip": "projects/wake/clips/12.mp4",
               "status": "review"
