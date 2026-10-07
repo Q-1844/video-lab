@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-03",
+  "updated": "2026-10-07",
   "pages": "https://q-1844.github.io/video-lab/",
   "repo": "https://github.com/Q-1844/video-lab",
   "skill_registry": "skills/skills.json",
@@ -24,15 +24,15 @@
       "projects": [
         {
           "name": "海狼号",
-          "note": "按《SEA WOLF》分镜重做。27 段，3 分 07 秒。尾帧校准后续写首帧。不加配乐。",
+          "note": "按审片意见重做了 06、09、10、13、14、15、17、20、21。旧镜还在，新镜是 v2。成片是海狼号-v2，3 分 07 秒。不加配乐。",
           "skill": "grok-long-video",
           "skill_version": "v0.1",
           "skill_entry": "skills/grok-long-video/SKILL.md",
           "recipe": "B 尾帧校准 + 锁定参照 + 图生视频",
           "plan": "SEA-WOLF-克苏鲁追逃-分镜规划",
-          "film": "projects/seawolf/海狼号.mp4",
-          "filename": "海狼号.mp4",
-          "poster": "projects/seawolf/stills/11.jpg",
+          "film": "projects/seawolf/海狼号-v2.mp4",
+          "filename": "海狼号-v2.mp4",
+          "poster": "projects/seawolf/stills/17-v2.jpg",
           "steps": [
             {
               "title": "规划",
@@ -49,6 +49,10 @@
             {
               "title": "声音",
               "body": "英文对白和现场声是生成时自带的。没有另配音，没有另铺背景音乐。"
+            },
+            {
+              "title": "审片返工",
+              "body": "只改被点名的九镜，不整片推翻。06 船后远处慢慢浮起。09 不要人。10 卷走桅杆。13 怪物加大。14 只缠船尾的网。15 刀割网绳。17 船认得出且触手不要太大。20 换回海狼号。21 船放在左侧峡口。旧文件不覆盖。"
             }
           ],
           "shots": [
@@ -95,10 +99,18 @@
             {
               "id": "06",
               "title": "破水",
-              "action": "触手在船侧炸开。FULL SPEED。",
-              "image": "projects/seawolf/stills/06.jpg",
-              "clip": "projects/seawolf/clips/06.mp4",
-              "status": "review"
+              "action": "船后远处，怪物慢慢浮起。",
+              "image": "projects/seawolf/stills/06-v2.jpg",
+              "clip": "projects/seawolf/clips/06-v2.mp4",
+              "status": "review",
+              "history": [
+                {
+                  "clip": "projects/seawolf/clips/06.mp4",
+                  "image": "projects/seawolf/stills/06.jpg",
+                  "note": "审片前的版本",
+                  "date": "2026-10-07"
+                }
+              ]
             },
             {
               "id": "07",
@@ -119,18 +131,34 @@
             {
               "id": "09",
               "title": "拍舷",
-              "action": "触手打碎右舷栏杆。BRACE。",
-              "image": "projects/seawolf/stills/09.jpg",
-              "clip": "projects/seawolf/clips/09.mp4",
-              "status": "review"
+              "action": "空甲板。触手砸栏杆，没有人。",
+              "image": "projects/seawolf/stills/09-v2.jpg",
+              "clip": "projects/seawolf/clips/09-v2.mp4",
+              "status": "review",
+              "history": [
+                {
+                  "clip": "projects/seawolf/clips/09.mp4",
+                  "image": "projects/seawolf/stills/09.jpg",
+                  "note": "审片前的版本",
+                  "date": "2026-10-07"
+                }
+              ]
             },
             {
               "id": "10",
               "title": "落海",
-              "action": "救生圈被扫进海里。HANG ON。",
-              "image": "projects/seawolf/stills/10.jpg",
-              "clip": "projects/seawolf/clips/10.mp4",
-              "status": "review"
+              "action": "人在船舱。触手卷走桅杆。",
+              "image": "projects/seawolf/stills/10-v2.jpg",
+              "clip": "projects/seawolf/clips/10-v2.mp4",
+              "status": "review",
+              "history": [
+                {
+                  "clip": "projects/seawolf/clips/10.mp4",
+                  "image": "projects/seawolf/stills/10.jpg",
+                  "note": "审片前的版本",
+                  "date": "2026-10-07"
+                }
+              ]
             },
             {
               "id": "11",
@@ -151,26 +179,50 @@
             {
               "id": "13",
               "title": "S 弯",
-              "action": "航拍。白浪画出弧线。没有台词。",
-              "image": "projects/seawolf/stills/13.jpg",
-              "clip": "projects/seawolf/clips/13.mp4",
-              "status": "review"
+              "action": "航拍。怪物加大，贴着船尾追。",
+              "image": "projects/seawolf/stills/13-v2.jpg",
+              "clip": "projects/seawolf/clips/13-v2.mp4",
+              "status": "review",
+              "history": [
+                {
+                  "clip": "projects/seawolf/clips/13.mp4",
+                  "image": "projects/seawolf/stills/13.jpg",
+                  "note": "审片前的版本",
+                  "date": "2026-10-07"
+                }
+              ]
             },
             {
               "id": "14",
               "title": "缠网",
-              "action": "触手缠住船尾网。CUT THE NET。",
-              "image": "projects/seawolf/stills/14.jpg",
-              "clip": "projects/seawolf/clips/14.mp4",
-              "status": "review"
+              "action": "触手只缠船尾的网，不缠船。",
+              "image": "projects/seawolf/stills/14-v2.jpg",
+              "clip": "projects/seawolf/clips/14-v2.mp4",
+              "status": "review",
+              "history": [
+                {
+                  "clip": "projects/seawolf/clips/14.mp4",
+                  "image": "projects/seawolf/stills/14.jpg",
+                  "note": "审片前的版本",
+                  "date": "2026-10-07"
+                }
+              ]
             },
             {
               "id": "15",
               "title": "割绳",
-              "action": "刀断开缆绳。船猛地往前冲。",
-              "image": "projects/seawolf/stills/15.jpg",
-              "clip": "projects/seawolf/clips/15.mp4",
-              "status": "review"
+              "action": "刀割的是网绳。CUT。",
+              "image": "projects/seawolf/stills/15-v2.jpg",
+              "clip": "projects/seawolf/clips/15-v2.mp4",
+              "status": "review",
+              "history": [
+                {
+                  "clip": "projects/seawolf/clips/15.mp4",
+                  "image": "projects/seawolf/stills/15.jpg",
+                  "note": "审片前的版本",
+                  "date": "2026-10-07"
+                }
+              ]
             },
             {
               "id": "16",
@@ -183,10 +235,18 @@
             {
               "id": "17",
               "title": "悬顶",
-              "action": "触手从左侧扬起，停在舵楼上方。",
-              "image": "projects/seawolf/stills/17.jpg",
-              "clip": "projects/seawolf/clips/17.mp4",
-              "status": "review"
+              "action": "海狼号认得出。触手只比舵楼高一截。",
+              "image": "projects/seawolf/stills/17-v2.jpg",
+              "clip": "projects/seawolf/clips/17-v2.mp4",
+              "status": "review",
+              "history": [
+                {
+                  "clip": "projects/seawolf/clips/17.mp4",
+                  "image": "projects/seawolf/stills/17.jpg",
+                  "note": "审片前的版本",
+                  "date": "2026-10-07"
+                }
+              ]
             },
             {
               "id": "18",
@@ -207,18 +267,34 @@
             {
               "id": "20",
               "title": "峡内",
-              "action": "Did we lose her? 还没有。稳住。",
-              "image": "projects/seawolf/stills/20.jpg",
-              "clip": "projects/seawolf/clips/20.mp4",
-              "status": "review"
+              "action": "峡里仍是海狼号。Did we lose her?",
+              "image": "projects/seawolf/stills/20-v2.jpg",
+              "clip": "projects/seawolf/clips/20-v2.mp4",
+              "status": "review",
+              "history": [
+                {
+                  "clip": "projects/seawolf/clips/20.mp4",
+                  "image": "projects/seawolf/stills/20.jpg",
+                  "note": "审片前的版本",
+                  "date": "2026-10-07"
+                }
+              ]
             },
             {
               "id": "21",
               "title": "沉海",
-              "action": "怪物在峡口外沉下去。没有台词。",
-              "image": "projects/seawolf/stills/21.jpg",
-              "clip": "projects/seawolf/clips/21.mp4",
-              "status": "review"
+              "action": "船在画面左侧峡口，怪物在右侧远处下沉。",
+              "image": "projects/seawolf/stills/21-v2.jpg",
+              "clip": "projects/seawolf/clips/21-v2.mp4",
+              "status": "review",
+              "history": [
+                {
+                  "clip": "projects/seawolf/clips/21.mp4",
+                  "image": "projects/seawolf/stills/21.jpg",
+                  "note": "审片前的版本",
+                  "date": "2026-10-07"
+                }
+              ]
             },
             {
               "id": "22",

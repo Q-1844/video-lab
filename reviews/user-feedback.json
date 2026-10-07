@@ -145,7 +145,9 @@
     "target": "shot-06",
     "targetLabel": "分镜 06 审片意见",
     "text": "本镜头应该是克苏鲁在船后方一段距离慢慢浮上去的镜头",
-    "date": "2026-10-07"
+    "date": "2026-10-07",
+    "handled": true,
+    "result": "已出 v2：怪物改到船后远处慢慢浮起。旧镜留在 history。"
   },
   {
     "agent": "grok",
@@ -153,7 +155,9 @@
     "target": "shot-09",
     "targetLabel": "分镜 09 审片意见",
     "text": "这一镜是克苏鲁打碎栏杆，那么不应该出现人物的",
-    "date": "2026-10-07"
+    "date": "2026-10-07",
+    "handled": true,
+    "result": "已出 v2：这一镜去掉人，只留触手砸栏杆。旧镜留在 history。"
   },
   {
     "agent": "grok",
@@ -161,7 +165,9 @@
     "target": "shot-10",
     "targetLabel": "分镜 10 审片意见",
     "text": "人物在船舱，所以这一幕应该是克苏鲁把桅杆卷走了",
-    "date": "2026-10-07"
+    "date": "2026-10-07",
+    "handled": true,
+    "result": "已出 v2：改成触手卷走桅杆，甲板没有人。旧镜留在 history。"
   },
   {
     "agent": "grok",
@@ -169,7 +175,9 @@
     "target": "shot-13",
     "targetLabel": "分镜 13 审片意见",
     "text": "这样镜中克苏鲁有点小",
-    "date": "2026-10-07"
+    "date": "2026-10-07",
+    "handled": true,
+    "result": "已出 v2：航拍里把怪物加大。旧镜留在 history。"
   },
   {
     "agent": "grok",
@@ -177,7 +185,9 @@
     "target": "shot-14",
     "targetLabel": "分镜 14 审片意见",
     "text": "触手应该是缠住船尾的网而不是船上",
-    "date": "2026-10-07"
+    "date": "2026-10-07",
+    "handled": true,
+    "result": "已出 v2：触手只缠船尾拖网，不缠船体。旧镜留在 history。"
   },
   {
     "agent": "grok",
@@ -185,7 +195,9 @@
     "target": "shot-15",
     "targetLabel": "分镜 15 审片意见",
     "text": "人物割东西割错了，这个要重新生成",
-    "date": "2026-10-07"
+    "date": "2026-10-07",
+    "handled": true,
+    "result": "已出 v2：刀改割网绳。旧镜留在 history。"
   },
   {
     "agent": "grok",
@@ -193,7 +205,9 @@
     "target": "shot-17",
     "targetLabel": "分镜 17 审片意见",
     "text": "船都不对了，触手太大了",
-    "date": "2026-10-07"
+    "date": "2026-10-07",
+    "handled": true,
+    "result": "已出 v2：船换回海狼号，触手只比舵楼高一截。旧镜留在 history。"
   },
   {
     "agent": "grok",
@@ -201,7 +215,9 @@
     "target": "shot-20",
     "targetLabel": "分镜 20 审片意见",
     "text": "船不对了",
-    "date": "2026-10-07"
+    "date": "2026-10-07",
+    "handled": true,
+    "result": "已出 v2：峡里换回同一艘海狼号。旧镜留在 history。"
   },
   {
     "agent": "grok",
@@ -209,6 +225,8 @@
     "target": "shot-21",
     "targetLabel": "分镜 21 审片意见",
     "text": "船的位置不对",
-    "date": "2026-10-07"
+    "date": "2026-10-07",
+    "handled": true,
+    "result": "已出 v2：船放到画面左侧峡口，怪物在右侧远处下沉。旧镜留在 history。"
   }
 ]
