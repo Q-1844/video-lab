@@ -91,6 +91,104 @@
     link.textContent = label || "下载";
     return link;
   }
+
+  // ---------- 原生 ZIP（STORE 不压缩）打包全部分镜，供导入剪辑软件 ----------
+  const CRC_TABLE = (() => {
+    const t = new Uint32Array(256);
+    for (let n = 0; n < 256; n++) {
+      let c = n;
+      for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1;
+      t[n] = c >>> 0;
+    }
+    return t;
+  })();
+  function crc32(bytes) {
+    let c = 0xFFFFFFFF;
+    for (let i = 0; i < bytes.length; i++) c = CRC_TABLE[(c ^ bytes[i]) & 0xFF] ^ (c >>> 8);
+    return (c ^ 0xFFFFFFFF) >>> 0;
+  }
+  function dosDateTime(d) {
+    const time = ((d.getHours() & 31) << 11) | ((d.getMinutes() & 63) << 5) | ((d.getSeconds() / 2) & 31);
+    const date = (((d.getFullYear() - 1980) & 127) << 9) | (((d.getMonth() + 1) & 15) << 5) | (d.getDate() & 31);
+    return { time, date };
+  }
+  function buildZip(entries) { // entries: [{name, bytes}]
+    const enc = new TextEncoder();
+    const { time, date } = dosDateTime(new Date());
+    const parts = [];
+    const central = [];
+    let offset = 0;
+    for (const e of entries) {
+      const nameBytes = enc.encode(e.name);
+      const crc = crc32(e.bytes);
+      const lh = new DataView(new ArrayBuffer(30));
+      lh.setUint32(0, 0x04034B50, true);   // local header 签名
+      lh.setUint16(4, 20, true);           // version needed
+      lh.setUint16(6, 0x0800, true);       // flags: UTF-8 文件名
+      lh.setUint16(8, 0, true);            // method: STORE
+      lh.setUint16(10, time, true); lh.setUint16(12, date, true);
+      lh.setUint32(14, crc, true);
+      lh.setUint32(18, e.bytes.length, true); // 压缩大小 = 原始大小
+      lh.setUint32(22, e.bytes.length, true);
+      lh.setUint16(26, nameBytes.length, true);
+      lh.setUint16(28, 0, true);           // extra len
+      parts.push(new Uint8Array(lh.buffer), nameBytes, e.bytes);
+      const ch = new DataView(new ArrayBuffer(46));
+      ch.setUint32(0, 0x02014B50, true);   // central 签名
+      ch.setUint16(4, 20, true); ch.setUint16(6, 20, true);
+      ch.setUint16(8, 0x0800, true); ch.setUint16(10, 0, true);
+      ch.setUint16(12, time, true); ch.setUint16(14, date, true);
+      ch.setUint32(16, crc, true);
+      ch.setUint32(20, e.bytes.length, true); ch.setUint32(24, e.bytes.length, true);
+      ch.setUint16(28, nameBytes.length, true);
+      ch.setUint16(30, 0, true); ch.setUint16(32, 0, true); // extra / comment
+      ch.setUint16(34, 0, true); ch.setUint16(36, 0, true); // disk / 内部属性
+      ch.setUint32(38, 0, true);           // 外部属性
+      ch.setUint32(42, offset, true);      // 本地头偏移
+      central.push(new Uint8Array(ch.buffer), nameBytes);
+      offset += 30 + nameBytes.length + e.bytes.length;
+    }
+    let cdSize = 0;
+    for (const c of central) cdSize += c.length;
+    const eocd = new DataView(new ArrayBuffer(22));
+    eocd.setUint32(0, 0x06054B50, true);
+    eocd.setUint16(8, entries.length, true); eocd.setUint16(10, entries.length, true);
+    eocd.setUint32(12, cdSize, true);
+    eocd.setUint32(16, offset, true);      // central 目录偏移
+    return new Blob([...parts, ...central, new Uint8Array(eocd.buffer)], { type: "application/zip" });
+  }
+  function sanitizeName(s) { return (s || "").replace(/[\\/:*?"<>|\s]+/g, "_").slice(0, 60); }
+  async function downloadShotsZip(btn) {
+    const p = projectOf();
+    const shots = (p.shots || []).filter((s) => s.clip);
+    const total = (p.shots || []).length;
+    if (!shots.length) { btn.textContent = "无可打包视频"; return; }
+    btn.disabled = true;
+    const entries = [];
+    const failed = [];
+    const prefix = sanitizeName(p.name || "shots");
+    for (let i = 0; i < shots.length; i++) {
+      const s = shots[i];
+      btn.textContent = `打包中 ${i + 1}/${shots.length}…`;
+      try {
+        const res = await fetch(safePath(s.clip));
+        if (!res.ok) throw new Error(res.status);
+        entries.push({ name: `${prefix}_${String(s.id || i + 1).padStart(2, "0")}_${sanitizeName(s.title) || "镜"}.mp4`, bytes: new Uint8Array(await res.arrayBuffer()) });
+      } catch (err) { failed.push(s.id || i + 1); }
+    }
+    if (!entries.length) { btn.disabled = false; btn.textContent = "全部下载失败，重试"; return; }
+    btn.textContent = "生成压缩包…";
+    const blob = buildZip(entries);
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = `${prefix}_分镜.zip`;
+    document.body.append(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 60000);
+    btn.disabled = false;
+    btn.textContent = `已打包 ${entries.length}/${total}` + (failed.length ? `（缺 ${failed.join("、")}）` : "");
+    setTimeout(() => { btn.textContent = "打包全部分镜"; }, 6000);
+  }
+
   function makeInput(placeholder) {
     const el = document.createElement("input");
     el.type = "text";
@@ -318,6 +416,13 @@
           d.className = "desc"; d.textContent = shot.action;
           meta.append(d);
         }
+        const zbtn = document.createElement("button");
+        zbtn.type = "button";
+        zbtn.className = "btn btn-small zip-btn";
+        zbtn.textContent = "打包全部分镜";
+        zbtn.title = "把本项目的分镜视频打包成 zip，文件名带镜号，导入剪辑软件后自动按序排列";
+        zbtn.addEventListener("click", () => { downloadShotsZip(zbtn); });
+        meta.append(zbtn);
         stage.append(meta);
 
         if (hist.length) {
