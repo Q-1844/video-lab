@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07",
+  "updated": "2026-10-09",
   "pages": "https://q-1844.github.io/video-lab/",
   "repo": "https://github.com/Q-1844/video-lab",
   "skill_registry": "skills/skills.json",
@@ -22,6 +22,282 @@
         "skills/grok-long-video/orchestrate/SKILL.md"
       ],
       "projects": [
+        {
+          "name": "海狼号 · 长追",
+          "note": "同一艘船、同一对人、同一只怪物。剧情仍是静海、呼救、追逃、峡谷、余波。全片 6 分 26 秒。追击从 07 到 23，共 4 分 16 秒。按上次审片收了远浮、空甲板、卷桅、只缠网、割网绳、船要认得出、峡口船在左侧。新增落空、石拱、窄口三镜，用来把“比它聪明”做成动作。不加配乐。旧片海狼号没有覆盖。",
+          "skill": "grok-long-video",
+          "skill_version": "v0.1",
+          "skill_entry": "skills/grok-long-video/SKILL.md",
+          "recipe": "锁定参照 + 原规划加长 + 图生视频",
+          "plan": "原 SEA WOLF 27 段加长为 30 段。追击段每镜 15 秒，前后段 10 秒。",
+          "film": "projects/seawolf-long/海狼号-长追.mp4",
+          "filename": "海狼号-长追.mp4",
+          "poster": "projects/seawolf-long/stills/14.jpg",
+          "steps": [
+            {
+              "title": "规划",
+              "body": "不换人、不换船、不换怪物，也不换三幕：静海、追逃、余波。原 27 段里重复的远景收成一镜，追击加到 17 镜。"
+            },
+            {
+              "title": "时长",
+              "body": "01–06 各 10 秒，07–23 各 15 秒，24–30 各 10 秒。成片 6 分 26 秒。其中 07–23 是追击，4 分 16 秒。"
+            },
+            {
+              "title": "审片收进来的",
+              "body": "06 船后远处慢慢浮起。09 砸栏杆时没有人。10 卷走桅杆。14 航拍里怪物要大。16 只缠船尾的网。17 刀割网绳。19 船必须是海狼号，触手不要盖住船。25 船在左侧峡口。"
+            },
+            {
+              "title": "新加的三镜",
+              "body": "15 落空：打在船刚离开的海面上。22 石拱：触手从崖上摸下来，船躲过去。23 窄口：身体挤不进峡谷。这三镜是逃法，不是再拍一次拍舷。"
+            },
+            {
+              "title": "声音",
+              "body": "英文对白和现场声是生成时自带的。没有另配音，没有另铺音乐。"
+            }
+          ],
+          "shots": [
+            {
+              "id": "01",
+              "title": "静海",
+              "action": "航拍。海狼号独自破雾。没有台词。",
+              "image": "projects/seawolf-long/stills/01.jpg",
+              "clip": "projects/seawolf-long/clips/01.mp4",
+              "status": "review"
+            },
+            {
+              "id": "02",
+              "title": "太安静",
+              "action": "甲板。Sea's been too quiet。两人望向海面。",
+              "image": "projects/seawolf-long/stills/02.jpg",
+              "clip": "projects/seawolf-long/clips/02.mp4",
+              "status": "review"
+            },
+            {
+              "id": "03",
+              "title": "无线电",
+              "action": "罗盘乱转。失真呼救。",
+              "image": "projects/seawolf-long/stills/03.jpg",
+              "clip": "projects/seawolf-long/clips/03.mp4",
+              "status": "review"
+            },
+            {
+              "id": "04",
+              "title": "隆起",
+              "action": "望远镜。海水在动。",
+              "image": "projects/seawolf-long/stills/04.jpg",
+              "clip": "projects/seawolf-long/clips/04.mp4",
+              "status": "review"
+            },
+            {
+              "id": "05",
+              "title": "巨眼",
+              "action": "水下。黄绿眼睛睁开。",
+              "image": "projects/seawolf-long/stills/05.jpg",
+              "clip": "projects/seawolf-long/clips/05.mp4",
+              "status": "review"
+            },
+            {
+              "id": "06",
+              "title": "远浮",
+              "action": "船后远处，怪物慢慢浮起。",
+              "image": "projects/seawolf-long/stills/06.jpg",
+              "clip": "projects/seawolf-long/clips/06.mp4",
+              "status": "review"
+            },
+            {
+              "id": "07",
+              "title": "全速",
+              "action": "船尾跟拍。怪物在后面逼近。",
+              "image": "projects/seawolf-long/stills/07.jpg",
+              "clip": "projects/seawolf-long/clips/07.mp4",
+              "status": "review"
+            },
+            {
+              "id": "08",
+              "title": "把舵",
+              "action": "She's gaining。窗外掠过触手影。",
+              "image": "projects/seawolf-long/stills/08.jpg",
+              "clip": "projects/seawolf-long/clips/08.mp4",
+              "status": "review"
+            },
+            {
+              "id": "09",
+              "title": "砸栏",
+              "action": "空甲板。触手砸栏杆，没有人。",
+              "image": "projects/seawolf-long/stills/09.jpg",
+              "clip": "projects/seawolf-long/clips/09.mp4",
+              "status": "review"
+            },
+            {
+              "id": "10",
+              "title": "断桅",
+              "action": "人在船舱。触手卷走桅杆。",
+              "image": "projects/seawolf-long/stills/10.jpg",
+              "clip": "projects/seawolf-long/clips/10.mp4",
+              "status": "review"
+            },
+            {
+              "id": "11",
+              "title": "落圈",
+              "action": "吸盘擦舷，救生圈落海。",
+              "image": "projects/seawolf-long/stills/11.jpg",
+              "clip": "projects/seawolf-long/clips/11.mp4",
+              "status": "review"
+            },
+            {
+              "id": "12",
+              "title": "巨首",
+              "action": "雾里巨首。逃不过，但可以更聪明。",
+              "image": "projects/seawolf-long/stills/12.jpg",
+              "clip": "projects/seawolf-long/clips/12.mp4",
+              "status": "review"
+            },
+            {
+              "id": "13",
+              "title": "左满舵",
+              "action": "礁石水道。Hard to port。",
+              "image": "projects/seawolf-long/stills/13.jpg",
+              "clip": "projects/seawolf-long/clips/13.mp4",
+              "status": "review"
+            },
+            {
+              "id": "14",
+              "title": "S 弯",
+              "action": "航拍。怪物很大，白浪画出弧线。",
+              "image": "projects/seawolf-long/stills/14.jpg",
+              "clip": "projects/seawolf-long/clips/14.mp4",
+              "status": "review"
+            },
+            {
+              "id": "15",
+              "title": "落空",
+              "action": "触手砸在刚离开的海面上，没打中船。",
+              "image": "projects/seawolf-long/stills/15.jpg",
+              "clip": "projects/seawolf-long/clips/15.mp4",
+              "status": "review"
+            },
+            {
+              "id": "16",
+              "title": "缠网",
+              "action": "触手只缠船尾的网，不缠船体。",
+              "image": "projects/seawolf-long/stills/16.jpg",
+              "clip": "projects/seawolf-long/clips/16.mp4",
+              "status": "review"
+            },
+            {
+              "id": "17",
+              "title": "割绳",
+              "action": "刀割的是网绳。CUT。",
+              "image": "projects/seawolf-long/stills/17.jpg",
+              "clip": "projects/seawolf-long/clips/17.mp4",
+              "status": "review"
+            },
+            {
+              "id": "18",
+              "title": "缺口",
+              "action": "船首看见峡谷窄口。",
+              "image": "projects/seawolf-long/stills/18.jpg",
+              "clip": "projects/seawolf-long/clips/18.mp4",
+              "status": "review"
+            },
+            {
+              "id": "19",
+              "title": "悬侧",
+              "action": "海狼号认得出。触手只比舵楼高一截。",
+              "image": "projects/seawolf-long/stills/19.jpg",
+              "clip": "projects/seawolf-long/clips/19.mp4",
+              "status": "review"
+            },
+            {
+              "id": "20",
+              "title": "破窗",
+              "action": "舵楼受击。Mara 抓住舵轮。",
+              "image": "projects/seawolf-long/stills/20.jpg",
+              "clip": "projects/seawolf-long/clips/20.mp4",
+              "status": "review"
+            },
+            {
+              "id": "21",
+              "title": "入峡",
+              "action": "船冲进峡口，触手打在礁上。",
+              "image": "projects/seawolf-long/stills/21.jpg",
+              "clip": "projects/seawolf-long/clips/21.mp4",
+              "status": "review"
+            },
+            {
+              "id": "22",
+              "title": "石拱",
+              "action": "触手从崖上摸下来，船从石拱下躲开。",
+              "image": "projects/seawolf-long/stills/22.jpg",
+              "clip": "projects/seawolf-long/clips/22.mp4",
+              "status": "review"
+            },
+            {
+              "id": "23",
+              "title": "窄口",
+              "action": "船擦石穿过，怪物身体挤不进来。",
+              "image": "projects/seawolf-long/stills/23.jpg",
+              "clip": "projects/seawolf-long/clips/23.mp4",
+              "status": "review"
+            },
+            {
+              "id": "24",
+              "title": "还没有",
+              "action": "Did we lose her? 稳住。",
+              "image": "projects/seawolf-long/stills/24.jpg",
+              "clip": "projects/seawolf-long/clips/24.mp4",
+              "status": "review"
+            },
+            {
+              "id": "25",
+              "title": "下沉",
+              "action": "船在画面左侧峡口，怪物在右侧远处沉下去。",
+              "image": "projects/seawolf-long/stills/25.jpg",
+              "clip": "projects/seawolf-long/clips/25.mp4",
+              "status": "review"
+            },
+            {
+              "id": "26",
+              "title": "进水",
+              "action": "We're taking water。",
+              "image": "projects/seawolf-long/stills/26.jpg",
+              "clip": "projects/seawolf-long/clips/26.mp4",
+              "status": "review"
+            },
+            {
+              "id": "27",
+              "title": "活着",
+              "action": "I thought we were dead。",
+              "image": "projects/seawolf-long/stills/27.jpg",
+              "clip": "projects/seawolf-long/clips/27.mp4",
+              "status": "review"
+            },
+            {
+              "id": "28",
+              "title": "金光",
+              "action": "雾散。孤船停在金光里。",
+              "image": "projects/seawolf-long/stills/28.jpg",
+              "clip": "projects/seawolf-long/clips/28.mp4",
+              "status": "review"
+            },
+            {
+              "id": "29",
+              "title": "还在",
+              "action": "水下巨眼睁开，又闭上。",
+              "image": "projects/seawolf-long/stills/29.jpg",
+              "clip": "projects/seawolf-long/clips/29.mp4",
+              "status": "review"
+            },
+            {
+              "id": "30",
+              "title": "记得",
+              "action": "The sea remembers。",
+              "image": "projects/seawolf-long/stills/30.jpg",
+              "clip": "projects/seawolf-long/clips/30.mp4",
+              "status": "review"
+            }
+          ]
+        },
         {
           "name": "海狼号",
           "note": "按审片意见重做了 06、09、10、13、14、15、17、20、21。旧镜还在，新镜是 v2。成片是海狼号-v2，3 分 07 秒。不加配乐。",
