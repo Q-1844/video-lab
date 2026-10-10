@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-09",
+  "updated": "2026-10-10",
   "pages": "https://q-1844.github.io/video-lab/",
   "repo": "https://github.com/Q-1844/video-lab",
   "skill_registry": "skills/skills.json",
@@ -22,6 +22,618 @@
         "skills/grok-long-video/orchestrate/SKILL.md"
       ],
       "projects": [
+        {
+          "name": "海狼号 · v2长追",
+          "note": "按 v2 长追规划做的 72 镜。人物、船、怪物仍是上一版的锁卡。全片 9 分 19 秒，16:9。追击从发现一直接到峡谷和余波。触手只从海里来，追猎者用整体轮廓。英文对白和现场声是生成时自带的，没有另配乐，也没有旁白。上一支《海狼号 · 长追》没有覆盖。",
+          "skill": "sea-wolf-v2-plan",
+          "skill_version": "v2",
+          "skill_entry": "projects/seawolf-v2/PLAN.md",
+          "recipe": "锁卡首帧 + 图生视频。5–7 秒用 6 秒，8–10 秒用 10 秒。",
+          "plan": "SEA WOLF v2 长追规划：72 段，五幕，L1 黄昏到 L5 破晓。",
+          "film": "projects/seawolf-v2/海狼号-v2长追.mp4",
+          "filename": "海狼号-v2长追.mp4",
+          "poster": "projects/seawolf-v2/stills/14.jpg",
+          "steps": [
+            {
+              "title": "规划",
+              "body": "不增删镜头。72 段按五幕走：静海、发现逃跑、攻船割网、峡谷、余波。重点段逐镜做，不合并。"
+            },
+            {
+              "title": "锁卡",
+              "body": "船长 Elias、大副 Mara、海狼号、克苏鲁沿用上一版定妆。每一镜首帧从这三张里改，不重新发明人脸和船。"
+            },
+            {
+              "title": "防呆",
+              "body": "画面只有这两个人。追击时船要有浪花或尾迹。怪物半浸在船后方。触手从海面入画，缠网不缠船。追击看的是整只怪物，不是一根触手。光线从灰雾黄昏走到暴雨，再走到晨光。"
+            },
+            {
+              "title": "时长",
+              "body": "规划里单镜 5–10 秒。这边一次只能出 6 秒或 10 秒，所以 7 秒及以下用 6 秒，更长的用 10 秒。72 段接起来是 9 分 19 秒。"
+            },
+            {
+              "title": "声音",
+              "body": "保留生成时的英文对白、引擎、海浪、雨和怪物声。没有另加背景音乐，也没有旁白。"
+            }
+          ],
+          "shots": [
+            {
+              "id": "01",
+              "title": "雾海孤船",
+              "action": "航拍。海狼号从灰蓝雾里驶出，尾迹拉开。没有人。",
+              "image": "projects/seawolf-v2/stills/01.jpg",
+              "clip": "projects/seawolf-v2/clips/01.mp4",
+              "status": "review"
+            },
+            {
+              "id": "02",
+              "title": "甲板亮相",
+              "action": "Mara 整理船尾渔网，Elias 走出舵楼。Quiet today. / Too quiet.",
+              "image": "projects/seawolf-v2/stills/02.jpg",
+              "clip": "projects/seawolf-v2/clips/02.mp4",
+              "status": "review"
+            },
+            {
+              "id": "03",
+              "title": "罗盘乱跳",
+              "action": "舵楼里只有船长。无线电静电，罗盘自己转了一圈。",
+              "image": "projects/seawolf-v2/stills/03.jpg",
+              "clip": "projects/seawolf-v2/clips/03.mp4",
+              "status": "review"
+            },
+            {
+              "id": "04",
+              "title": "望远镜",
+              "action": "船长的视野：远处海面拱起一道水脊，又沉回去。",
+              "image": "projects/seawolf-v2/stills/04.jpg",
+              "clip": "projects/seawolf-v2/clips/04.mp4",
+              "status": "review"
+            },
+            {
+              "id": "05",
+              "title": "鸟群油光",
+              "action": "海鸟惊飞，海面浮起暗色油光，鱼群跃出后归于死寂。",
+              "image": "projects/seawolf-v2/stills/05.jpg",
+              "clip": "projects/seawolf-v2/clips/05.mp4",
+              "status": "review"
+            },
+            {
+              "id": "06",
+              "title": "桅灯熄灭",
+              "action": "桅灯闪两下熄掉，甲板上只剩舵楼的暖光。",
+              "image": "projects/seawolf-v2/stills/06.jpg",
+              "clip": "projects/seawolf-v2/clips/06.mp4",
+              "status": "review"
+            },
+            {
+              "id": "07",
+              "title": "水下巨眼",
+              "action": "船底滑过。深处一只黄绿巨眼睁开，看了一眼，又沉回去。",
+              "image": "projects/seawolf-v2/stills/07.jpg",
+              "clip": "projects/seawolf-v2/clips/07.mp4",
+              "status": "review"
+            },
+            {
+              "id": "08",
+              "title": "远景浮起",
+              "action": "远处海面拱起，触手破水。船只是角落里的一个点。",
+              "image": "projects/seawolf-v2/stills/08.jpg",
+              "clip": "projects/seawolf-v2/clips/08.mp4",
+              "status": "review"
+            },
+            {
+              "id": "09",
+              "title": "全身上升",
+              "action": "怪物半浸在水里立起，翼膜半张。船在远处极小。",
+              "image": "projects/seawolf-v2/stills/09.jpg",
+              "clip": "projects/seawolf-v2/clips/09.mp4",
+              "status": "review"
+            },
+            {
+              "id": "10",
+              "title": "船上反应",
+              "action": "只有两个人愣住。Mara 退一步，Elias 喊 Engine. NOW.",
+              "image": "projects/seawolf-v2/stills/10.jpg",
+              "clip": "projects/seawolf-v2/clips/10.mp4",
+              "status": "review"
+            },
+            {
+              "id": "11",
+              "title": "引擎启动",
+              "action": "Mara 拍下启动钮。老引擎咳嗽着轰鸣，黑烟喷出。",
+              "image": "projects/seawolf-v2/stills/11.jpg",
+              "clip": "projects/seawolf-v2/clips/11.mp4",
+              "status": "review"
+            },
+            {
+              "id": "12",
+              "title": "巨眼注视",
+              "action": "巨眼特写，瞳孔里映着远处的小船，然后锁定。",
+              "image": "projects/seawolf-v2/stills/12.jpg",
+              "clip": "projects/seawolf-v2/clips/12.mp4",
+              "status": "review"
+            },
+            {
+              "id": "13",
+              "title": "船尾加速",
+              "action": "船尾白浪拉开。Mara 抓着栏杆。She's fast. Not fast enough.",
+              "image": "projects/seawolf-v2/stills/13.jpg",
+              "clip": "projects/seawolf-v2/clips/13.mp4",
+              "status": "review"
+            },
+            {
+              "id": "14",
+              "title": "追击建立",
+              "action": "航拍。船在前破浪，怪物半浸在后方远处，中间隔着一大片海。",
+              "image": "projects/seawolf-v2/stills/14.jpg",
+              "clip": "projects/seawolf-v2/clips/14.mp4",
+              "status": "review"
+            },
+            {
+              "id": "15",
+              "title": "破浪前压",
+              "action": "怪物推着一堵浪往前压，船仍在天边。",
+              "image": "projects/seawolf-v2/stills/15.jpg",
+              "clip": "projects/seawolf-v2/clips/15.mp4",
+              "status": "review"
+            },
+            {
+              "id": "16",
+              "title": "把舵报距",
+              "action": "Elias 双手扶舵，Mara 在舷窗报距。It's gaining — half a mile.",
+              "image": "projects/seawolf-v2/stills/16.jpg",
+              "clip": "projects/seawolf-v2/clips/16.mp4",
+              "status": "review"
+            },
+            {
+              "id": "17",
+              "title": "船首 POV",
+              "action": "船头劈浪，雨幕压下来。没有人入画。",
+              "image": "projects/seawolf-v2/stills/17.jpg",
+              "clip": "projects/seawolf-v2/clips/17.mp4",
+              "status": "review"
+            },
+            {
+              "id": "18",
+              "title": "克苏鲁低吼",
+              "action": "巨眼发亮，水下喉部隆起，深吼把水柱炸开。",
+              "image": "projects/seawolf-v2/stills/18.jpg",
+              "clip": "projects/seawolf-v2/clips/18.mp4",
+              "status": "review"
+            },
+            {
+              "id": "19",
+              "title": "距离拉近",
+              "action": "航拍。浪墙夹在船和怪物之间，距离明显缩短。",
+              "image": "projects/seawolf-v2/stills/19.jpg",
+              "clip": "projects/seawolf-v2/clips/19.mp4",
+              "status": "review"
+            },
+            {
+              "id": "20",
+              "title": "触手扬起",
+              "action": "一根触手从船后海面扬起，停在空中，没有碰到船。",
+              "image": "projects/seawolf-v2/stills/20.jpg",
+              "clip": "projects/seawolf-v2/clips/20.mp4",
+              "status": "review"
+            },
+            {
+              "id": "21",
+              "title": "舷窗 POV",
+              "action": "雨玻璃外，远处悬着触手的影子。It's going to strike.",
+              "image": "projects/seawolf-v2/stills/21.jpg",
+              "clip": "projects/seawolf-v2/clips/21.mp4",
+              "status": "review"
+            },
+            {
+              "id": "22",
+              "title": "冲出舱门",
+              "action": "Mara 推开舵楼门冲上甲板，抓紧栏杆。On deck!",
+              "image": "projects/seawolf-v2/stills/22.jpg",
+              "clip": "projects/seawolf-v2/clips/22.mp4",
+              "status": "review"
+            },
+            {
+              "id": "23",
+              "title": "甲板布置",
+              "action": "Elias 在窗口喊，Mara 在右舷盯船尾。Watch the stern! / Aye!",
+              "image": "projects/seawolf-v2/stills/23.jpg",
+              "clip": "projects/seawolf-v2/clips/23.mp4",
+              "status": "review"
+            },
+            {
+              "id": "24",
+              "title": "触手拍舷",
+              "action": "触手从海面扫来，拍中右舷水线以上，再滑回海里。",
+              "image": "projects/seawolf-v2/stills/24.jpg",
+              "clip": "projects/seawolf-v2/clips/24.mp4",
+              "status": "review"
+            },
+            {
+              "id": "25",
+              "title": "擦舷落圈",
+              "action": "触手擦着船舷，把黄救生圈扯进海里。",
+              "image": "projects/seawolf-v2/stills/25.jpg",
+              "clip": "projects/seawolf-v2/clips/25.mp4",
+              "status": "review"
+            },
+            {
+              "id": "26",
+              "title": "甲板抓稳",
+              "action": "船身大倾。Mara 抓住缆柱，木箱滑过甲板。HOLD ON!",
+              "image": "projects/seawolf-v2/stills/26.jpg",
+              "clip": "projects/seawolf-v2/clips/26.mp4",
+              "status": "review"
+            },
+            {
+              "id": "27",
+              "title": "右打舵",
+              "action": "Elias 双手把舵轮打向右。She turns slow!",
+              "image": "projects/seawolf-v2/stills/27.jpg",
+              "clip": "projects/seawolf-v2/clips/27.mp4",
+              "status": "review"
+            },
+            {
+              "id": "28",
+              "title": "触手砸空",
+              "action": "触手拍进船侧的海水，水柱冲天，船被浪涌带开。",
+              "image": "projects/seawolf-v2/stills/28.jpg",
+              "clip": "projects/seawolf-v2/clips/28.mp4",
+              "status": "review"
+            },
+            {
+              "id": "29",
+              "title": "救生圈",
+              "action": "黄救生圈在浪里漂，触手尖从它旁边的水下掠过。",
+              "image": "projects/seawolf-v2/stills/29.jpg",
+              "clip": "projects/seawolf-v2/clips/29.mp4",
+              "status": "review"
+            },
+            {
+              "id": "30",
+              "title": "卷住拖网",
+              "action": "触手从船尾海面起来，只缠拖网，不缠船体。",
+              "image": "projects/seawolf-v2/stills/30.jpg",
+              "clip": "projects/seawolf-v2/clips/30.mp4",
+              "status": "review"
+            },
+            {
+              "id": "31",
+              "title": "冲船尾取刀",
+              "action": "Mara 冲向船尾，拔出剁刀，猫腰靠近网绳。",
+              "image": "projects/seawolf-v2/stills/31.jpg",
+              "clip": "projects/seawolf-v2/clips/31.mp4",
+              "status": "review"
+            },
+            {
+              "id": "32",
+              "title": "割网绳",
+              "action": "特写。刀刃把绷紧的网绳一根根割断。",
+              "image": "projects/seawolf-v2/stills/32.jpg",
+              "clip": "projects/seawolf-v2/clips/32.mp4",
+              "status": "review"
+            },
+            {
+              "id": "33",
+              "title": "断网脱困",
+              "action": "网绳弹开，船猛地前窜。触手在船后挥了个空。",
+              "image": "projects/seawolf-v2/stills/33.jpg",
+              "clip": "projects/seawolf-v2/clips/33.mp4",
+              "status": "review"
+            },
+            {
+              "id": "34",
+              "title": "脱困对视",
+              "action": "Mara 在船尾喘气。舵楼里的 Elias 点头。",
+              "image": "projects/seawolf-v2/stills/34.jpg",
+              "clip": "projects/seawolf-v2/clips/34.mp4",
+              "status": "review"
+            },
+            {
+              "id": "35",
+              "title": "左满舵",
+              "action": "Elias 把舵轮打向左。LEFT FULL!",
+              "image": "projects/seawolf-v2/stills/35.jpg",
+              "clip": "projects/seawolf-v2/clips/35.mp4",
+              "status": "review"
+            },
+            {
+              "id": "36",
+              "title": "触手蓄力",
+              "action": "两根触手从船后海面扬起，对准舵楼，还没有落下。",
+              "image": "projects/seawolf-v2/stills/36.jpg",
+              "clip": "projects/seawolf-v2/clips/36.mp4",
+              "status": "review"
+            },
+            {
+              "id": "37",
+              "title": "窗外影子",
+              "action": "触手的影子扫过舵楼窗。Elias 压低身子。MARA—DOWN!",
+              "image": "projects/seawolf-v2/stills/37.jpg",
+              "clip": "projects/seawolf-v2/clips/37.mp4",
+              "status": "review"
+            },
+            {
+              "id": "38",
+              "title": "砸向舵楼",
+              "action": "触手从上方砸下舵楼顶，木板裂开，随即抬起。",
+              "image": "projects/seawolf-v2/stills/38.jpg",
+              "clip": "projects/seawolf-v2/clips/38.mp4",
+              "status": "review"
+            },
+            {
+              "id": "39",
+              "title": "舵楼受击",
+              "action": "舱内玻璃爆开，屋顶塌一角。Mara 扑上去抓住舵轮。",
+              "image": "projects/seawolf-v2/stills/39.jpg",
+              "clip": "projects/seawolf-v2/clips/39.mp4",
+              "status": "review"
+            },
+            {
+              "id": "40",
+              "title": "夺舵爬起",
+              "action": "Mara 稳住航向，Elias 从碎片里爬起来接过舵。",
+              "image": "projects/seawolf-v2/stills/40.jpg",
+              "clip": "projects/seawolf-v2/clips/40.mp4",
+              "status": "review"
+            },
+            {
+              "id": "41",
+              "title": "看见峡口",
+              "action": "船头 POV。雾里出现礁石窄口。There… the gap!",
+              "image": "projects/seawolf-v2/stills/41.jpg",
+              "clip": "projects/seawolf-v2/clips/41.mp4",
+              "status": "review"
+            },
+            {
+              "id": "42",
+              "title": "S 形急转",
+              "action": "航拍。船画出 S 形，触手扫在它刚离开的水面上。",
+              "image": "projects/seawolf-v2/stills/42.jpg",
+              "clip": "projects/seawolf-v2/clips/42.mp4",
+              "status": "review"
+            },
+            {
+              "id": "43",
+              "title": "甩开距离",
+              "action": "船尾拉出长长的白线。怪物和触手在远处搅水，够不着。",
+              "image": "projects/seawolf-v2/stills/43.jpg",
+              "clip": "projects/seawolf-v2/clips/43.mp4",
+              "status": "review"
+            },
+            {
+              "id": "44",
+              "title": "咆哮加速",
+              "action": "怪物昂头咆哮，半浸着再往前压。船仍在远处。",
+              "image": "projects/seawolf-v2/stills/44.jpg",
+              "clip": "projects/seawolf-v2/clips/44.mp4",
+              "status": "review"
+            },
+            {
+              "id": "45",
+              "title": "破船续驶",
+              "action": "顶塌了一角的海狼号继续全速，对准峡口。",
+              "image": "projects/seawolf-v2/stills/45.jpg",
+              "clip": "projects/seawolf-v2/clips/45.mp4",
+              "status": "review"
+            },
+            {
+              "id": "46",
+              "title": "面向峡谷",
+              "action": "Elias 掌舵，Mara 在他右后抓紧。Tight squeeze. / We'll make it.",
+              "image": "projects/seawolf-v2/stills/46.jpg",
+              "clip": "projects/seawolf-v2/clips/46.mp4",
+              "status": "review"
+            },
+            {
+              "id": "47",
+              "title": "冲入峡口",
+              "action": "船擦着礁壁冲进去。触手拍在峡口的石头上。",
+              "image": "projects/seawolf-v2/stills/47.jpg",
+              "clip": "projects/seawolf-v2/clips/47.mp4",
+              "status": "review"
+            },
+            {
+              "id": "48",
+              "title": "触手卡口",
+              "action": "触手卡在礁壁之间，岩石压下来。船不在画面里。",
+              "image": "projects/seawolf-v2/stills/48.jpg",
+              "clip": "projects/seawolf-v2/clips/48.mp4",
+              "status": "review"
+            },
+            {
+              "id": "49",
+              "title": "触手挣扎",
+              "action": "触手抽搐，掀动巨石，仍抽不出来。",
+              "image": "projects/seawolf-v2/stills/49.jpg",
+              "clip": "projects/seawolf-v2/clips/49.mp4",
+              "status": "review"
+            },
+            {
+              "id": "50",
+              "title": "峡口怒吼",
+              "action": "怪物在峡口外半浸着怒吼，翼膜拍水。",
+              "image": "projects/seawolf-v2/stills/50.jpg",
+              "clip": "projects/seawolf-v2/clips/50.mp4",
+              "status": "review"
+            },
+            {
+              "id": "51",
+              "title": "峡内穿行",
+              "action": "破船在窄水道里往前挤。Mara 扶着残门回望。",
+              "image": "projects/seawolf-v2/stills/51.jpg",
+              "clip": "projects/seawolf-v2/clips/51.mp4",
+              "status": "review"
+            },
+            {
+              "id": "52",
+              "title": "回望被挡",
+              "action": "峡口在后方。怪物被礁壁挡住，只剩眼睛的微光。",
+              "image": "projects/seawolf-v2/stills/52.jpg",
+              "clip": "projects/seawolf-v2/clips/52.mp4",
+              "status": "review"
+            },
+            {
+              "id": "53",
+              "title": "挤口失败",
+              "action": "怪物低头想挤进窄口，翼膜卡住，只好退开。",
+              "image": "projects/seawolf-v2/stills/53.jpg",
+              "clip": "projects/seawolf-v2/clips/53.mp4",
+              "status": "review"
+            },
+            {
+              "id": "54",
+              "title": "石拱躲开",
+              "action": "船从石拱下穿过。触手拍碎拱顶，碎石落在船后。",
+              "image": "projects/seawolf-v2/stills/54.jpg",
+              "clip": "projects/seawolf-v2/clips/54.mp4",
+              "status": "review"
+            },
+            {
+              "id": "55",
+              "title": "怪物沉海",
+              "action": "怪物在峡口外收翼下沉，眼睛闭上，只剩涟漪。",
+              "image": "projects/seawolf-v2/stills/55.jpg",
+              "clip": "projects/seawolf-v2/clips/55.mp4",
+              "status": "review"
+            },
+            {
+              "id": "56",
+              "title": "涟漪",
+              "action": "俯拍。涟漪散开，一个气泡升起又破。",
+              "image": "projects/seawolf-v2/stills/56.jpg",
+              "clip": "projects/seawolf-v2/clips/56.mp4",
+              "status": "review"
+            },
+            {
+              "id": "57",
+              "title": "进水",
+              "action": "模糊的油表和滴水。Elias 敲了敲面板。We're taking water.",
+              "image": "projects/seawolf-v2/stills/57.jpg",
+              "clip": "projects/seawolf-v2/clips/57.mp4",
+              "status": "review"
+            },
+            {
+              "id": "58",
+              "title": "评估",
+              "action": "舱底水没过脚踝。Mara 查看裂缝。Elias 指向地平线。",
+              "image": "projects/seawolf-v2/stills/58.jpg",
+              "clip": "projects/seawolf-v2/clips/58.mp4",
+              "status": "review"
+            },
+            {
+              "id": "59",
+              "title": "瘫坐",
+              "action": "两个人靠着破损的舵楼坐下，湿透，大口喘气。",
+              "image": "projects/seawolf-v2/stills/59.jpg",
+              "clip": "projects/seawolf-v2/clips/59.mp4",
+              "status": "review"
+            },
+            {
+              "id": "60",
+              "title": "劫后",
+              "action": "Mara 说她以为会死在那儿。Elias 说大海守着它的秘密。",
+              "image": "projects/seawolf-v2/stills/60.jpg",
+              "clip": "projects/seawolf-v2/clips/60.mp4",
+              "status": "review"
+            },
+            {
+              "id": "61",
+              "title": "整理船具",
+              "action": "Mara 收缆绳，Elias 检查破掉的舵楼边缘。",
+              "image": "projects/seawolf-v2/stills/61.jpg",
+              "clip": "projects/seawolf-v2/clips/61.mp4",
+              "status": "review"
+            },
+            {
+              "id": "62",
+              "title": "雾散",
+              "action": "航拍。雾散开，暖光洒在海上，小船独自浮着。",
+              "image": "projects/seawolf-v2/stills/62.jpg",
+              "clip": "projects/seawolf-v2/clips/62.mp4",
+              "status": "review"
+            },
+            {
+              "id": "63",
+              "title": "孤船晨光",
+              "action": "晨光里的海狼号慢慢往前，一只海鸥掠过。呼应开场。",
+              "image": "projects/seawolf-v2/stills/63.jpg",
+              "clip": "projects/seawolf-v2/clips/63.mp4",
+              "status": "review"
+            },
+            {
+              "id": "64",
+              "title": "海面复平",
+              "action": "海鸥贴着水面飞，波纹散开后又平了。",
+              "image": "projects/seawolf-v2/stills/64.jpg",
+              "clip": "projects/seawolf-v2/clips/64.mp4",
+              "status": "review"
+            },
+            {
+              "id": "65",
+              "title": "船底阴影",
+              "action": "晨光透进水里。船底往前走。深处有一点黄绿光停住。",
+              "image": "projects/seawolf-v2/stills/65.jpg",
+              "clip": "projects/seawolf-v2/clips/65.mp4",
+              "status": "review"
+            },
+            {
+              "id": "66",
+              "title": "巨眼睁开",
+              "action": "水下特写。巨眼再次睁开，瞳孔转向船底。",
+              "image": "projects/seawolf-v2/stills/66.jpg",
+              "clip": "projects/seawolf-v2/clips/66.mp4",
+              "status": "review"
+            },
+            {
+              "id": "67",
+              "title": "巨眼闭合",
+              "action": "同一只眼慢慢合上，光芒熄灭。",
+              "image": "projects/seawolf-v2/stills/67.jpg",
+              "clip": "projects/seawolf-v2/clips/67.mp4",
+              "status": "review"
+            },
+            {
+              "id": "68",
+              "title": "望海",
+              "action": "两个人站在船尾。Mara 问它是不是真的走了。",
+              "image": "projects/seawolf-v2/stills/68.jpg",
+              "clip": "projects/seawolf-v2/clips/68.mp4",
+              "status": "review"
+            },
+            {
+              "id": "69",
+              "title": "终局",
+              "action": "Elias 说他不知道，但大海记得。Mara 说那我们也记着。",
+              "image": "projects/seawolf-v2/stills/69.jpg",
+              "clip": "projects/seawolf-v2/clips/69.mp4",
+              "status": "review"
+            },
+            {
+              "id": "70",
+              "title": "并肩",
+              "action": "两人的背影对着金色的海平线。",
+              "image": "projects/seawolf-v2/stills/70.jpg",
+              "clip": "projects/seawolf-v2/clips/70.mp4",
+              "status": "review"
+            },
+            {
+              "id": "71",
+              "title": "哨子",
+              "action": "Mara 的侧脸。手指碰了碰胸前的铜哨。",
+              "image": "projects/seawolf-v2/stills/71.jpg",
+              "clip": "projects/seawolf-v2/clips/71.mp4",
+              "status": "review"
+            },
+            {
+              "id": "72",
+              "title": "黑场微光",
+              "action": "海面的光散开，画面慢慢暗下去。",
+              "image": "projects/seawolf-v2/stills/72.jpg",
+              "clip": "projects/seawolf-v2/clips/72.mp4",
+              "status": "review"
+            }
+          ]
+        },
         {
           "name": "海狼号 · 长追",
           "note": "同一艘船、同一对人、同一只怪物。剧情仍是静海、呼救、追逃、峡谷、余波。全片 6 分 26 秒。追击从 07 到 23，共 4 分 16 秒。按上次审片收了远浮、空甲板、卷桅、只缠网、割网绳、船要认得出、峡口船在左侧。新增落空、石拱、窄口三镜，用来把“比它聪明”做成动作。不加配乐。旧片海狼号没有覆盖。",
