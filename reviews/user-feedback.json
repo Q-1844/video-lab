@@ -300,5 +300,13 @@
     "targetLabel": "分镜 10 审片意见",
     "text": "这也是通病问题，船没动",
     "date": "2026-10-10"
+  },
+  {
+    "agent": "grok",
+    "project": "海狼号 · 长追",
+    "target": "shot-11",
+    "targetLabel": "分镜 11 审片意见",
+    "text": "传应该正在逃跑",
+    "date": "2026-10-10"
   }
 ]
